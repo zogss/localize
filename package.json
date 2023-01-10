@@ -1,0 +1,14 @@
+{
+  "name": "localize",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "license": "MIT",
+  "packageManager": "yarn@3.3.1",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^6.4.0"
+  }
+}
