@@ -1,0 +1,12 @@
+version: '3.0'
+
+services:
+  database:
+    container_name: localize_db
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    ports:
+      - 5432:${DB_PORT}
