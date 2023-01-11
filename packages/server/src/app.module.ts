@@ -1,26 +1,24 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        type: configService.getOrThrow('DB_DIALECT') as any,
-        host: configService.getOrThrow('DB_HOST'),
-        port: +configService.getOrThrow<number>('DB_PORT'),
-        username: configService.getOrThrow('DB_USER'),
-        password: configService.getOrThrow('DB_PASS'),
-        database: configService.getOrThrow<string>('DB_NAME'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: true,
-      }),
-      inject: [ConfigService],
+    TypeOrmModule.forRoot({
+      type: process.env.DB_DIALECT,
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,
+      username: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
+      entities: [join(__dirname, '**/**.entity{.ts,.js}')],
     }),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
