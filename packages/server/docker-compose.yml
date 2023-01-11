@@ -10,3 +10,8 @@ services:
       POSTGRES_PASSWORD: ${DB_PASS}
     ports:
       - 5432:${DB_PORT}
+  redis:
+      image: redis:alpine
+      container_name: localize_redis
+      ports:
+        - "6379:${REDIS_PORT}"
