@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { PlugChatModule } from './plug-chat/plug-chat.module';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -17,6 +18,9 @@ import { UsersModule } from './users/users.module';
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       entities: [join(__dirname, '**/**.entity{.ts,.js}')],
+    }),
+    PlugChatModule.forRoot({
+      authToken: process.env.PLUG_CHAT_AUTH_TOKEN,
     }),
     UsersModule,
   ],
