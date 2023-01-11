@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { PlugChatModule } from './plug-chat/plug-chat.module';
 import { UsersModule } from './users/users.module';
 import { PhoneTokenModule } from './phone-token/phone-token.module';
+import { AuthModule } from './auth/auth.module';
 import * as redisStore from 'cache-manager-redis-store';
 
 @Module({
@@ -32,6 +33,7 @@ import * as redisStore from 'cache-manager-redis-store';
     }),
     UsersModule,
     PhoneTokenModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
