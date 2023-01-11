@@ -28,7 +28,6 @@ export class PlugChatProvider {
 
     try {
       const response = await this.client.post('/send-text', body);
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error(error);
