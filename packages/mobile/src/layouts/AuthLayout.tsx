@@ -8,33 +8,31 @@ const Container = styled.View`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2.5rem;
-  padding: 0 2.375rem;
+  padding: 0 38px;
 `;
 const HeaderContainer = styled.View`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  margin-bottom: 40px; 
 `;
 const HeaderTextContainer = styled.View`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  margin-top: 16px;
 `;
 
 const HeaderAppText = styled.Text`
-  font-size: 2rem;
+  font-size: 32px;
   color: ${ThemeColors.gray_100};
   font-weight: bold;
 `;
 const HeaderText = styled.Text`
-  font-size: 1.125rem;
+  font-size: 18px;
   color: ${ThemeColors.gray_400};
   font-weight: regular;
+  margin-top: 8px;
 `;
 
 interface AuthLayoutProps {
