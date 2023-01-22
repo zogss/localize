@@ -3369,6 +3369,7 @@ __metadata:
     react-hook-form: ^7.42.0
     react-native: 0.70.5
     react-native-gesture-handler: ~2.8.0
+    react-native-maps: 1.3.2
     react-native-otp-inputs: ^7.4.0
     react-native-phone-number-input: ^2.1.0
     react-native-reanimated: ~2.12.0
@@ -4746,6 +4747,13 @@ __metadata:
     "@types/qs": "*"
     "@types/serve-static": "*"
   checksum: b4acd8a836d4f6409cdf79b12d6e660485249b62500cccd61e7997d2f520093edf77d7f8498ca79d64a112c6434b6de5ca48039b8fde2c881679eced7e96979b
+  languageName: node
+  linkType: hard
+
+"@types/geojson@npm:^7946.0.8":
+  version: 7946.0.10
+  resolution: "@types/geojson@npm:7946.0.10"
+  checksum: 12c407c2dc93ecb26c08af533ee732f1506a9b29456616ba7ba1d525df96206c28ddf44a528f6a5415d7d22893e9d967420940a9c095ee5e539c1eba5fefc1f4
   languageName: node
   linkType: hard
 
@@ -17847,6 +17855,22 @@ __metadata:
   version: 0.70.3
   resolution: "react-native-gradle-plugin@npm:0.70.3"
   checksum: 04a3379842bcb4709ac6b37e093a3de59acd33b28b200885843b13908fac685a77ab81d732c34090c56e5c0eec971d578b227f302bd04fe7901e8792d434f41f
+  languageName: node
+  linkType: hard
+
+"react-native-maps@npm:1.3.2":
+  version: 1.3.2
+  resolution: "react-native-maps@npm:1.3.2"
+  dependencies:
+    "@types/geojson": ^7946.0.8
+  peerDependencies:
+    react: ">= 17.0.1"
+    react-native: ">= 0.64.3"
+    react-native-web: ">= 0.11"
+  peerDependenciesMeta:
+    react-native-web:
+      optional: true
+  checksum: ebade7b76a4fffe9a36e9ef5c874f4320334a2b69abfe7be5198b29ae75d211537edbf0aed865514b2b1a4abcc58c59e3e91a08a4ca0632de679f8517932e191
   languageName: node
   linkType: hard
 
