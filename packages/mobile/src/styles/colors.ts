@@ -11,7 +11,7 @@ export const ThemeColors = {
 
   // cyan
   cyan_500: '#81D8F7',
-  cyan_300: '#98E1FB7',
+  cyan_300: '#98E1FB',
 
   // red
   red_500: '#FF377F',
