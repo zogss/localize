@@ -1,32 +1,23 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect } from 'react';
-import { IUser } from '../shared/@types/IUser';
+import { LoadingView } from '../partials/LoadingView';
+import { LOADING_STATUS } from '../shared/enum/LOADING_STATUS';
 import { RootState, useTypedDispatch, useTypedSelector } from '../store';
-import { signIn } from '../store/modules/auth';
+import { IAuthState, verifyUser } from '../store/modules/auth';
 import { AppRoutes } from './app.routes';
 import { AuthRoutes } from './auth.routes';
 
-const mocked = true
+const mocked = true;
 
 const Routes = () => {
   //* hooks
   const dispatch = useTypedDispatch();
-  const signed = useTypedSelector<RootState, boolean>(
-    (state) => state.auth.signed,
+  const authState = useTypedSelector<RootState, IAuthState>(
+    (state) => state.auth,
   );
 
   //* handlers
   const rehydrateUser = async () => {
-    const token: string | null | undefined = JSON.parse(
-      (await AsyncStorage.getItem('user:token')) || 'null',
-    );
-    const user: IUser | null = JSON.parse(
-      (await AsyncStorage.getItem('user:user')) || 'null',
-    );
-
-    if (token && user && user.id) {
-      await dispatch(signIn({ signed: true, token, user: user }));
-    }
+    await dispatch(verifyUser());
   };
 
   //* lifecycle
@@ -35,7 +26,13 @@ const Routes = () => {
   }, []);
 
   //* render
-  return signed ? <AppRoutes /> : <AuthRoutes />;
+  return authState.loading === LOADING_STATUS.LOADING ? (
+    <LoadingView />
+  ) : authState.signed ? (
+    <AppRoutes />
+  ) : (
+    <AuthRoutes />
+  );
 };
 
 export default Routes;
