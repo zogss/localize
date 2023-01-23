@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IUser } from '../../../shared/@types/IUser';
 import { LOADING_STATUS } from '../../../shared/enum/LOADING_STATUS';
 
@@ -24,8 +24,8 @@ const initialState: IAuthState = {
 export const signIn = createAsyncThunk(
   'auth/signIn',
   async (payload: IAuthState) => {
-    await AsyncStorage.setItem('user:token', JSON.stringify(payload.token));
-    await AsyncStorage.setItem('user:user', JSON.stringify(payload.user));
+    await AsyncStorage.setItem('@user_token', JSON.stringify(payload.token));
+    await AsyncStorage.setItem('@user_user', JSON.stringify(payload.user));
 
     return {
       signed: true,
@@ -36,13 +36,52 @@ export const signIn = createAsyncThunk(
 );
 
 export const signOut = createAsyncThunk('auth/signOut', async () => {
-  await AsyncStorage.removeItem('user:token');
-  await AsyncStorage.removeItem('user:user');
+  await AsyncStorage.removeItem('@user_token');
+  await AsyncStorage.removeItem('@user_user');
 
   return {
     signed: false,
     user: {} as IUser,
     token: null,
+  };
+});
+
+export const refreshUser = createAsyncThunk(
+  'auth/refreshUser',
+  async (payload: IAuthState) => {
+    if (!payload.user || !payload.token)
+      return {
+        signed: false,
+        user: {} as IUser,
+        token: null,
+      };
+
+    await AsyncStorage.setItem('@user_user', JSON.stringify(payload.user));
+    await AsyncStorage.setItem('@user_token', JSON.stringify(payload.token));
+
+    return {
+      signed: true,
+      user: payload.user,
+      token: payload.token,
+    };
+  },
+);
+
+export const verifyUser = createAsyncThunk('auth/verifyUser', async () => {
+  const user = await AsyncStorage.getItem('@user_user');
+  const token = await AsyncStorage.getItem('@user_token');
+
+  if (!user || !token)
+    return {
+      signed: false,
+      user: {} as IUser,
+      token: null,
+    };
+
+  return {
+    signed: true,
+    user: JSON.parse(user),
+    token: JSON.parse(token),
   };
 });
 
@@ -54,9 +93,6 @@ const authSlice = createSlice({
       state.error = false;
       state.success = false;
       state.loading = LOADING_STATUS.IDLE;
-    },
-    refreshUser(state, action: PayloadAction<IAuthState>) {
-      state.user = action.payload.user;
     },
   },
   extraReducers: (builder) => {
@@ -86,9 +122,35 @@ const authSlice = createSlice({
     builder.addCase(signOut.rejected, (state) => {
       state.loading = LOADING_STATUS.IDLE;
     });
+    // user/refreshUser
+    builder.addCase(refreshUser.pending, (state) => {
+      state.loading = LOADING_STATUS.LOADING;
+    });
+    builder.addCase(refreshUser.fulfilled, (state, action) => {
+      if (action.payload) state.user = action.payload.user;
+      state.loading = LOADING_STATUS.IDLE;
+    });
+    builder.addCase(refreshUser.rejected, (state) => {
+      state.loading = LOADING_STATUS.IDLE;
+    });
+    // user/verifyUser
+    builder.addCase(verifyUser.pending, (state) => {
+      state.loading = LOADING_STATUS.LOADING;
+    });
+    builder.addCase(verifyUser.fulfilled, (state, action) => {
+      if (action.payload) {
+        state.signed = action.payload.signed;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+      }
+      state.loading = LOADING_STATUS.IDLE;
+    });
+    builder.addCase(verifyUser.rejected, (state) => {
+      state.loading = LOADING_STATUS.IDLE;
+    });
   },
 });
 
-export const { resetAuthState, refreshUser } = authSlice.actions;
+export const { resetAuthState } = authSlice.actions;
 
 export default authSlice.reducer;
