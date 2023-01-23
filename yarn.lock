@@ -3350,27 +3350,31 @@ __metadata:
     "@hookform/resolvers": ^2.9.10
     "@react-native-async-storage/async-storage": ^1.17.11
     "@react-native-clipboard/clipboard": ^1.11.1
+    "@react-native-community/geolocation": ^3.0.5
     "@react-native-community/masked-view": ^0.1.11
     "@react-native-picker/picker": ^2.4.8
     "@react-navigation/bottom-tabs": ^6.5.3
     "@react-navigation/native": ^6.1.2
     "@react-navigation/native-stack": ^6.9.8
     "@reduxjs/toolkit": ^1.9.1
-    "@twotalltotems/react-native-otp-input": ^1.3.11
+    "@types/lodash": ^4.14.191
     "@types/react": ~18.0.14
     "@types/react-native": ~0.70.6
     "@types/styled-components": ^5.1.26
     "@types/styled-components-react-native": ^5.2.0
     axios: ^1.2.2
     expo: ~47.0.12
+    expo-location: ~15.0.1
     expo-status-bar: ~1.4.2
+    lodash: ^4.17.21
+    pod-install: ^0.1.38
     react: 18.1.0
     react-dom: 18.1.0
     react-hook-form: ^7.42.0
     react-native: 0.70.5
+    react-native-confirmation-code-field: ^7.3.1
     react-native-gesture-handler: ~2.8.0
     react-native-maps: 1.3.2
-    react-native-otp-inputs: ^7.4.0
     react-native-phone-number-input: ^2.1.0
     react-native-reanimated: ~2.12.0
     react-native-safe-area-context: 4.4.1
@@ -4298,13 +4302,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-community/clipboard@npm:^1.2.2":
-  version: 1.5.1
-  resolution: "@react-native-community/clipboard@npm:1.5.1"
+"@react-native-community/geolocation@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "@react-native-community/geolocation@npm:3.0.5"
   peerDependencies:
-    react: ">=16.0"
-    react-native: ">=0.57.0"
-  checksum: 61f993b864804ef43de3a4b33b080d2310d491d7d13bc504e75326a841e0f2715b7c65212cae420fa200688be8881ed4b6731e0f4bad8de2d340c401f598bcea
+    react: "*"
+    react-native: "*"
+  checksum: 204b067cf08d10ade37581069cab9c393af414d9091b34a5004ce6d6a7036af442f8d010987a9dfc189f9397c0d7563862d61c2c569892c94ae36d12fff2e0ba
   languageName: node
   linkType: hard
 
@@ -4617,15 +4621,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@twotalltotems/react-native-otp-input@npm:^1.3.11":
-  version: 1.3.11
-  resolution: "@twotalltotems/react-native-otp-input@npm:1.3.11"
-  dependencies:
-    "@react-native-community/clipboard": ^1.2.2
-  checksum: 80f2464b2cb061c10006db75912573329a93d82e39e943d4dcec895a668a8cbce2cc990a74f46907372371767de6b443265c0d3f9a2ab49b2b58d8653c7e2215
-  languageName: node
-  linkType: hard
-
 "@types/babel__core@npm:^7.1.14":
   version: 7.1.20
   resolution: "@types/babel__core@npm:7.1.20"
@@ -4864,6 +4859,13 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: 33815ab02d1371b423118316b7706d2f2ec03eeee5e1494be72da50425d2384e5e0a09ea193f7a5ab4b4f6a9c5847147305f50e965f3d927a95bdf8adb471b2a
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4.14.191":
+  version: 4.14.191
+  resolution: "@types/lodash@npm:4.14.191"
+  checksum: ba0d5434e10690869f32d5ea49095250157cae502f10d57de0a723fd72229ce6c6a4979576f0f13e0aa9fbe3ce2457bfb9fa7d4ec3d6daba56730a51906d1491
   languageName: node
   linkType: hard
 
@@ -9969,6 +9971,15 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 1e642db9a3b83fc96e61b7d9451d8467ce7d734fe091dff4f3707fcd3cf83fc666b91a58759d6cefe5a7bf61cbd786d63630cab848ec09f59da38422321fd6be
+  languageName: node
+  linkType: hard
+
+"expo-location@npm:~15.0.1":
+  version: 15.0.1
+  resolution: "expo-location@npm:15.0.1"
+  peerDependencies:
+    expo: "*"
+  checksum: dc436d1f11a3f21aa7856fb68e528295c135a1396f61b8b9c0298f9ff4bf17d0fac167123368a401cce8080895140ead402c9e546fe62319ca2f79e8c96f73a9
   languageName: node
   linkType: hard
 
@@ -16822,6 +16833,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pod-install@npm:^0.1.38":
+  version: 0.1.38
+  resolution: "pod-install@npm:0.1.38"
+  bin:
+    pod-install: build/index.js
+  checksum: 9ff3e8f50dba2cee1c174deeb394312d6a950096f39c5a413a9dbf9acf4acb890440a9c316381799c8e125858c4c84d2c4f0c3d7ef2ceb056ea820a417004fd7
+  languageName: node
+  linkType: hard
+
 "portfinder@npm:^1.0.26":
   version: 1.0.32
   resolution: "portfinder@npm:1.0.32"
@@ -17816,6 +17836,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-confirmation-code-field@npm:^7.3.1":
+  version: 7.3.1
+  resolution: "react-native-confirmation-code-field@npm:7.3.1"
+  peerDependencies:
+    react: ">=16.4.0"
+    react-native: ">=0.64.0"
+  peerDependenciesMeta:
+    react:
+      optional: true
+    react-native:
+      optional: true
+  checksum: 1be6ad573a2436de473a70e02384df778431c6c5a4594abe2d0e40de8e690dbb6523937c01c89a32bc8039c59dac478c19759a1c99d58808a4d4d1dcb0410bbd
+  languageName: node
+  linkType: hard
+
 "react-native-country-picker-modal@npm:^2.0.0":
   version: 2.0.0
   resolution: "react-native-country-picker-modal@npm:2.0.0"
@@ -17871,17 +17906,6 @@ __metadata:
     react-native-web:
       optional: true
   checksum: ebade7b76a4fffe9a36e9ef5c874f4320334a2b69abfe7be5198b29ae75d211537edbf0aed865514b2b1a4abcc58c59e3e91a08a4ca0632de679f8517932e191
-  languageName: node
-  linkType: hard
-
-"react-native-otp-inputs@npm:^7.4.0":
-  version: 7.4.0
-  resolution: "react-native-otp-inputs@npm:7.4.0"
-  peerDependencies:
-    "@react-native-clipboard/clipboard": "*"
-    react: "*"
-    react-native: "*"
-  checksum: 4c1398e4ee0969fd55edb58ff89f7fd23fe8b22aab6e0b96ed07e2a7744c9fa98f3e5f1ffdf019af2a2cbc5505eab1f15c13f020ce278400dc11cddbd6e9b7aa
   languageName: node
   linkType: hard
 

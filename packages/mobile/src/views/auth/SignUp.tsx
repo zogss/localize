@@ -121,20 +121,22 @@ export const SignUp = () => {
 
   //* handlers
   const onSubmit = useCallback(async (data: SignUpFormData) => {
-    const { phoneNumber, phoneCode }: IAuthUser = JSON.parse(
-      (await AsyncStorage.getItem('auth:phone')) || '{}',
-    );
+    const jsonUser = await AsyncStorage.getItem('@auth_phone');
+    const user: IAuthUser | null =
+      jsonUser !== null ? JSON.parse(jsonUser) : null;
+
+    if (!user) return;
 
     signUpUser({
       ...data,
-      phoneNumber,
+      phoneNumber: user.phoneNumber,
     })
       .unwrap()
       .then(async (res) => {
         if (res) {
           signInUser({
-            phone: phoneNumber,
-            code: phoneCode,
+            phone: user.phoneNumber,
+            code: user.phoneCode,
           })
             .unwrap()
             .then(async (res: { user?: IUser; token?: string }) => {
@@ -153,7 +155,7 @@ export const SignUp = () => {
               setErrorMessage(error || undefined);
             });
 
-          await AsyncStorage.removeItem('auth:phone');
+          await AsyncStorage.removeItem('@auth_phone');
         }
       })
       .catch((err) => {
@@ -163,7 +165,7 @@ export const SignUp = () => {
   }, []);
 
   const validateUser = async () => {
-    if ((await AsyncStorage.getItem('auth:phone')) === null) {
+    if ((await AsyncStorage.getItem('@auth_phone')) === null) {
       navigation.navigate('SignIn');
     }
   };

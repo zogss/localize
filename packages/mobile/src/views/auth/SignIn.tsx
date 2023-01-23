@@ -3,7 +3,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import OtpInputs from 'react-native-otp-inputs';
+import {
+  CodeField,
+  Cursor,
+  useBlurOnFulfill,
+  useClearByFocusCell
+} from 'react-native-confirmation-code-field';
 import PhoneInput from 'react-native-phone-number-input';
 import styled from 'styled-components/native';
 import * as z from 'zod';
@@ -46,6 +51,7 @@ const SubmitButton = styled.TouchableOpacity`
   border-radius: 4px;
   font-size: 16px;
   font-weight: 600;
+  transition: all 0.2s ease-in-out;
 `;
 const SubmitButtonText = styled.Text`
   height: 24px;
@@ -58,10 +64,23 @@ const ErrorText = styled.Text`
   font-size: 14px;
   font-weight: 600;
 `;
-
 const LabelText = styled.Text`
-  font-size: 16px;
+  font-size: 18px;
   color: ${ThemeColors.gray_100};
+  font-weight: 600;
+`;
+const CellContainer = styled.View`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 50px;
+  border-radius: 4px;
+  background-color: ${ThemeColors.gray_100};
+`;
+const CellText = styled.Text`
+  font-size: 24px;
+  color: ${ThemeColors.black};
   font-weight: 600;
 `;
 
@@ -69,6 +88,8 @@ enum VALIDATION_STATUS {
   VALIDATING_PHONE = 'validating_phone',
   VALIDATING_CODE = 'validating_code',
 }
+
+const CELL_COUNT = 6;
 
 const PhoneNumberSchema = z.object({
   phoneNumber: z
@@ -119,6 +140,8 @@ export const SignIn = () => {
     handleSubmit: validateCodeSubmit,
     formState: { errors: codeErrors },
     reset: codeReset,
+    getValues: getCodeValues,
+    setValue: setCodeValue,
   } = useForm<CodeFormData>({
     resolver: zodResolver(CodeSchema),
   });
@@ -136,6 +159,18 @@ export const SignIn = () => {
     VALIDATION_STATUS.VALIDATING_PHONE,
   );
 
+  //* refs
+  const ref = useBlurOnFulfill({
+    value: getCodeValues().code,
+    cellCount: CELL_COUNT,
+  });
+  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+    value: getCodeValues().code,
+    setValue: (value) => {
+      setCodeValue('code', value);
+    },
+  });
+
   //* handlers
   const sendSubmit: SubmitHandler<PhoneNumberFormData> = useCallback(
     async (data: PhoneNumberFormData) => {
@@ -148,13 +183,15 @@ export const SignIn = () => {
             if (!!res) {
               const user = {} as IAuthUser;
               user.phoneNumber = phone;
-              await AsyncStorage.setItem('auth:phone', JSON.stringify(user));
+
+              await AsyncStorage.setItem('@auth_phone', JSON.stringify(user));
+
               setValidationStatus(VALIDATION_STATUS.VALIDATING_CODE);
             }
           })
           .catch((err) => {
             const error = getErrorMessage(err.data ? err.data : err);
-            setErrorMessage(error || undefined + ' ' + err);
+            setErrorMessage(error || undefined);
           });
       }
     },
@@ -164,12 +201,14 @@ export const SignIn = () => {
   const validateSubmit: SubmitHandler<CodeFormData> = useCallback(
     async (data: CodeFormData) => {
       if (validationStatus === VALIDATION_STATUS.VALIDATING_CODE) {
-        const { phoneNumber }: IAuthUser = JSON.parse(
-          (await AsyncStorage.getItem('auth:phone')) || '{}',
-        );
+        const jsonUser = await AsyncStorage.getItem('@auth_phone');
+        const user: IAuthUser | null =
+          jsonUser !== null ? JSON.parse(jsonUser) : null;
+
+        if (!user) return;
 
         const validateData = {
-          phone: phoneNumber,
+          phone: user.phoneNumber,
           code: data.code,
         };
 
@@ -177,11 +216,14 @@ export const SignIn = () => {
           .unwrap()
           .then(async (res) => {
             if (!!res) {
-              const user: IAuthUser = JSON.parse(
-                (await AsyncStorage.getItem('auth:phone')) || '{}',
-              );
+              const jsonUser = await AsyncStorage.getItem('@auth_phone');
+              const user: IAuthUser | null =
+                jsonUser !== null ? JSON.parse(jsonUser) : null;
+
+              if (!user) return;
+
               user.phoneCode = data.code;
-              await AsyncStorage.setItem('auth:phone', JSON.stringify(user));
+              await AsyncStorage.setItem('@auth_phone', JSON.stringify(user));
 
               signInUser({
                 phone: user.phoneNumber,
@@ -201,7 +243,6 @@ export const SignIn = () => {
                 })
                 .catch((err) => {
                   const error = getErrorMessage(err.data ? err.data : err);
-                  console.log('error', error, err);
                   if (
                     (err.data.statusCode === 404,
                     error && error.includes('User not found'))
@@ -223,7 +264,7 @@ export const SignIn = () => {
   );
 
   const removePhoneStorage = async () => {
-    await AsyncStorage.removeItem('auth:phone');
+    await AsyncStorage.removeItem('@auth_phone');
   };
 
   //* effects
@@ -234,10 +275,6 @@ export const SignIn = () => {
       }, 10000);
     }
   }, [errorMessage]);
-
-  useEffect(() => {
-    setErrorMessage('');
-  }, [validationStatus]);
 
   //* lifecycle
   useEffect(() => {
@@ -308,37 +345,31 @@ export const SignIn = () => {
             <Controller
               control={codeControl}
               render={({ field: { onChange, value } }) => (
-                <OtpInputs
-                  handleChange={onChange}
-                  keyboardType="phone-pad"
-                  numberOfInputs={6}
-                  autofillFromClipboard={false}
-                  clearTextOnFocus={false}
-                  selectTextOnFocus={false}
-                  style={{
+                <CodeField
+                  ref={ref}
+                  {...props}
+                  value={value}
+                  onChangeText={onChange}
+                  cellCount={CELL_COUNT}
+                  rootStyle={{
                     display: 'flex',
                     flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    justifyContent: 'space-between',
                     width: '100%',
-                    marginTop: 12,
-                    maxWidth: 'fit-content',
+                    marginTop: 20,
                   }}
-                  inputStyles={{
-                    width: '50px',
-                    height: '55px',
-                    display: 'flex',
-                    color: ThemeColors.gray_400,
-                    fontSize: 20,
-                    textAlign: 'center',
-                  }}
-                  inputContainerStyles={{
-                    display: 'flex',
-                    width: 'fit-content',
-                    backgroundColor: ThemeColors.gray_800,
-                    borderRadius: 4,
-                    marginHorizontal: 5,
-                  }}
+                  keyboardType="number-pad"
+                  textContentType="oneTimeCode"
+                  renderCell={({ index, symbol, isFocused }) => (
+                    <CellContainer
+                      key={index}
+                      onLayout={getCellOnLayoutHandler(index)}
+                    >
+                      <CellText>
+                        {symbol || (isFocused ? <Cursor /> : null)}
+                      </CellText>
+                    </CellContainer>
+                  )}
                 />
               )}
               name="code"
@@ -357,17 +388,22 @@ export const SignIn = () => {
           disabled={
             validationStatus === VALIDATION_STATUS.VALIDATING_PHONE
               ? sendResponse.isLoading
-              : validateResponse.isLoading
+              : validateResponse.isLoading || signInUserResponse.isLoading
           }
         >
-          {sendResponse.isLoading || validateResponse.isLoading ? (
+          {sendResponse.isLoading ||
+          validateResponse.isLoading ||
+          signInUserResponse.isLoading ? (
             <LoadingSpinner />
           ) : (
-            <SubmitButtonText>
-              {validationStatus === VALIDATION_STATUS.VALIDATING_PHONE
-                ? 'Send code'
-                : 'Validate code'}
-            </SubmitButtonText>
+            <>
+              {validationStatus === VALIDATION_STATUS.VALIDATING_CODE && (
+                <SubmitButtonText>Validate code</SubmitButtonText>
+              )}
+              {validationStatus === VALIDATION_STATUS.VALIDATING_PHONE && (
+                <SubmitButtonText>Send code</SubmitButtonText>
+              )}
+            </>
           )}
         </SubmitButton>
         {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
