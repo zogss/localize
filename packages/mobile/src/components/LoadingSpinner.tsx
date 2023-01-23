@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 import Animated, {
   cancelAnimation,
   Easing,
@@ -14,9 +15,9 @@ const Container = styled.View`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
 `;
-const Spinner = {
+
+const Spinner: StyleProp<ViewStyle> = {
   height: 24,
   width: 24,
   borderRadius: 30,
@@ -27,7 +28,11 @@ const Spinner = {
   borderLeftColor: ThemeColors.gray_800,
 };
 
-export const LoadingSpinner: React.FC = () => {
+interface LoadingSpinnerProps {
+  style?: StyleProp<ViewStyle>;
+}
+
+export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ style }) => {
   //* hooks
   const rotation = useSharedValue(0);
   const animatedStyles = useAnimatedStyle(() => {
@@ -44,7 +49,7 @@ export const LoadingSpinner: React.FC = () => {
   useEffect(() => {
     rotation.value = withRepeat(
       withTiming(360, {
-        duration: 1000,
+        duration: 700,
         easing: Easing.linear,
       }),
       -1,
@@ -55,7 +60,7 @@ export const LoadingSpinner: React.FC = () => {
   //* render
   return (
     <Container>
-      <Animated.View style={[Spinner, animatedStyles]} />
+      <Animated.View style={[style || Spinner, animatedStyles]} />
     </Container>
   );
 };
