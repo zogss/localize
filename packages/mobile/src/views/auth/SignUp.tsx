@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import styled from 'styled-components/native';
 import * as z from 'zod';
+import { LoadingSpinner } from '../../components/LoadingSpinner';
 import { AuthLayout } from '../../layouts/AuthLayout';
 import { StackAuthNavigator } from '../../routes/auth.routes';
 import {
@@ -241,7 +242,11 @@ export const SignUp = () => {
               signUpUserResponse.isLoading || signInUserResponse.isLoading
             }
           >
-            <SubmitButtonText>complete</SubmitButtonText>
+            {signUpUserResponse.isLoading || signInUserResponse.isLoading ? (
+              <LoadingSpinner />
+            ) : (
+              <SubmitButtonText>register</SubmitButtonText>
+            )}
           </SubmitButton>
           {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
         </FormContainer>
