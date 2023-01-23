@@ -5,7 +5,6 @@ import styled from 'styled-components/native';
 import { StackAppNavigator } from '../routes/app.routes';
 
 const Container = styled.View`
-  background-color: #fff;
   flex: 1;
   justify-content: center;
   align-items: center;

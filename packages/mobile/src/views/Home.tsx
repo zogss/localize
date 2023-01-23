@@ -7,7 +7,6 @@ import { signOut } from '../store/modules/auth';
 import { ThemeColors } from '../styles/colors';
 
 const Container = styled.View`
-  background-color: #fff;
   flex: 1;
   justify-content: center;
   align-items: center;

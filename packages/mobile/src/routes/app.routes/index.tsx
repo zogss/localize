@@ -21,119 +21,49 @@ export const AppRoutes = () => (
   <Nav.Navigator
     screenOptions={() => ({
       tabBarStyle: {
-        position: 'absolute',
-        zIndex: 100,
-        bottom: 18,
-        left: 18,
-        right: 18,
-        elevation: 5,
-        backgroundColor: 'white',
-        borderRadius: 15,
-        height: 90,
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 10,
-        },
-        shadowOpacity: 0.18,
-        shadowRadius: 3.5,
+        backgroundColor: ThemeColors.dark,
+        borderTopColor: 'transparent',
       },
       headerShown: false,
-      tabBarIcon: () => <></>,
+      tabBarShowLabel: false,
+      tabBarActiveTintColor: ThemeColors.cyan_500,
+      tabBarInactiveTintColor: ThemeColors.gray_200,
+      tabBarIconStyle: {
+        height: 60,
+        width: 60,
+      },
+      lazy: true,
     })}
     sceneContainerStyle={{
-      backgroundColor: ThemeColors.dark,
+      backgroundColor: ThemeColors.gray_200,
     }}
     initialRouteName="Home"
   >
     <Nav.Screen
-      name="Profile"
-      component={Profile}
-      options={{
-        headerTitle: 'Profile',
-        tabBarIcon: ({ focused }) => (
-          <Ionicons
-            name="md-person-circle-outline"
-            size={60}
-            style={{
-              height: 60,
-            }}
-            color={focused ? ThemeColors.cyan_500 : ThemeColors.black}
-          />
-        ),
-        tabBarIconStyle: {
-          display: 'flex',
-          height: 60,
-          width: 60,
-        },
-        tabBarLabelStyle: {
-          display: 'none',
-        },
-        tabBarItemStyle: {
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        },
-      }}
-    />
-    <Nav.Screen
       name="Home"
       component={Home}
       options={{
-        headerTitle: 'Home',
-        tabBarIcon: ({ focused }) => (
-          <MaterialIcons
-            name="home"
-            size={60}
-            style={{
-              height: 60,
-            }}
-            color={focused ? ThemeColors.cyan_500 : ThemeColors.black}
-          />
+        tabBarIcon: ({ color }) => (
+          <MaterialIcons name="home" size={30} color={color} />
         ),
-        tabBarIconStyle: {
-          display: 'flex',
-          height: 60,
-          width: 60,
-        },
-        tabBarLabelStyle: {
-          display: 'none',
-        },
-        tabBarItemStyle: {
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        },
       }}
     />
     <Nav.Screen
       name="Tracking"
       component={Tracking}
       options={{
-        headerTitle: 'Tracking',
-        tabBarIcon: ({ focused }) => (
-          <Feather
-            name="map-pin"
-            size={60}
-            style={{
-              height: 60,
-            }}
-            color={focused ? ThemeColors.cyan_500 : ThemeColors.black}
-          />
+        tabBarIcon: ({ color }) => (
+          <Feather name="map-pin" size={30} color={color} />
         ),
-        tabBarIconStyle: {
-          display: 'flex',
-          height: 60,
-          width: 60,
-        },
-        tabBarLabelStyle: {
-          display: 'none',
-        },
-        tabBarItemStyle: {
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        },
+      }}
+    />
+    <Nav.Screen
+      name="Profile"
+      component={Profile}
+      options={{
+        tabBarIcon: ({ color }) => (
+          <Ionicons name="md-person-circle-outline" size={30} color={color} />
+        ),
       }}
     />
   </Nav.Navigator>

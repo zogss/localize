@@ -6,7 +6,6 @@ import { StackAppNavigator } from '../routes/app.routes';
 import { ThemeColors } from '../styles/colors';
 
 const Container = styled.View`
-  background-color: #fff;
   flex: 1;
   justify-content: center;
   align-items: center;

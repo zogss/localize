@@ -49,6 +49,7 @@ const SubmitButton = styled.TouchableOpacity`
   border-radius: 4px;
   font-size: 16px;
   font-weight: 600;
+  transition: all 0.2s ease-in-out;
 `;
 const SubmitButtonText = styled.Text`
   color: ${ThemeColors.black};
