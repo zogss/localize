@@ -6,10 +6,8 @@ import { IAuthState, verifyUser } from '../store/modules/auth';
 import { AppRoutes } from './app.routes';
 import { AuthRoutes } from './auth.routes';
 
-const mocked = true;
-
 const Routes = () => {
-  //* hooks
+  //* redux hooks
   const dispatch = useTypedDispatch();
   const authState = useTypedSelector<RootState, IAuthState>(
     (state) => state.auth,
