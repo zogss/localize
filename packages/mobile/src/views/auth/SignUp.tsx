@@ -202,7 +202,10 @@ export const SignUp = () => {
             <Controller
               control={control}
               render={({ field: { onChange, value } }) => (
-                <TextInput value={value} onChange={onChange} />
+                <TextInput
+                  value={value}
+                  onChange={(e) => onChange(e.nativeEvent.text)}
+                />
               )}
               name="firstName"
             />
@@ -215,7 +218,10 @@ export const SignUp = () => {
             <Controller
               control={control}
               render={({ field: { onChange, value } }) => (
-                <TextInput value={value} onChange={onChange} />
+                <TextInput
+                  value={value}
+                  onChange={(e) => onChange(e.nativeEvent.text)}
+                />
               )}
               name="lastName"
             />
@@ -228,7 +234,10 @@ export const SignUp = () => {
             <Controller
               control={control}
               render={({ field: { onChange, value } }) => (
-                <TextInput value={value} onChange={onChange} />
+                <TextInput
+                  value={value}
+                  onChange={(e) => onChange(e.nativeEvent.text)}
+                />
               )}
               name="username"
             />
