@@ -12,7 +12,7 @@ type IAuth = {
 
 export const apiSlice = createApi({
   reducerPath: 'apiSlice',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3333' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://192.168.1.108:3333' }),
   endpoints: (builder) => ({
     sendPhoneCode: builder.mutation<any, IAuth['phone']>({
       query: (phone) => ({
