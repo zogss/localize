@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-export const UserInfo = () => {
+export const MainLayout = () => {
   return (
     <View>
-      <Text>UserInfo</Text>
+      <Text>MainLayout</Text>
     </View>
   );
 };
