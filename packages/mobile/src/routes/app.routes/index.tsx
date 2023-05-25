@@ -1,51 +1,27 @@
-import { FontAwesome5, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Feather, Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { RouteProp, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { ICarRental } from '../../shared/@types/ICarRental';
 import { ThemeColors } from '../../styles/colors';
-import { HomeRoutes } from './home.routes';
-import { ProfileRoutes } from './profile.routes';
-import { StoreRoutes } from './store.routes';
-import { TrackingRoutes } from './tracking.routes';
+import { Home } from '../../views/Home';
+import { Profile } from '../../views/Profile';
+import { Tracking } from '../../views/Tracking';
 
 type AppNavigator = {
-  StartTab: undefined;
-  StoreTab?: {
-    screen: 'StoreCar';
-    params: { car: ICarRental };
-  };
-  TrackingTab?: {
-    screen: 'TrackingCar';
-    params: { car: ICarRental };
-  };
-  ProfileTab?: {
-    screen: 'MyRental';
-    params: { car: ICarRental };
-  };
+  Home: undefined;
+  Profile: undefined;
+  Tracking: undefined;
 };
 
 export type StackAppNavigator = NativeStackNavigationProp<AppNavigator>;
-
-export type StoreCarRouteProp = RouteProp<
-  { params: { car: ICarRental } },
-  'params'
->;
 
 const Nav = createBottomTabNavigator();
 
 export const AppRoutes = () => {
   //* hooks
   const navigation = useNavigation<StackAppNavigator>();
-
-  //* handlers
-  const navigateTo = (
-    tab: 'StartTab' | 'ProfileTab' | 'TrackingTab' | 'StoreTab',
-  ) => {
-    navigation.navigate(tab);
-  };
 
   //* render
   return (
@@ -63,76 +39,47 @@ export const AppRoutes = () => {
           height: 60,
           width: 60,
         },
+        lazy: true,
       })}
       sceneContainerStyle={{
-        backgroundColor: ThemeColors.gray_800,
+        backgroundColor: ThemeColors.gray_200,
       }}
-      initialRouteName="StartTab"
+      initialRouteName="Home"
     >
       <Nav.Screen
-        name="StartTab"
-        component={HomeRoutes}
+        name="Home"
+        component={Home}
         options={{
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="home" size={30} color={color} />
-          ),
-          tabBarButton: ({ children, style }) => (
-            <TouchableOpacity
-              onPress={() => navigateTo('StartTab')}
-              style={style}
-            >
-              {children}
+            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+              <MaterialIcons name="home" size={30} color={color} />
             </TouchableOpacity>
           ),
         }}
       />
       <Nav.Screen
-        name="StoreTab"
-        component={StoreRoutes}
+        name="Tracking"
+        component={Tracking}
         options={{
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="shopping-bag" size={24} color={color} />
-          ),
-          tabBarButton: ({ children, style }) => (
-            <TouchableOpacity
-              onPress={() => navigateTo('StoreTab')}
-              style={style}
-            >
-              {children}
+            <TouchableOpacity onPress={() => navigation.navigate('Tracking')}>
+              <Feather name="map-pin" size={30} color={color} />
             </TouchableOpacity>
           ),
         }}
       />
       <Nav.Screen
-        name="TrackingTab"
-        component={TrackingRoutes}
+        name="Profile"
+        component={Profile}
         options={{
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="location-pin" size={30} color={color} />
-          ),
-          tabBarButton: ({ children, style }) => (
-            <TouchableOpacity
-              onPress={() => navigateTo('TrackingTab')}
-              style={style}
-            >
-              {children}
-            </TouchableOpacity>
-          ),
-        }}
-      />
-      <Nav.Screen
-        name="ProfileTab"
-        component={ProfileRoutes}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="md-person-circle-outline" size={30} color={color} />
-          ),
-          tabBarButton: ({ children, style }) => (
-            <TouchableOpacity
-              onPress={() => navigateTo('ProfileTab')}
-              style={style}
-            >
-              {children}
+            <TouchableOpacity>
+              <Ionicons
+                name="md-person-circle-outline"
+                size={30}
+                color={color}
+                onPress={() => navigation.navigate('Profile')}
+              />
             </TouchableOpacity>
           ),
         }}
