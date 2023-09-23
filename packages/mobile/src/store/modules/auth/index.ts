@@ -1,16 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { isObject } from 'lodash';
 import { IUser } from '../../../shared/@types/IUser';
 import { LOADING_STATUS } from '../../../shared/enum/LOADING_STATUS';
-
-export type IAuthState = {
-  readonly signed: boolean;
-  readonly user?: IUser;
-  readonly token?: string | null;
-  readonly error?: boolean;
-  readonly success?: boolean;
-  readonly loading?: LOADING_STATUS;
-};
+import { IAuthState } from './types';
 
 const initialState: IAuthState = {
   signed: false,
@@ -71,12 +64,17 @@ export const verifyUser = createAsyncThunk('auth/verifyUser', async () => {
   const user = await AsyncStorage.getItem('@user_user');
   const token = await AsyncStorage.getItem('@user_token');
 
-  if (!user || !token)
-    return {
-      signed: false,
-      user: {} as IUser,
-      token: null,
-    };
+  const emptyData = {
+    signed: false,
+    user: {} as IUser,
+    token: null,
+  };
+
+  if (!user || !token) return emptyData;
+
+  if (!isObject(user) || !isObject(token)) {
+    return emptyData;
+  }
 
   return {
     signed: true,
@@ -96,7 +94,7 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // user/signIn
+    //* user/signIn
     builder.addCase(signIn.pending, (state) => {
       state.loading = LOADING_STATUS.LOADING;
     });
@@ -109,7 +107,8 @@ const authSlice = createSlice({
     builder.addCase(signIn.rejected, (state) => {
       state.loading = LOADING_STATUS.IDLE;
     });
-    // user/signOut
+
+    //* user/signOut
     builder.addCase(signOut.pending, (state) => {
       state.loading = LOADING_STATUS.LOADING;
     });
@@ -122,7 +121,8 @@ const authSlice = createSlice({
     builder.addCase(signOut.rejected, (state) => {
       state.loading = LOADING_STATUS.IDLE;
     });
-    // user/refreshUser
+
+    //* user/refreshUser
     builder.addCase(refreshUser.pending, (state) => {
       state.loading = LOADING_STATUS.LOADING;
     });
@@ -133,7 +133,8 @@ const authSlice = createSlice({
     builder.addCase(refreshUser.rejected, (state) => {
       state.loading = LOADING_STATUS.IDLE;
     });
-    // user/verifyUser
+
+    //* user/verifyUser
     builder.addCase(verifyUser.pending, (state) => {
       state.loading = LOADING_STATUS.LOADING;
     });

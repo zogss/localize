@@ -10,7 +10,7 @@ import { AuthLayout } from '../../layouts/AuthLayout';
 import { StackAuthNavigator } from '../../routes/auth.routes';
 import {
   useSignInUserMutation,
-  useSignUpUserMutation
+  useSignUpUserMutation,
 } from '../../services/api/apiSlice';
 import { IAuthUser } from '../../shared/@types/IAuthUser';
 import { IUser } from '../../shared/@types/IUser';
