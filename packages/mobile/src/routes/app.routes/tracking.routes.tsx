@@ -51,7 +51,7 @@ export const TrackingRoutes = () => {
           headerTitle: 'See location',
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.navigate('Tracking')}>
-              <Entypo name="chevron-left" size={24} color="white" />
+              <Entypo name="chevron-left" size={32} color="white" />
             </TouchableOpacity>
           ),
         }}
