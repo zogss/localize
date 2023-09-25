@@ -47,12 +47,22 @@ export const FullNameText = styled.Text`
   color: ${ThemeColors.gray_100};
 `;
 
-export const UserPhoto = styled.Image`
+export const UserPhotoContainer = styled.View`
   width: 80px;
   height: 80px;
   border-radius: 50px;
   object-fit: cover;
+  display: flex;
+  align-items: flex-start;
   margin-left: 12px;
+  overflow: hidden;
+`;
+
+export const UserPhoto = styled.Image`
+  width: 100%;
+  height: 180px;
+  align-self: flex-start;
+  object-fit: cover;
 `;
 
 export const UserNameContainer = styled.View`

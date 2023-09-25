@@ -2,7 +2,7 @@ import {
   Entypo,
   FontAwesome,
   Ionicons,
-  MaterialIcons
+  MaterialIcons,
 } from '@expo/vector-icons';
 import React from 'react';
 import { Header as YourRentalsHeader } from '../../components/myRentals/Header';
@@ -30,7 +30,8 @@ import {
   UserInfoContainer,
   UserNameContainer,
   UserNameText,
-  UserPhoto
+  UserPhoto,
+  UserPhotoContainer,
 } from './styles';
 
 export const Profile = () => {
@@ -68,7 +69,11 @@ export const Profile = () => {
               <UserNameText>{user?.username}</UserNameText>
             </UserNameContainer>
           </NameContainer>
-          <UserPhoto source={require('../../../assets/20221231_225307.jpg')} />
+          <UserPhotoContainer>
+            <UserPhoto
+              source={require('../../../assets/20221231_225307.jpg')}
+            />
+          </UserPhotoContainer>
         </UserInfoContainer>
         <LogOutButtonContainer>
           <LogOutButton onPress={handlerSignOut}>
