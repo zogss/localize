@@ -1,6 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { isObject } from 'lodash';
+import { delData, getData, setData } from '../../../services';
 import { IUser } from '../../../shared/@types/IUser';
 import { LOADING_STATUS } from '../../../shared/enum/LOADING_STATUS';
 import { IAuthState } from './types';
@@ -17,8 +17,8 @@ const initialState: IAuthState = {
 export const signIn = createAsyncThunk(
   'auth/signIn',
   async (payload: IAuthState) => {
-    await AsyncStorage.setItem('@user_token', JSON.stringify(payload.token));
-    await AsyncStorage.setItem('@user_user', JSON.stringify(payload.user));
+    await setData('@user_token', JSON.stringify(payload.token));
+    await setData('@user_user', JSON.stringify(payload.user));
 
     return {
       signed: true,
@@ -29,8 +29,8 @@ export const signIn = createAsyncThunk(
 );
 
 export const signOut = createAsyncThunk('auth/signOut', async () => {
-  await AsyncStorage.removeItem('@user_token');
-  await AsyncStorage.removeItem('@user_user');
+  await delData('@user_token');
+  await delData('@user_user');
 
   return {
     signed: false,
@@ -49,8 +49,8 @@ export const refreshUser = createAsyncThunk(
         token: null,
       };
 
-    await AsyncStorage.setItem('@user_user', JSON.stringify(payload.user));
-    await AsyncStorage.setItem('@user_token', JSON.stringify(payload.token));
+    await setData('@user_user', JSON.stringify(payload.user));
+    await setData('@user_token', JSON.stringify(payload.token));
 
     return {
       signed: true,
@@ -61,8 +61,8 @@ export const refreshUser = createAsyncThunk(
 );
 
 export const verifyUser = createAsyncThunk('auth/verifyUser', async () => {
-  const user = await AsyncStorage.getItem('@user_user');
-  const token = await AsyncStorage.getItem('@user_token');
+  const user = await getData('@user_user');
+  const token = await getData('@user_token');
 
   const emptyData = {
     signed: false,
