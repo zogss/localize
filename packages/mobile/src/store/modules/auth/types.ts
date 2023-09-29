@@ -1,11 +1,14 @@
-import { IUser } from "../../../shared/@types/IUser";
-import { LOADING_STATUS } from "../../../shared/enum/LOADING_STATUS";
+import { IUser } from '../../../shared/types/IUser';
 
-export type IAuthState = {
-  readonly signed: boolean;
-  readonly user?: IUser;
-  readonly token?: string | null;
-  readonly error?: boolean;
-  readonly success?: boolean;
-  readonly loading?: LOADING_STATUS;
+export type AuthState = {
+  isReady: boolean;
+  isAuthenticated: boolean;
+  isFirstAccess: boolean;
+  user?: IUser;
+  phoneNumber?: string;
+};
+
+export type InitFullfilledProps = {
+  accessToken?: string;
+  phoneNumber?: string;
 };

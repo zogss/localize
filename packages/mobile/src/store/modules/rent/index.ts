@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DateTime } from 'luxon';
-import { ICarRental } from '../../../shared/@types/ICarRental';
 import { RENT_STATUS } from '../../../shared/enum/RENT_STATUS';
+import { ICarRental } from '../../../shared/types/ICarRental';
 import { IRentState } from './types';
 
 const initialState: IRentState = {

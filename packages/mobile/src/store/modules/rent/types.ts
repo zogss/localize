@@ -1,4 +1,4 @@
-import { ICarRental } from '../../../shared/@types/ICarRental';
+import { ICarRental } from '../../../shared/types/ICarRental';
 
 export type IRentState = {
   rent: {

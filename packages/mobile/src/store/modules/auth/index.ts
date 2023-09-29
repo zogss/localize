@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { isObject } from 'lodash';
 import { delData, getData, setData } from '../../../services';
-import { IUser } from '../../../shared/@types/IUser';
 import { LOADING_STATUS } from '../../../shared/enum/LOADING_STATUS';
-import { IAuthState } from './types';
+import { IUser } from '../../../shared/types/IUser';
+import { AuthState } from './types';
 
-const initialState: IAuthState = {
-  signed: false,
+const initialState: AuthState = {
+  isAuthenticated: false,
   user: {} as IUser,
   token: null,
   error: false,
@@ -16,7 +16,7 @@ const initialState: IAuthState = {
 
 export const signIn = createAsyncThunk(
   'auth/signIn',
-  async (payload: IAuthState) => {
+  async (payload: AuthState) => {
     await setData('@user_token', JSON.stringify(payload.token));
     await setData('@user_user', JSON.stringify(payload.user));
 
@@ -41,7 +41,7 @@ export const signOut = createAsyncThunk('auth/signOut', async () => {
 
 export const refreshUser = createAsyncThunk(
   'auth/refreshUser',
-  async (payload: IAuthState) => {
+  async (payload: AuthState) => {
     if (!payload.user || !payload.token)
       return {
         signed: false,
@@ -87,11 +87,11 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    resetAuthState(state) {
-      state.error = false;
-      state.success = false;
-      state.loading = LOADING_STATUS.IDLE;
-    },
+    // resetAuthState(state) {
+    //   state.error = false;
+    //   state.success = false;
+    //   state.loading = LOADING_STATUS.IDLE;
+    // },
   },
   extraReducers: (builder) => {
     //* user/signIn
@@ -99,7 +99,7 @@ const authSlice = createSlice({
       state.loading = LOADING_STATUS.LOADING;
     });
     builder.addCase(signIn.fulfilled, (state, action) => {
-      state.signed = action.payload.signed;
+      state.isAuthenticated = action.payload.signed;
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.loading = LOADING_STATUS.IDLE;
@@ -113,7 +113,7 @@ const authSlice = createSlice({
       state.loading = LOADING_STATUS.LOADING;
     });
     builder.addCase(signOut.fulfilled, (state, action) => {
-      state.signed = action.payload.signed;
+      state.isAuthenticated = action.payload.signed;
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.loading = LOADING_STATUS.IDLE;
@@ -140,7 +140,7 @@ const authSlice = createSlice({
     });
     builder.addCase(verifyUser.fulfilled, (state, action) => {
       if (action.payload) {
-        state.signed = action.payload.signed;
+        state.isAuthenticated = action.payload.signed;
         state.user = action.payload.user;
         state.token = action.payload.token;
       }
