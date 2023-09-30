@@ -1,14 +1,11 @@
-import {
-  DateContainer,
-  DateText,
-  SecondContainer,
-} from '@app/components/myRentals/ListItem/styles';
 import { StackAppNavigator, StoreCarRouteProp } from '@app/navigation';
 import { updateRent, useAppDispatch } from '@app/store';
 import {
   CarImage,
+  DateContainer,
   DateInfoContainer,
   DateInfoText,
+  DateText,
   FourthContainer,
   PageSubtitleText,
   RentalContainer,
@@ -27,6 +24,7 @@ import {
 } from '@app/views/profileStack/myRentals/myRentals.styles';
 import {
   FirstContainer,
+  SecondContainer,
   SectionSeparator,
 } from '@app/views/profileStack/profile/profile.styles';
 import { useNavigation, useRoute } from '@react-navigation/native';
