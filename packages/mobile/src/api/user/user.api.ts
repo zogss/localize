@@ -1,14 +1,14 @@
-import { axiosBaseQuery } from '@app/services';
-import { createApi } from '@reduxjs/toolkit/query/react';
+import { settings } from '@app/services';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RegisterRequest } from './user.types';
 
 export default createApi({
-  baseQuery: axiosBaseQuery({ baseApiMethodUrl: 'user' }),
+  baseQuery: fetchBaseQuery({ baseUrl: settings.apiUrl }),
   reducerPath: 'userApi',
-  endpoints: (builder) => ({
-    register: builder.mutation<void, RegisterRequest>({
+  endpoints: (build) => ({
+    register: build.query<void, RegisterRequest>({
       query: (req) => ({
-        url: '',
+        url: '/users',
         method: 'POST',
         body: {
           firstName: req.firstName,

@@ -1,36 +1,37 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import { axiosBaseQuery } from '../../services';
+import { settings } from '@app/services';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import {
   ConfirmWppRequest,
   SendWppCodeRequest,
   SignInRequest,
+  SignInResponse,
 } from './auth.types';
 
 export default createApi({
-  baseQuery: axiosBaseQuery(),
+  baseQuery: fetchBaseQuery({ baseUrl: settings.apiUrl }),
   reducerPath: 'authApi',
-  endpoints: (builder) => ({
-    sendWppCode: builder.mutation<void, SendWppCodeRequest>({
+  endpoints: (build) => ({
+    sendWppCode: build.query<void, SendWppCodeRequest>({
       query: (req) => ({
         url: '/phone-tokens',
-        method: 'POST',
+        method: 'post',
         body: { phone: req.phone.replace(/\D/g, '') },
       }),
     }),
-    confirmWppCode: builder.mutation<void, ConfirmWppRequest>({
+    confirmWppCode: build.query<void, ConfirmWppRequest>({
       query: (req) => ({
         url: '/phone-tokens',
-        method: 'PUT',
+        method: 'put',
         body: {
           phone: req.phone.replace(/\D/g, ''),
           code: req.code,
         },
       }),
     }),
-    login: builder.mutation<any, SignInRequest>({
+    login: build.query<SignInResponse, SignInRequest>({
       query: (req) => ({
         url: '/auth/login',
-        method: 'POST',
+        method: 'post',
         body: {
           phone: req.phone.replace(/\D/g, ''),
           code: req.code,
