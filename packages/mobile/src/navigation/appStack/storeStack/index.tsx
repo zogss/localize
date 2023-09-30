@@ -27,34 +27,39 @@ const StoreStack: React.FC = () => {
   return (
     <Navigator
       screenOptions={{
-        headerShown: false,
+        headerLeft: ({ canGoBack }) =>
+          canGoBack && (
+            <TouchableOpacity
+              style={{ marginRight: 10 }}
+              onPress={() => navigate('StoresScreen')}
+            >
+              <Entypo name="chevron-left" size={34} color="white" />
+            </TouchableOpacity>
+          ),
         headerStyle: {
-          backgroundColor: theme.colors.gray_900,
+          backgroundColor: theme.colors.dark,
         },
         headerTitleStyle: {
           color: theme.colors.gray_100,
         },
         contentStyle: {
-          backgroundColor: theme.colors.gray_900,
+          backgroundColor: theme.colors.dark,
         },
       }}
       initialRouteName="StoresScreen"
     >
-      <Screen name="StoresScreen" component={StoresScreen} />
+      <Screen
+        name="StoresScreen"
+        component={StoresScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Screen
         name="StoreScreen"
         component={StoreScreen}
         options={{
-          headerShown: true,
           headerTitle: 'Car details',
-          headerLeft: () => (
-            <TouchableOpacity
-              style={{ marginRight: 20 }}
-              onPress={() => navigate('StoresScreen')}
-            >
-              <Entypo name="chevron-left" size={32} color="white" />
-            </TouchableOpacity>
-          ),
         }}
       />
     </Navigator>

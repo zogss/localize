@@ -28,31 +28,39 @@ const TrackingStack: React.FC = () => {
   return (
     <Navigator
       screenOptions={{
-        headerShown: false,
+        headerLeft: ({ canGoBack }) =>
+          canGoBack && (
+            <TouchableOpacity
+              style={{ marginRight: 10 }}
+              onPress={() => navigate('TrackingsScreen')}
+            >
+              <Entypo name="chevron-left" size={34} color="white" />
+            </TouchableOpacity>
+          ),
         headerStyle: {
-          backgroundColor: theme.colors.gray_900,
+          backgroundColor: theme.colors.dark,
         },
         headerTitleStyle: {
           color: theme.colors.gray_100,
         },
         contentStyle: {
-          backgroundColor: theme.colors.gray_900,
+          backgroundColor: theme.colors.dark,
         },
       }}
       initialRouteName="TrackingScreen"
     >
-      <Screen name="TrackingsScreen" component={TrackingsScreen} />
+      <Screen
+        name="TrackingsScreen"
+        component={TrackingsScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Screen
         name="TrackScreen"
         component={TrackScreen}
         options={{
-          headerShown: true,
           headerTitle: 'See location',
-          headerLeft: () => (
-            <TouchableOpacity onPress={() => navigate('TrackingsScreen')}>
-              <Entypo name="chevron-left" size={32} color="white" />
-            </TouchableOpacity>
-          ),
         }}
       />
     </Navigator>
