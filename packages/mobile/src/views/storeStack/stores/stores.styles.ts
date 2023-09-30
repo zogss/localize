@@ -7,5 +7,4 @@ export const Container = styled.View`
   justify-content: flex-start;
   align-items: center;
   margin-top: 54px;
-  padding: 0 26px;
 `;
