@@ -1,14 +1,17 @@
 export const errorMessage = (error?: any): string | void => {
-  if (error?.response?.data?.errors?.length) {
-    return error.response.data?.errors[0].message.replace(/.*?:\s?/, '');
+  console.log('errorMessage ~ error:', error);
+  if (error?.data?.errors?.length) {
+    return error.data?.errors[0].message.replace(/.*?:\s?/, '');
   } else if (
-    error?.response?.data?.message ||
-    error?.response?.message ||
+    error?.error?.data?.message ||
+    error?.data?.message ||
+    error?.error?.message ||
     error?.message
   ) {
     return (
-      error?.response?.data?.message ||
-      error?.response?.message ||
+      error?.error?.data?.message ||
+      error?.data?.message ||
+      error?.error?.message ||
       error?.message
     );
   }

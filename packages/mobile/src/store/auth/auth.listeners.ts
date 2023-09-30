@@ -2,7 +2,7 @@ import type { Unsubscribe } from '@reduxjs/toolkit';
 
 import type { AppStartListening } from '..';
 import { clearData, getData, setData } from '../../services';
-import { onFirstAccess, onInitFulfilled, onReset } from './auth.slice';
+import { onInitFulfilled, onReset } from './auth.slice';
 
 const setupAuthListeners = (startListening: AppStartListening): Unsubscribe => {
   const listeners = [
@@ -24,21 +24,16 @@ const setupAuthListeners = (startListening: AppStartListening): Unsubscribe => {
       },
     }),
     startListening({
-      predicate: ({ payload }) =>
-        payload?.access_token && payload?.refresh_token,
-      effect: async (
-        { payload: { access_token, refresh_token } },
-        listenerApi,
-      ) => {
+      predicate: ({ payload }) => !!payload?.token,
+      effect: async ({ payload: { token } }, listenerApi) => {
         const {
           auth: { phoneNumber },
         } = listenerApi.getState();
 
-        await setData('access_token', access_token);
-        await setData('refresh_token', refresh_token);
+        await setData('access_token', token);
         await setData('phone_number', phoneNumber || '');
 
-        listenerApi.dispatch(onFirstAccess());
+        listenerApi.dispatch({ type: 'init' });
       },
     }),
   ];

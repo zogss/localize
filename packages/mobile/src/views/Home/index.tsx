@@ -1,38 +1,34 @@
+import { selectRent, useTypedSelector } from '@app/store';
 import React from 'react';
 import { Header as YourRentalsHeader } from '../../components/myRentals/Header';
 import { ListItem as YourRental } from '../../components/myRentals/ListItem';
-import PageHeader from '../../components/PageHeader';
 import { Header as RentalsAvailableHeader } from '../../components/rentals/Header';
 import { ListItem as RentalAvailable } from '../../components/rentals/ListItem';
-import { ICarRental } from '../../shared/@types/ICarRental';
 import { RENT_STATUS } from '../../shared/enum/RENT_STATUS';
-import { RootState, useTypedSelector } from '../../store';
+import { ICarRental } from '../../shared/types/ICarRental';
 import {
   Container,
   ListContainer,
   RentalsContainer,
-  ScrollContainer
+  ScrollContainer,
 } from './styles';
 
 export type IMyRentals = {
   car: ICarRental;
 }[];
 
-export const Home = () => {
+const HomeScreen: React.FC = () => {
   //* hooks
-  const cars = useTypedSelector<RootState, IMyRentals>(
-    (state) => state.rent.rent,
-  );
+  const { rent } = useTypedSelector(selectRent);
 
   //* render
   return (
     <ScrollContainer>
       <Container>
-        <PageHeader pageTitle="Home" />
         <RentalsContainer>
           <YourRentalsHeader />
           <ListContainer>
-            {cars
+            {rent
               .filter((car) => {
                 let count = 0;
 
@@ -53,7 +49,7 @@ export const Home = () => {
         >
           <RentalsAvailableHeader />
           <ListContainer>
-            {cars
+            {rent
               .filter((car) => {
                 let count = 0;
 
@@ -71,3 +67,5 @@ export const Home = () => {
     </ScrollContainer>
   );
 };
+
+export default HomeScreen;

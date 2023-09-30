@@ -1,5 +1,5 @@
-import React, { forwardRef, useRef } from 'react';
-import type { TextInputProps } from 'react-native';
+import React, { Ref, forwardRef, useRef } from 'react';
+import type { TextInput, TextInputProps } from 'react-native';
 import { Text, View } from 'react-native';
 import {
   CodeField,
@@ -8,7 +8,7 @@ import {
 } from 'react-native-confirmation-code-field';
 
 import { AppTextInputError } from '../../text';
-import styles from './inputConfirmationCode.styles';
+import styles, { SingleInputContainer } from './inputConfirmationCode.styles';
 
 interface AppInputConfirmationCodeProps extends TextInputProps {
   name: string;
@@ -18,10 +18,10 @@ interface AppInputConfirmationCodeProps extends TextInputProps {
   setValue: (value: string) => void;
 }
 
-const AppInputConfirmationCode: React.FC<AppInputConfirmationCodeProps> = (
-  { name, codeLength = 6, value, error, setValue },
-  ref,
-) => {
+const AppInputConfirmationCode = forwardRef<
+  TextInput,
+  AppInputConfirmationCodeProps
+>(({ name, codeLength = 6, value, error, setValue }, ref) => {
   //* hooks
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
@@ -35,21 +35,24 @@ const AppInputConfirmationCode: React.FC<AppInputConfirmationCodeProps> = (
   return (
     <>
       <CodeField
-        ref={ref ?? inputRef}
         {...props}
+        ref={ref ?? (inputRef as unknown as Ref<TextInput>)}
         autoFocus
         value={value}
         onChangeText={setValue}
         cellCount={codeLength}
         accessibilityLabel={name}
+        rootStyle={styles.root}
         keyboardType="number-pad"
-        autoComplete="sms-otp"
         textContentType="oneTimeCode"
         renderCell={({ index, symbol, isFocused }) => {
           const isHighlighted = index < value.length || isFocused;
 
           return (
-            <View key={index} onLayout={getCellOnLayoutHandler(index)}>
+            <SingleInputContainer
+              key={index}
+              onLayout={getCellOnLayoutHandler(index)}
+            >
               <View
                 style={[
                   styles.shadow,
@@ -67,7 +70,7 @@ const AppInputConfirmationCode: React.FC<AppInputConfirmationCodeProps> = (
               >
                 {symbol || (isFocused ? <Cursor /> : null)}
               </Text>
-            </View>
+            </SingleInputContainer>
           );
         }}
       />
@@ -75,8 +78,6 @@ const AppInputConfirmationCode: React.FC<AppInputConfirmationCodeProps> = (
       {error && <AppTextInputError>{error}</AppTextInputError>}
     </>
   );
-};
+});
 
-// TODO: find a way to solve that
-// @ts-ignore
-export default forwardRef(AppInputConfirmationCode);
+export default AppInputConfirmationCode;

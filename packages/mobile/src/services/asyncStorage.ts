@@ -1,9 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export type AsyncStorageTypes =
-  | 'access_token'
-  | 'refresh_token'
-  | 'phone_number';
+export type AsyncStorageTypes = 'access_token' | 'phone_number';
 
 export const setData = async (key: AsyncStorageTypes, value: string) =>
   AsyncStorage.setItem(key, value);

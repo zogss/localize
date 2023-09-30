@@ -2,10 +2,10 @@ import { RENT_STATUS } from '@app/shared/enum/RENT_STATUS';
 import { ICarRental } from '@app/shared/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DateTime } from 'luxon';
-import { IRentState } from '../modules/rent/types';
 import { RootState } from '../store';
+import { RentState } from './rent.types';
 
-const initialState: IRentState = {
+const initialState: RentState = {
   rent: [
     {
       car: {

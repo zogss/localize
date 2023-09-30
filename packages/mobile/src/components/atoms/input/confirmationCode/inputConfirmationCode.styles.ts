@@ -1,9 +1,23 @@
 import { theme } from '@app/themes';
 import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
+
+export const SingleInputContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
 export default StyleSheet.create({
+  root: {
+    width: '100%',
+    gap: 4,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   cell: {
-    width: 48,
+    width: 56,
     height: 60,
     lineHeight: 54,
     fontSize: 24,
@@ -19,12 +33,12 @@ export default StyleSheet.create({
     borderBottomRightRadius: 6,
   },
   focusedCell: {
-    color: theme.colors.cyan_500,
+    color: theme.colors.black,
     borderColor: theme.colors.cyan_500,
-    backgroundColor: theme.colors.cyan_500,
+    backgroundColor: theme.colors.cyan_300,
   },
   invalidCell: {
-    color: theme.colors.red_500,
+    color: theme.colors.gray_100,
     borderColor: theme.colors.red_500,
     backgroundColor: theme.colors.red_500,
   },
@@ -38,7 +52,7 @@ export default StyleSheet.create({
     borderStyle: 'solid',
     borderBottomColor: 'transparent',
     left: 0,
-    borderRadius: 10,
+    borderRadius: 8,
   },
   focusShadow: {
     borderBottomColor: theme.colors.cyan_500,

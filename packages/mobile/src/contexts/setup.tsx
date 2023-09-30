@@ -1,14 +1,11 @@
 import type { Unsubscribe } from '@reduxjs/toolkit';
 import type { PropsWithChildren } from 'react';
 import React, { createContext, useEffect, useMemo, useState } from 'react';
-import SplashScreen from 'react-native-splash-screen';
 
 import {
-  selectAuth,
   setupAuthListeners,
   startAppListening,
   useAppDispatch,
-  useTypedSelector,
 } from '../store';
 
 interface SetupProps {
@@ -21,27 +18,22 @@ const SetupProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [isReady, setIsReady] = useState(false);
 
   const dispatch = useAppDispatch();
-  const { isFirstAccess } = useTypedSelector(selectAuth);
 
   useEffect(() => {
-    (async () => {
-      SplashScreen.hide();
+    const subscriptions: Unsubscribe[] = [
+      setupAuthListeners(startAppListening),
+    ];
 
-      const subscriptions: Unsubscribe[] = [
-        setupAuthListeners(startAppListening),
-      ];
+    dispatch({ type: 'init' });
 
-      dispatch({ type: 'init' });
-
-      return () => {
-        subscriptions.forEach((unsubscribe) => unsubscribe());
-      };
-    })();
+    return () => {
+      subscriptions.forEach((unsubscribe) => unsubscribe());
+    };
   }, [dispatch]);
 
   useEffect(() => {
-    if (isFirstAccess && !isReady) setIsReady(true);
-  }, [isFirstAccess, isReady]);
+    if (!isReady) setIsReady(true);
+  }, [isReady]);
 
   const value = useMemo(() => ({ isReady }), [isReady]);
 

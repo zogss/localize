@@ -6,3 +6,4 @@ export { default as AppSplashScreen } from './splashScreen';
 export * from './input';
 export * from './styles';
 export * from './text';
+export * from './toast';

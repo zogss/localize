@@ -1,6 +1,5 @@
 import type { FlexStyle, TouchableOpacityProps } from 'react-native';
-import { StyleSheet, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet } from 'react-native';
 import styled, { css } from 'styled-components/native';
 
 import { theme } from '@app/themes';
@@ -38,9 +37,9 @@ export interface StyledDividerProps {
   variant?: keyof typeof dividerTypes;
 }
 
-export const AppDivider = styled(View)<StyledDividerProps>`
-  ${({ theme: { colors }, variant = 'full' }) => css`
-    border: 0.3px solid ${colors.lightGray};
+export const AppDivider = styled.View<StyledDividerProps>`
+  ${({ variant = 'full' }) => css`
+    border: 0.3px solid ${theme.colors.dark};
     width: 100%;
     ${dividerTypes[variant]}
   `}
@@ -50,14 +49,14 @@ interface AppOptionButtonProps extends TouchableOpacityProps {
   active: boolean;
 }
 
-export const AppOptionButton = styled(TouchableOpacity)<AppOptionButtonProps>`
-  ${({ theme: { colors }, active }) => css`
+export const AppOptionButton = styled.TouchableOpacity<AppOptionButtonProps>`
+  ${({ active }) => css`
     padding: 24px;
     margin-bottom: 16px;
     border-radius: 8px;
-    background-color: ${colors.white};
+    background-color: ${theme.colors.gray_100};
     border-width: 2px;
-    border-color: ${colors[active ? 'green' : 'lightGray']};
+    border-color: ${theme.colors[active ? 'cyan_500' : 'dark']};
   `}
 `;
 

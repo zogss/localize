@@ -27,8 +27,10 @@ const AppScreen: React.FC<PropsWithChildren<AppScreenProps>> = ({
   withEdges = [],
   ...props
 }) => {
+  //* hooks
   const { showBlur } = useBlur();
 
+  //* render
   return (
     <StyledSafeAreaView
       {...props}

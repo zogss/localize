@@ -16,7 +16,7 @@ export class PhoneTokenController {
   async create(@Body() createPhoneTokenDto: CreatePhoneTokenDto) {
     const phoneToken = await this.phoneTokenService.create(createPhoneTokenDto);
     const message = `Your verification code is ${phoneToken.code}`;
-    // await this.plugChatProvider.sendText(message, createPhoneTokenDto.phone);
+    await this.plugChatProvider.sendText(message, createPhoneTokenDto.phone);
     return true;
   }
 

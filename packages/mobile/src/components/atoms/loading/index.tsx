@@ -1,4 +1,3 @@
-import { theme } from '@app/themes';
 import React, { useEffect } from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
 import Animated, {
@@ -10,23 +9,17 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import AppScreen from '../screen';
-
-const Spinner: StyleProp<ViewStyle> = {
-  height: 24,
-  width: 24,
-  borderRadius: 30,
-  borderWidth: 5,
-  borderTopColor: theme.colors.cyan_300,
-  borderRightColor: theme.colors.cyan_300,
-  borderBottomColor: theme.colors.cyan_300,
-  borderLeftColor: theme.colors.gray_800,
-};
+import { styles } from './loading.styles';
 
 interface LoadingSpinnerProps {
   style?: StyleProp<ViewStyle>;
+  hideContainer?: boolean;
 }
 
-const AppLoading: React.FC<LoadingSpinnerProps> = ({ style }) => {
+const AppLoading: React.FC<LoadingSpinnerProps> = ({
+  style,
+  hideContainer,
+}) => {
   //* hooks
   const rotation = useSharedValue(0);
   const animatedStyles = useAnimatedStyle(() => {
@@ -46,15 +39,25 @@ const AppLoading: React.FC<LoadingSpinnerProps> = ({ style }) => {
         duration: 700,
         easing: Easing.linear,
       }),
-      -1,
+      200,
     );
     return () => cancelAnimation(rotation);
   }, []);
 
   //* render
+  if (hideContainer) {
+    return (
+      <Animated.View
+        style={[{ ...styles.spinner, ...(style as object) }, animatedStyles]}
+      />
+    );
+  }
+
   return (
     <AppScreen>
-      <Animated.View style={[style || Spinner, animatedStyles]} />
+      <Animated.View
+        style={[{ ...styles.spinner, ...(style as object) }, animatedStyles]}
+      />
     </AppScreen>
   );
 };

@@ -13,7 +13,7 @@ import type {
 } from '@reduxjs/toolkit';
 import type { TypedUseSelectorHook } from 'react-redux';
 
-import { authApi } from '@app/api';
+import { authApi, userApi } from '@app/api';
 import { authSlice } from './auth';
 import { rentSlice } from './rent';
 
@@ -21,11 +21,13 @@ const listenerMiddlewareInstance = createListenerMiddleware();
 
 const middlewares: any = [
   authApi.middleware,
+  userApi.middleware,
   listenerMiddlewareInstance.middleware,
 ];
 
 export const combinedReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
+  [userApi.reducerPath]: userApi.reducer,
   auth: authSlice.reducer,
   rent: rentSlice.reducer,
 });

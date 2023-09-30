@@ -1,2 +1,2 @@
 export { default as AppInputConfirmationCode } from './confirmationCode';
-export { default as AppInputMask } from './inputMask';
+export { default as AppInputMask } from './mask';
