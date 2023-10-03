@@ -1,4 +1,4 @@
-import { ICarRental } from '@app/shared';
+import { ICar } from '@app/shared';
 import { theme } from '@app/themes';
 import { StoreScreen, StoresScreen } from '@app/views';
 import { Entypo } from '@expo/vector-icons';
@@ -10,18 +10,19 @@ import {
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
-export type StoreNavigator = {
+export type StoreStackProps = {
   StoresScreen: undefined;
-  StoreScreen: { car: ICarRental };
+  StoreScreen: { car: ICar };
 };
 
-export type StackStoreNavigator = NativeStackNavigationProp<StoreNavigator>;
+export type StoreStackNavigationProps =
+  NativeStackNavigationProp<StoreStackProps>;
 
-const { Navigator, Screen } = createNativeStackNavigator();
+const { Navigator, Screen } = createNativeStackNavigator<StoreStackProps>();
 
 const StoreStack: React.FC = () => {
   //* hooks
-  const { navigate } = useNavigation<StackStoreNavigator>();
+  const { navigate } = useNavigation<StoreStackNavigationProps>();
 
   //* render
   return (

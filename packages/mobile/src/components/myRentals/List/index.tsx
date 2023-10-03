@@ -1,16 +1,16 @@
-import { ICarRental } from '@app/shared';
+import { ICar } from '@app/shared';
 import React from 'react';
 import { ListItem } from '../ListItem';
 import { Container, List as FlatList } from './styles';
 
 interface IListProps {
   data: {
-    car: ICarRental;
+    car: ICar;
   }[];
 }
 
 interface IListItemProps {
-  car: ICarRental;
+  car: ICar;
 }
 
 export const List: React.FC<IListProps> = ({ data }) => {

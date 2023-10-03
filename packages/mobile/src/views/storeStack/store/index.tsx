@@ -1,42 +1,9 @@
 import { StackAppNavigator, StoreCarRouteProp } from '@app/navigation';
-import { updateRent, useAppDispatch } from '@app/store';
-import {
-  CarImage,
-  DateContainer,
-  DateInfoContainer,
-  DateInfoText,
-  DateText,
-  FourthContainer,
-  PageSubtitleText,
-  RentalContainer,
-  RentalDeliveryContainer,
-  RentalDeliveryTitleText,
-  RentalDescriptionContainer,
-  RentalDescriptionText,
-  RentalDescriptionTitleText,
-  RentalHeaderAdditionalInfoContainer,
-  RentalHeaderAdditionalInfoText,
-  RentalHeaderContainer,
-  RentalHeaderSeparator,
-  RentalHeaderSubtitleContainer,
-  RentalHeaderSubtitleText,
-  RentalHeaderTitleText,
-} from '@app/views/profileStack/myRentals/myRentals.styles';
-import {
-  FirstContainer,
-  SecondContainer,
-  SectionSeparator,
-} from '@app/views/profileStack/profile/profile.styles';
+import { useAppDispatch } from '@app/store';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useCallback } from 'react';
-import { RENT_STATUS } from '../../../shared/enum/RENT_STATUS';
+import React from 'react';
 import { Container } from '../stores/stores.styles';
-import {
-  RentCarButton,
-  RentCarContainer,
-  RentCarText,
-  ScrollContainer,
-} from './store.styles';
+import { ScrollContainer } from './store.styles';
 
 const StoreScreen: React.FC = () => {
   //* hooks
@@ -47,24 +14,24 @@ const StoreScreen: React.FC = () => {
   const dispatch = useAppDispatch();
 
   //* handlers
-  const handleRentCar = useCallback(() => {
-    if (params.car.status === RENT_STATUS.AVAILABLE) {
-      dispatch(
-        updateRent({ car: { ...params.car, status: RENT_STATUS.RENTED } }),
-      );
+  // const handleRentCar = useCallback(() => {
+  //   if (params.car.status === RENT_STATUS.AVAILABLE) {
+  //     dispatch(
+  //       updateRent({ car: { ...params.car, status: RENT_STATUS.RENTED } }),
+  //     );
 
-      navigate('ProfileTab', {
-        screen: 'MyRentalsScreen',
-        params: { car: params.car },
-      });
-    }
-  }, [params]);
+  //     navigate('ProfileTab', {
+  //       screen: 'MyRentalsScreen',
+  //       params: { car: params.car },
+  //     });
+  //   }
+  // }, [params]);
 
   //*render
   return (
     <ScrollContainer>
       <Container>
-        <FirstContainer>
+        {/* <FirstContainer>
           <RentalContainer>
             <PageSubtitleText>{params.car.title}</PageSubtitleText>
             <CarImage source={require('../../../../assets/car_3d_view.png')} />
@@ -130,7 +97,7 @@ const StoreScreen: React.FC = () => {
               </RentCarText>
             </RentCarButton>
           </RentCarContainer>
-        </FourthContainer>
+        </FourthContainer> */}
       </Container>
     </ScrollContainer>
   );

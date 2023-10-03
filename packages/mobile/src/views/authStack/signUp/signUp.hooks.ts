@@ -1,6 +1,6 @@
 import { authApi, userApi } from '@app/api';
 import { useKeyboard } from '@app/hooks';
-import { AuthRouteProp, StackAuthNavigator } from '@app/navigation';
+import { AuthRouteProps, AuthStackNavigationProps } from '@app/navigation';
 import { SignUpFormData, SignUpSchema } from '@app/schemas/auth/signUp';
 import { errorMessage } from '@app/shared';
 import { selectAuth, useTypedSelector } from '@app/store';
@@ -17,8 +17,8 @@ import Toast from 'react-native-toast-message';
 
 const useSignUp = () => {
   //* hooks
-  const { params } = useRoute<AuthRouteProp>();
-  const { navigate } = useNavigation<StackAuthNavigator>();
+  const { params } = useRoute<AuthRouteProps>();
+  const { navigate } = useNavigation<AuthStackNavigationProps>();
   const isFocused = useIsFocused();
   const { keyboardOpened } = useKeyboard();
   const methods = useForm<SignUpFormData>({

@@ -1,4 +1,4 @@
-import { ICarRental } from '@app/shared';
+import { ICar } from '@app/shared';
 import { theme } from '@app/themes';
 import { MyRentalsScreen, ProfileScreen } from '@app/views';
 import { Entypo } from '@expo/vector-icons';
@@ -10,18 +10,19 @@ import {
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
-type ProfileNavigator = {
+export type ProfileStackProps = {
   ProfileScreen: undefined;
-  MyRentalsScreen: { car: ICarRental };
+  MyRentalsScreen: { car: ICar };
 };
 
-export type StackProfileNavigator = NativeStackNavigationProp<ProfileNavigator>;
+export type ProfileStackNavigatonProps =
+  NativeStackNavigationProp<ProfileStackProps>;
 
-const { Navigator, Screen } = createNativeStackNavigator();
+const { Navigator, Screen } = createNativeStackNavigator<ProfileStackProps>();
 
 const ProfileStack: React.FC = () => {
   //* hooks
-  const { navigate } = useNavigation<StackProfileNavigator>();
+  const { navigate } = useNavigation<ProfileStackNavigatonProps>();
 
   //* render
   return (

@@ -1,5 +1,5 @@
-import { StackTrackingNavigator } from '@app/navigation/appStack/trackingStack';
-import { ICarRental } from '@app/shared';
+import { TrackingStackNavigationProps } from '@app/navigation/appStack/trackingStack';
+import { ICar } from '@app/shared';
 import { theme } from '@app/themes';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -19,16 +19,16 @@ import {
 } from './styles';
 
 interface IListItemProps {
-  car: ICarRental;
+  car: ICar;
 }
 
 export const ListItem: React.FC<IListItemProps> = ({ car }) => {
   //* hooks
-  const { navigate } = useNavigation<StackTrackingNavigator>();
+  const { push } = useNavigation<TrackingStackNavigationProps>();
 
   //* render
   return (
-    <Button onPress={() => navigate('TrackScreen', { car })}>
+    <Button onPress={() => push('TrackScreen', { car })}>
       <SecondContainer>
         <LeftContainer>
           <Image source={require('../../../../assets/car_3d_view.png')} />

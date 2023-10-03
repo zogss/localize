@@ -3,7 +3,8 @@ import type {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 
-import type { AuthStackNavigator } from './authStack';
+import { AppStackProps } from './appStack';
+import type { AuthStackProps } from './authStack';
 
 type NestedNavigatorParams<ParamList> = {
   [K in keyof ParamList]: undefined extends ParamList[K]
@@ -12,8 +13,8 @@ type NestedNavigatorParams<ParamList> = {
 }[keyof ParamList];
 
 export type RootStackParamList = {
-  AuthStack: NestedNavigatorParams<AuthStackNavigator>;
-  SettingsScreen: undefined;
+  AuthStack: NestedNavigatorParams<AuthStackProps>;
+  AppStack: NestedNavigatorParams<AppStackProps>;
 };
 
 export type NavigationProp = NativeStackNavigationProp<RootStackParamList>;

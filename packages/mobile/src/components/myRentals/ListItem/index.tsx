@@ -1,5 +1,5 @@
 import { StackAppNavigator } from '@app/navigation';
-import { ICarRental } from '@app/shared';
+import { ICar } from '@app/shared';
 import { theme } from '@app/themes';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -19,7 +19,7 @@ import {
 } from './styles';
 
 interface IListItemProps {
-  car: ICarRental;
+  car: ICar;
 }
 
 export const ListItem: React.FC<IListItemProps> = ({ car }) => {

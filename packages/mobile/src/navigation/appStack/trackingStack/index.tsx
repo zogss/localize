@@ -1,4 +1,4 @@
-import { ICarRental } from '@app/shared';
+import { ICar } from '@app/shared';
 import { theme } from '@app/themes';
 import { TrackingsScreen, TrackScreen } from '@app/views';
 import { Entypo } from '@expo/vector-icons';
@@ -10,19 +10,19 @@ import {
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
-type TrackingNavigator = {
+export type TrackingStackProps = {
   TrackingsScreen: undefined;
-  TrackScreen: { car: ICarRental };
+  TrackScreen: { car: ICar };
 };
 
-export type StackTrackingNavigator =
-  NativeStackNavigationProp<TrackingNavigator>;
+export type TrackingStackNavigationProps =
+  NativeStackNavigationProp<TrackingStackProps>;
 
-const { Navigator, Screen } = createNativeStackNavigator();
+const { Navigator, Screen } = createNativeStackNavigator<TrackingStackProps>();
 
 const TrackingStack: React.FC = () => {
   //* hooks
-  const { navigate } = useNavigation<StackTrackingNavigator>();
+  const { navigate } = useNavigation<TrackingStackNavigationProps>();
 
   //* render
   return (
@@ -47,7 +47,7 @@ const TrackingStack: React.FC = () => {
           backgroundColor: theme.colors.dark,
         },
       }}
-      initialRouteName="TrackingScreen"
+      initialRouteName="TrackingsScreen"
     >
       <Screen
         name="TrackingsScreen"
@@ -60,6 +60,7 @@ const TrackingStack: React.FC = () => {
         name="TrackScreen"
         component={TrackScreen}
         options={{
+          presentation: 'modal',
           headerTitle: 'See location',
         }}
       />

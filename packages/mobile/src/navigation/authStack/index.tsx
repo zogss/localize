@@ -11,7 +11,7 @@ import {
 } from '@react-navigation/native-stack';
 import React from 'react';
 
-export type AuthStackNavigator = {
+export type AuthStackProps = {
   SignInScreen: undefined;
   ConfirmationCodeScreen: undefined;
   SignUpScreen: {
@@ -19,11 +19,12 @@ export type AuthStackNavigator = {
   };
 };
 
-export type StackAuthNavigator = NativeStackNavigationProp<AuthStackNavigator>;
+export type AuthStackNavigationProps =
+  NativeStackNavigationProp<AuthStackProps>;
 
-export type AuthRouteProp = RouteProp<{ params: { code: string } }, 'params'>;
+export type AuthRouteProps = RouteProp<{ params: { code: string } }>;
 
-const { Navigator, Screen } = createNativeStackNavigator();
+const { Navigator, Screen } = createNativeStackNavigator<AuthStackProps>();
 
 const AuthStack: React.FC = () => (
   <Navigator

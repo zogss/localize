@@ -1,5 +1,5 @@
 import { StoreCarRouteProp } from '@app/navigation';
-import { StackTrackingNavigator } from '@app/navigation/appStack/trackingStack';
+import { TrackingStackNavigationProps } from '@app/navigation/appStack/trackingStack';
 import { theme } from '@app/themes';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -40,7 +40,7 @@ import {
 const MyRentalsScreen: React.FC = () => {
   //* hooks
   const { params } = useRoute<StoreCarRouteProp>();
-  const { navigate } = useNavigation<StackTrackingNavigator>();
+  const { navigate } = useNavigation<TrackingStackNavigationProps>();
 
   //* render
   return (

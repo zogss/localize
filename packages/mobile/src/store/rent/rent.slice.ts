@@ -1,12 +1,12 @@
 import { RENT_STATUS } from '@app/shared/enum/RENT_STATUS';
-import { ICarRental } from '@app/shared/types';
+import { ICar } from '@app/shared/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DateTime } from 'luxon';
 import { RootState } from '../store';
 import { RentState } from './rent.types';
 
 const initialState: RentState = {
-  rent: [
+  rents: [
     {
       car: {
         id: '1',
@@ -127,7 +127,7 @@ export const rentSlice = createSlice({
   initialState,
   reducers: {
     onReset: () => ({ ...initialState }),
-    createRent(state, action: PayloadAction<{ car: ICarRental }>) {
+    createRent(state, action: PayloadAction<{ car: ICar }>) {
       state.rent = [
         ...state.rent,
         {
@@ -135,7 +135,7 @@ export const rentSlice = createSlice({
         },
       ];
     },
-    updateRent(state, action: PayloadAction<{ car: ICarRental }>) {
+    updateRent(state, action: PayloadAction<{ car: ICar }>) {
       const rentIndex = state.rent.findIndex(
         (rent) => rent.car.id === action.payload.car.id,
       );

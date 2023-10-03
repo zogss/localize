@@ -1,4 +1,4 @@
-import { StackAppNavigator } from '@app/navigation';
+import { NavigationProp } from '@app/navigation';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Button, ButtonText, Container, TitleText } from './styles';
@@ -9,7 +9,7 @@ interface IHeaderProps {
 
 export const Header: React.FC<IHeaderProps> = ({ showButton }) => {
   //* hooks
-  const { navigate } = useNavigation<StackAppNavigator>();
+  const { navigate } = useNavigation<NavigationProp>();
 
   //* render
   return (

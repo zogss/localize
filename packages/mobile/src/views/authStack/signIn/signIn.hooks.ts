@@ -1,6 +1,6 @@
 import { authApi } from '@app/api';
 import { useKeyboard } from '@app/hooks';
-import { StackAuthNavigator } from '@app/navigation';
+import { AuthStackNavigationProps } from '@app/navigation';
 import { PhoneFormData, PhoneSchema } from '@app/schemas';
 import { errorMessage } from '@app/shared';
 import { selectAuth, useTypedSelector } from '@app/store';
@@ -13,7 +13,7 @@ import Toast from 'react-native-toast-message';
 
 const useSignIn = () => {
   //* hooks
-  const { navigate } = useNavigation<StackAuthNavigator>();
+  const { navigate } = useNavigation<AuthStackNavigationProps>();
   const isFocused = useIsFocused();
   const { keyboardOpened } = useKeyboard();
   const methods = useForm<PhoneFormData>({

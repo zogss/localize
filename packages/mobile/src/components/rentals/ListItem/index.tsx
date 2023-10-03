@@ -1,5 +1,5 @@
-import { StackAppNavigator } from '@app/navigation';
-import { ICarRental } from '@app/shared';
+import { NavigationProp } from '@app/navigation';
+import { ICar } from '@app/shared';
 import { theme } from '@app/themes';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -19,20 +19,20 @@ import {
 } from './styles';
 
 interface IListItemProps {
-  car: ICarRental;
+  car: ICar;
 }
 
 export const ListItem: React.FC<IListItemProps> = ({ car }) => {
   //* hooks
-  const { navigate } = useNavigation<StackAppNavigator>();
+  const { navigate } = useNavigation<NavigationProp>();
 
   //* render
   return (
     <Button
       onPress={() =>
-        navigate('StoreTab', {
-          screen: 'StoreScreen',
-          params: { car: car },
+        navigate('AppStack', {
+          screen: 'StoreTab',
+          params: { screen: 'StoreScreen', params: { car } },
         })
       }
     >
