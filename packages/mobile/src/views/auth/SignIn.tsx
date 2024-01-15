@@ -401,7 +401,7 @@ export const SignIn = () => {
                 <SubmitButtonText>Validate code</SubmitButtonText>
               )}
               {validationStatus === VALIDATION_STATUS.VALIDATING_PHONE && (
-                <SubmitButtonText>Send code</SubmitButtonText>
+                <SubmitButtonText>Send code </SubmitButtonText>
               )}
             </>
           )}
