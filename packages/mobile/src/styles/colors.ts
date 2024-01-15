@@ -1,4 +1,5 @@
 export const ThemeColors = {
+  //
   black: '#000',
   dark: '#1E1E1E',
 
