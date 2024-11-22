@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
 import { PhoneTokenModule } from './phone-token/phone-token.module';
 import { AuthModule } from './auth/auth.module';
 import * as redisStore from 'cache-manager-redis-store';
+import { MessagingModule } from './messaging/messaging.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import * as redisStore from 'cache-manager-redis-store';
     }),
     UsersModule,
     PhoneTokenModule,
+    MessagingModule,
     AuthModule,
   ],
   controllers: [AppController],
