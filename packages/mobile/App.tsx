@@ -1,17 +1,37 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { toastConfig } from '@app/components';
+import { BlurProvider, SetupProvider } from '@app/contexts';
+import { AppNavigation } from '@app/navigation';
+import { createStore } from '@app/store';
+import { Store } from '@reduxjs/toolkit';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
+import Toast from 'react-native-toast-message';
 import { Provider } from 'react-redux';
-import Routes from './src/routes';
-import store from './src/store';
 
-const App = () => (
-  <NavigationContainer>
-    <Provider store={store}>
-      <StatusBar style="auto" />
-      <Routes />
-    </Provider>
-  </NavigationContainer>
+const AppNative: React.FC = () => (
+  <>
+    <StatusBar style="auto" />
+    <AppNavigation />
+
+    <Toast config={toastConfig} position="top" visibilityTime={5000} />
+  </>
+);
+
+const AppProviders: React.FC<PropsWithChildren<{ store: Store }>> = ({
+  children,
+  store,
+}) => (
+  <Provider store={store}>
+    <SetupProvider>
+      <BlurProvider>{children}</BlurProvider>
+    </SetupProvider>
+  </Provider>
+);
+
+const App: React.FC = () => (
+  <AppProviders store={createStore()}>
+    <AppNative />
+  </AppProviders>
 );
 
 export default App;

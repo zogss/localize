@@ -1,16 +1,16 @@
+import { ICar } from '@app/shared';
 import React from 'react';
-import { ICarRental } from '../../../shared/@types/ICarRental';
 import { ListItem } from '../ListItem';
 import { Container, List as FlatList } from './styles';
 
 interface IListProps {
   data: {
-    car: ICarRental;
+    car: ICar;
   }[];
 }
 
 interface IListItemProps {
-  car: ICarRental;
+  car: ICar;
 }
 
 export const List: React.FC<IListProps> = ({ data }) => {
@@ -19,11 +19,10 @@ export const List: React.FC<IListProps> = ({ data }) => {
     <Container>
       <FlatList
         data={data}
-        keyExtractor={(item) => (item as IListItemProps).car.id}
-        renderItem={({ item }) => {
-          const listItem = item as IListItemProps;
-          return <ListItem car={listItem.car} />;
-        }}
+        keyExtractor={(item: IListItemProps) => item.car.id}
+        renderItem={({ item }: { item: IListItemProps }) => (
+          <ListItem key={item.car.id} car={item.car} />
+        )}
       />
     </Container>
   );

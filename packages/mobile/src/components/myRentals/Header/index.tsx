@@ -1,6 +1,6 @@
+import { NavigationProp } from '@app/navigation';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { StackAppNavigator } from '../../../routes/app.routes';
 import { Button, ButtonText, Container, TitleText } from './styles';
 
 interface IHeaderProps {
@@ -9,16 +9,14 @@ interface IHeaderProps {
 
 export const Header: React.FC<IHeaderProps> = ({ showButton }) => {
   //* hooks
-  const navigation = useNavigation<StackAppNavigator>();
+  const { navigate } = useNavigation<NavigationProp>();
 
   //* render
   return (
     <Container>
       <TitleText>Your rentals</TitleText>
-      {showButton !== undefined && showButton === false ? (
-        <></>
-      ) : (
-        <Button onPress={() => navigation.navigate('ProfileTab')}>
+      {showButton !== undefined && showButton === false ? null : (
+        <Button onPress={() => navigate('ProfileTab' as any)}>
           <ButtonText>See all</ButtonText>
         </Button>
       )}

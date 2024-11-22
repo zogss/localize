@@ -1,5 +1,5 @@
+import { theme } from '@app/themes';
 import styled from 'styled-components/native';
-import { ThemeColors } from './../../../styles/colors';
 
 export const Button = styled.TouchableOpacity`
   display: flex;
@@ -49,7 +49,7 @@ export const DateContainer = styled.View`
 export const Separator = styled.View`
   width: 1px;
   height: 100%;
-  background-color: ${ThemeColors.gray_100};
+  background-color: ${theme.colors.gray_100};
   margin: 0 10px;
 `;
 
@@ -64,18 +64,18 @@ export const Image = styled.Image`
 export const TitleText = styled.Text`
   font-size: 18px;
   font-weight: 600;
-  color: ${ThemeColors.gray_100};
+  color: ${theme.colors.gray_100};
 `;
 
 export const PriceText = styled.Text`
   font-size: 16px;
   font-weight: 500;
-  color: ${ThemeColors.gray_100};
+  color: ${theme.colors.gray_100};
   margin-top: 4px;
 `;
 
 export const DateText = styled.Text`
   font-size: 12px;
   font-weight: 400;
-  color: ${ThemeColors.gray_100};
+  color: ${theme.colors.gray_100};
 `;

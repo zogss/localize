@@ -1,9 +1,9 @@
+import { NavigationProp, StackAppNavigator } from '@app/navigation';
+import { ICar } from '@app/shared';
+import { theme } from '@app/themes';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { StackAppNavigator } from '../../../routes/app.routes';
-import { ICarRental } from '../../../shared/@types/ICarRental';
-import { ThemeColors } from '../../../styles/colors';
 import {
   Button,
   DateContainer,
@@ -19,20 +19,20 @@ import {
 } from './styles';
 
 interface IListItemProps {
-  car: ICarRental;
+  car: ICar;
 }
 
 export const ListItem: React.FC<IListItemProps> = ({ car }) => {
   //* hooks
-  const navigation = useNavigation<StackAppNavigator>();
+  const { navigate } = useNavigation<StackAppNavigator>();
 
   //* render
   return (
     <Button
       onPress={() =>
-        navigation.navigate('StoreTab', {
-          screen: 'StoreCar',
-          params: { car: car },
+        navigate('StoreTab', {
+          screen: 'StoreScreen',
+          params: { car },
         })
       }
     >
@@ -45,11 +45,11 @@ export const ListItem: React.FC<IListItemProps> = ({ car }) => {
           <PriceText>{car.price}</PriceText>
           <DateContainer>
             <DateText>
-              {new Date(car.withdrawalDate).toLocaleDateString()}
+              {new Date((car as any).withdrawalDate).toLocaleDateString()}
             </DateText>
             <Separator />
             <DateText>
-              {new Date(car.devolutionDate).toLocaleDateString()}
+              {new Date((car as any).devolutionDate).toLocaleDateString()}
             </DateText>
           </DateContainer>
         </MiddleContainer>
@@ -58,7 +58,7 @@ export const ListItem: React.FC<IListItemProps> = ({ car }) => {
         <FontAwesome
           name="chevron-right"
           size={20}
-          color={ThemeColors.gray_400}
+          color={theme.colors.gray_400}
         />
       </RightContainer>
     </Button>

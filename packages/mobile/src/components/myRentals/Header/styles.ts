@@ -1,5 +1,5 @@
+import { theme } from '@app/themes';
 import styled from 'styled-components/native';
-import { ThemeColors } from './../../../styles/colors';
 
 export const Container = styled.View`
   display: flex;
@@ -12,7 +12,7 @@ export const Container = styled.View`
 export const TitleText = styled.Text`
   font-size: 18px;
   font-weight: 600;
-  color: ${ThemeColors.gray_100};
+  color: ${theme.colors.gray_100};
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -25,5 +25,5 @@ export const Button = styled.TouchableOpacity`
 export const ButtonText = styled.Text`
   font-size: 16px;
   font-weight: 600;
-  color: ${ThemeColors.gray_100};
+  color: ${theme.colors.gray_100};
 `;
