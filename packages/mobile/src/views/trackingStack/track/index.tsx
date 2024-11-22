@@ -3,7 +3,7 @@ import { theme } from '@app/themes';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useFocusEffect, useRoute } from '@react-navigation/native';
 import * as Location from 'expo-location';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import {
   Container,
@@ -13,6 +13,7 @@ import {
   TrackingHeaderContainer,
   mapStyle,
 } from './track.styles';
+import { TouchableOpacity } from 'react-native';
 
 interface ILocation {
   latitude: number;
@@ -27,7 +28,9 @@ const TrackScreen: React.FC = () => {
 
   //* states
   const [currentLocation, setCurrentLocation] = useState<ILocation>();
-  const [hasPermission, setHasPermission] = useState(false);
+  const [, setHasPermission] = useState(false);
+
+  const ref = useRef<MapView | null>(null);
 
   //* handlers
   const requestLocationPermission = async () => {
@@ -69,6 +72,8 @@ const TrackScreen: React.FC = () => {
           }
         };
 
+        intervalFunc();
+
         intervalId = setInterval(intervalFunc, 4200);
         return () => clearInterval(intervalId);
       })();
@@ -81,15 +86,24 @@ const TrackScreen: React.FC = () => {
       <HeaderContainer>
         <TrackingHeaderContainer>
           <TrackingHeaderCarText>{params.car.title}</TrackingHeaderCarText>
-          <MaterialIcons
-            name="location-pin"
-            size={22}
-            color={theme.colors.cyan_500}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              if (currentLocation) {
+                ref.current?.animateToRegion(currentLocation, 1000);
+              }
+            }}
+          >
+            <MaterialIcons
+              name="location-pin"
+              size={22}
+              color={theme.colors.cyan_500}
+            />
+          </TouchableOpacity>
         </TrackingHeaderContainer>
       </HeaderContainer>
       <MapContainer>
         <MapView
+          ref={ref}
           style={{
             height: '100%',
             width: '100%',

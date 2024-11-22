@@ -16,7 +16,7 @@ export const Header: React.FC<IHeaderProps> = ({ showButton }) => {
     <Container>
       <TitleText>Your rentals</TitleText>
       {showButton !== undefined && showButton === false ? null : (
-        <Button onPress={() => navigate('ProfileTab')}>
+        <Button onPress={() => navigate('ProfileTab' as any)}>
           <ButtonText>See all</ButtonText>
         </Button>
       )}

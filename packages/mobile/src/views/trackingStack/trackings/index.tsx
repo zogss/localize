@@ -1,19 +1,23 @@
 import React from 'react';
+import { Header as TrackingAvailableHeader } from '../../../components/tracking/Header';
+import { List as TrackingAvailableList } from '../../../components/tracking/List';
 import { Container } from './tracking.styles';
+import { RENT_STATUS } from '@app/shared';
+import { useTypedSelector, selectRent } from '@app/store';
 
 const TrackingsScreen: React.FC = () => {
   //* hooks
-  // const { rent } = useTypedSelector(selectRent);
+  const { rents } = useTypedSelector(selectRent);
 
   //* render
   return (
     <Container>
-      {/* <RentalsContainer>
+      <>
         <TrackingAvailableHeader showButton={false} />
         <TrackingAvailableList
-          data={rent.filter((car) => car.car.status === RENT_STATUS.RENTED)}
+          data={rents.filter((rent) => rent.car!.status === RENT_STATUS.RENTED)}
         />
-      </RentalsContainer> */}
+      </>
     </Container>
   );
 };

@@ -10,9 +10,9 @@ export interface StyledTextProps extends TextProps {
 
 export const StyledText = styled.Text<StyledTextProps>`
   ${({ color = 'gray_100', variant = 'text', align = 'auto' }) => css`
-    color: ${theme.colors[color]};
+    color: ${theme.colors[color as keyof typeof theme.colors]};
     text-align: ${align};
-    ${theme.fonts[variant]}
+    ${theme.fonts[variant as keyof typeof theme.fonts]}
   `}
 `;
 

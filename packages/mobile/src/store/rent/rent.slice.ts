@@ -128,18 +128,18 @@ export const rentSlice = createSlice({
   reducers: {
     onReset: () => ({ ...initialState }),
     createRent(state, action: PayloadAction<{ car: ICar }>) {
-      state.rent = [
-        ...state.rent,
+      state.rents = [
+        ...state.rents,
         {
           car: action.payload.car,
         },
       ];
     },
     updateRent(state, action: PayloadAction<{ car: ICar }>) {
-      const rentIndex = state.rent.findIndex(
-        (rent) => rent.car.id === action.payload.car.id,
+      const rentIndex = state.rents.findIndex(
+        (rent) => rent.car!.id === action.payload.car.id,
       );
-      state.rent[rentIndex] = {
+      state.rents[rentIndex] = {
         car: action.payload.car,
       };
     },

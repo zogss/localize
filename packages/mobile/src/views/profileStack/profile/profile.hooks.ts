@@ -15,7 +15,7 @@ const useProfile = () => {
   //* redux hooks
   const dispatch = useAppDispatch();
   const { user } = useTypedSelector(selectAuth);
-  const { rent } = useTypedSelector(selectRent);
+  const { rents } = useTypedSelector(selectRent);
 
   //* handlers
   const handleSignOut = async () => {
@@ -25,7 +25,7 @@ const useProfile = () => {
   //* return
   return {
     user,
-    rent,
+    rents,
     menuOptions,
     navigate,
     handleSignOut,

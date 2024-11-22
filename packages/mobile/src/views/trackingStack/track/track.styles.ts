@@ -6,7 +6,7 @@ type ContainerProps = {
 };
 
 export const Container = styled.View<ContainerProps>`
-  ${({ nestedScreen }) => css`
+  ${({ nestedScreen = false }) => css`
     width: 100%;
     display: flex;
     flex-direction: column;

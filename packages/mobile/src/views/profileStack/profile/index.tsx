@@ -6,7 +6,7 @@ import { Container, SectionSeparator } from './profile.styles';
 
 const ProfileScreen: React.FC = () => {
   //* hooks
-  const { user, rent, menuOptions, navigate, handleSignOut } = useProfile();
+  const { user, menuOptions, navigate, handleSignOut } = useProfile();
 
   //* render
   return (

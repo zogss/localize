@@ -4,11 +4,7 @@ import { theme } from '@app/themes';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
-import {
-  FirstContainer,
-  SecondContainer,
-  SectionSeparator,
-} from '../profile/profile.styles';
+import { SectionSeparator } from '../profile/profile.styles';
 import {
   CarImage,
   Container,
@@ -36,6 +32,8 @@ import {
   RentalHeaderTitleText,
   ScrollContainer,
 } from './myRentals.styles';
+import { FirstContainer } from '@app/views/storeStack/store/store.styles';
+import { SecondContainer } from '@app/components/rentals/ListItem/styles';
 
 const MyRentalsScreen: React.FC = () => {
   //* hooks
@@ -86,7 +84,7 @@ const MyRentalsScreen: React.FC = () => {
               <DateInfoText>Withdrawal date</DateInfoText>
             </DateInfoContainer>
             <DateText>
-              {new Date(params.car.withdrawalDate).toLocaleDateString()}
+              {new Date(params.car.withdrawalDate || '').toLocaleDateString()}
             </DateText>
           </DateContainer>
           <DateContainer>
@@ -94,7 +92,7 @@ const MyRentalsScreen: React.FC = () => {
               <DateInfoText>Return date</DateInfoText>
             </DateInfoContainer>
             <DateText>
-              {new Date(params.car.devolutionDate).toLocaleDateString()}
+              {new Date(params.car.devolutionDate || '').toLocaleDateString()}
             </DateText>
           </DateContainer>
         </RentalDeliveryContainer>

@@ -5,7 +5,7 @@ import { Container, List as FlatList } from './styles';
 
 interface IListProps {
   data: {
-    car: ICar;
+    car?: ICar;
   }[];
 }
 

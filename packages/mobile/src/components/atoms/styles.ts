@@ -41,7 +41,7 @@ export const AppDivider = styled.View<StyledDividerProps>`
   ${({ variant = 'full' }) => css`
     border: 0.3px solid ${theme.colors.dark};
     width: 100%;
-    ${dividerTypes[variant]}
+    ${dividerTypes[variant as keyof typeof dividerTypes]}
   `}
 `;
 
@@ -50,7 +50,7 @@ interface AppOptionButtonProps extends TouchableOpacityProps {
 }
 
 export const AppOptionButton = styled.TouchableOpacity<AppOptionButtonProps>`
-  ${({ active }) => css`
+  ${({ active = false }) => css`
     padding: 24px;
     margin-bottom: 16px;
     border-radius: 8px;

@@ -23,6 +23,7 @@ export const PageSubtitleText = styled.Text`
 export const RentalContainer = styled.View`
   width: 100%;
   display: flex;
+  padding: 0 26px;
   flex-direction: column;
 `;
 
@@ -90,6 +91,7 @@ export const RentalDescriptionContainer = styled.View`
   justify-content: flex-start;
   align-items: flex-start;
   margin: 12px 0;
+  padding: 0 26px;
 `;
 
 export const RentalDescriptionTitleText = styled.Text`

@@ -2,6 +2,7 @@ import { AppScreen } from '@app/components';
 import React from 'react';
 import { SignInForm, SignInHeader } from './components';
 import useSignIn from './signIn.hooks';
+import { settings } from '@app/services';
 
 const SignInScreen: React.FC = () => {
   //* hooks

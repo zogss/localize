@@ -1,4 +1,4 @@
-import { NavigationProp } from '@app/navigation';
+import { NavigationProp, StackAppNavigator } from '@app/navigation';
 import { ICar } from '@app/shared';
 import { theme } from '@app/themes';
 import { FontAwesome } from '@expo/vector-icons';
@@ -24,15 +24,15 @@ interface IListItemProps {
 
 export const ListItem: React.FC<IListItemProps> = ({ car }) => {
   //* hooks
-  const { navigate } = useNavigation<NavigationProp>();
+  const { navigate } = useNavigation<StackAppNavigator>();
 
   //* render
   return (
     <Button
       onPress={() =>
-        navigate('AppStack', {
-          screen: 'StoreTab',
-          params: { screen: 'StoreScreen', params: { car } },
+        navigate('StoreTab', {
+          screen: 'StoreScreen',
+          params: { car },
         })
       }
     >
@@ -45,11 +45,11 @@ export const ListItem: React.FC<IListItemProps> = ({ car }) => {
           <PriceText>{car.price}</PriceText>
           <DateContainer>
             <DateText>
-              {new Date(car.withdrawalDate).toLocaleDateString()}
+              {new Date((car as any).withdrawalDate).toLocaleDateString()}
             </DateText>
             <Separator />
             <DateText>
-              {new Date(car.devolutionDate).toLocaleDateString()}
+              {new Date((car as any).devolutionDate).toLocaleDateString()}
             </DateText>
           </DateContainer>
         </MiddleContainer>

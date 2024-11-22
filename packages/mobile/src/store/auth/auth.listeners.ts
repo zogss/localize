@@ -38,7 +38,6 @@ const setupAuthListeners = (startListening: AppStartListening): Unsubscribe => {
     }),
     startListening({
       predicate: ({ payload, type }) => {
-        console.log('setupAuthListeners ~ type:', type);
         return !!payload?.user;
       },
       effect: async ({ payload: { token } }) => {

@@ -30,3 +30,7 @@ export const RentCarButton = styled.TouchableOpacity`
   padding: 12px 18px;
   background-color: ${theme.colors.cyan_500};
 `;
+
+export const FirstContainer = styled.View`
+  width: 100%;
+`;
