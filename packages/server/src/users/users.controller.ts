@@ -36,6 +36,12 @@ export class UsersController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  profile(@CurrentUser() user: User) {
+    return this.usersService.findById(user.id);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   update(
     @Param('id') id: string,
