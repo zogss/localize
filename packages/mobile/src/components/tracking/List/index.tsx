@@ -1,7 +1,7 @@
 import React from 'react';
 import { ICar } from '../../../shared/types/car';
 import { ListItem } from '../ListItem';
-import { Container, List as FlatList } from './styles';
+import { Container, FlatList } from './styles';
 
 interface IListProps {
   data: {
@@ -19,7 +19,7 @@ export const List: React.FC<IListProps> = ({ data }) => {
     <Container>
       <FlatList
         data={data}
-        keyExtractor={(item: IListItemProps) => (item as IListItemProps).car.id}
+        keyExtractor={(item: IListItemProps) => item.car.id}
         renderItem={({ item }: { item: IListItemProps }) => (
           <ListItem key={item.car.id} car={item.car} />
         )}

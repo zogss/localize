@@ -1,6 +1,6 @@
 import React from 'react';
-import { Header as TrackingAvailableHeader } from '../../../components/tracking/Header';
-import { List as TrackingAvailableList } from '../../../components/tracking/List';
+import { Header } from '@app/components/tracking/Header';
+import { List } from '@app/components/tracking/List';
 import { Container } from './tracking.styles';
 import { RENT_STATUS } from '@app/shared';
 import { useTypedSelector, selectRent } from '@app/store';
@@ -12,12 +12,10 @@ const TrackingsScreen: React.FC = () => {
   //* render
   return (
     <Container>
-      <>
-        <TrackingAvailableHeader showButton={false} />
-        <TrackingAvailableList
-          data={rents.filter((rent) => rent.car!.status === RENT_STATUS.RENTED)}
-        />
-      </>
+      <Header showButton={false} />
+      <List
+        data={rents.filter((rent) => rent.car!.status === RENT_STATUS.RENTED)}
+      />
     </Container>
   );
 };

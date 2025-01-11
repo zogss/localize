@@ -19,4 +19,5 @@ export const SectionContainer = styled.View`
 
 export const Container = styled.ScrollView`
   width: 100%;
+  padding-top: 22px;
 `;

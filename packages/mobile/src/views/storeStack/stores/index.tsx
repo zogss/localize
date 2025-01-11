@@ -1,9 +1,8 @@
 import React from 'react';
-import { Header as RentalsAvailableHeader } from '../../../components/rentals/Header';
-import { List as YourRentalsList } from '../../../components/rentals/List';
-import { RENT_STATUS } from '../../../shared/enum/RENT_STATUS';
-import { selectRent, useTypedSelector } from '../../../store';
-// import { RentalsAvailable } from '../../home/styles';
+import { Header } from '@app/components/rentals/Header';
+import { List } from '@app/components/rentals/List';
+import { RENT_STATUS } from '@app/shared/enum/RENT_STATUS';
+import { selectRent, useTypedSelector } from '@app/store';
 import { Container } from './stores.styles';
 
 const StoresScreen: React.FC = () => {
@@ -13,14 +12,12 @@ const StoresScreen: React.FC = () => {
   //* render
   return (
     <Container>
-      <>
-        <RentalsAvailableHeader showButton={false} />
-        <YourRentalsList
-          data={rents.filter(
-            (rent) => rent.car!.status === RENT_STATUS.AVAILABLE,
-          )}
-        />
-      </>
+      <Header showButton={false} />
+      <List
+        data={rents.filter(
+          (rent) => rent.car!.status === RENT_STATUS.AVAILABLE,
+        )}
+      />
     </Container>
   );
 };

@@ -1,7 +1,7 @@
 import { ICar } from '@app/shared';
 import React from 'react';
 import { ListItem } from '../ListItem';
-import { Container, List as FlatList } from './styles';
+import { Container, FlatList } from './styles';
 
 interface IListProps {
   data: {

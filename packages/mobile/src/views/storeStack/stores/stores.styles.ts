@@ -6,5 +6,6 @@ export const Container = styled.View`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 54px;
+  padding: 0 26px;
+  margin-top: 52px;
 `;

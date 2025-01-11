@@ -8,7 +8,7 @@ const setupAuthListeners = (startListening: AppStartListening): Unsubscribe => {
   const listeners = [
     startListening({
       type: 'init',
-      effect: async (action, listenerApi) => {
+      effect: async (_, listenerApi) => {
         const accessToken = (await getData('access_token')) || undefined;
         const phoneNumber = (await getData('phone_number')) || undefined;
 
@@ -17,7 +17,7 @@ const setupAuthListeners = (startListening: AppStartListening): Unsubscribe => {
     }),
     startListening({
       type: 'logout',
-      effect: async (action, listenerApi) => {
+      effect: async (_, listenerApi) => {
         await clearData();
 
         listenerApi.dispatch(onReset());
@@ -37,11 +37,9 @@ const setupAuthListeners = (startListening: AppStartListening): Unsubscribe => {
       },
     }),
     startListening({
-      predicate: ({ payload, type }) => {
-        return !!payload?.user;
-      },
-      effect: async ({ payload: { token } }) => {
-        await setData('user_id', token);
+      predicate: ({ payload }) => !!payload?.user,
+      effect: async ({ payload: { user } }) => {
+        await setData('user_id', user.id);
       },
     }),
   ];

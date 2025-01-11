@@ -45,11 +45,11 @@ export const ListItem: React.FC<IListItemProps> = ({ car }) => {
           <DescriptionText>{car.description}</DescriptionText>
           <DateContainer>
             <DateText>
-              {new Date((car as any).withdrawalDate).toLocaleDateString()}
+              {new Date(car.withdrawalDate || '').toLocaleDateString()}
             </DateText>
             <Separator />
             <DateText>
-              {new Date((car as any).devolutionDate).toLocaleDateString()}
+              {new Date(car.devolutionDate || '').toLocaleDateString()}
             </DateText>
           </DateContainer>
         </MiddleContainer>

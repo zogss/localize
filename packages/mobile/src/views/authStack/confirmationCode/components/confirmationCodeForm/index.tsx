@@ -22,8 +22,6 @@ const ConfirmationCodeForm: React.FC<ConfirmationCodeFormProps> = ({
   isLoading,
   phoneNumber,
   codeLength,
-  isFormFocused,
-  setIsFormFocused,
 }) => (
   <Styled.Container>
     <Styled.InputContainer>

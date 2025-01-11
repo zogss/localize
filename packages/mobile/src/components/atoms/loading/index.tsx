@@ -46,18 +46,12 @@ const AppLoading: React.FC<LoadingSpinnerProps> = ({
 
   //* render
   if (hideContainer) {
-    return (
-      <Animated.View
-        style={[{ ...styles.spinner, ...(style as object) }, animatedStyles]}
-      />
-    );
+    return <Animated.View style={[[styles.spinner, style], animatedStyles]} />;
   }
 
   return (
     <AppScreen>
-      <Animated.View
-        style={[{ ...styles.spinner, ...(style as object) }, animatedStyles]}
-      />
+      <Animated.View style={[[styles.spinner, style], animatedStyles]} />
     </AppScreen>
   );
 };

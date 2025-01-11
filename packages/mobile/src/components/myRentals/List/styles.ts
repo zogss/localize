@@ -9,6 +9,6 @@ export const Container = styled.SafeAreaView`
   padding: 10px 0;
 `;
 
-export const List = styled.FlatList`
+export const FlatList = styled.FlatList`
   width: 100%;
 `;
