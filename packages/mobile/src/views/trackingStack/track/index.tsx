@@ -1,19 +1,21 @@
-import { StoreCarRouteProp } from '@app/navigation';
-import { theme } from '@app/themes';
-import { MaterialIcons } from '@expo/vector-icons';
-import { useFocusEffect, useRoute } from '@react-navigation/native';
+import React, {useCallback, useRef, useState} from 'react';
+import {theme} from '@app/themes';
+import {MaterialIcons} from '@expo/vector-icons';
+import {useFocusEffect, useRoute} from '@react-navigation/native';
 import * as Location from 'expo-location';
-import React, { useCallback, useRef, useState } from 'react';
-import MapView, { Marker } from 'react-native-maps';
+import {TouchableOpacity} from 'react-native';
+import MapView, {Marker} from 'react-native-maps';
+
+import {StoreCarRouteProp} from '@app/navigation';
+
 import {
   Container,
   HeaderContainer,
   MapContainer,
+  mapStyle,
   TrackingHeaderCarText,
   TrackingHeaderContainer,
-  mapStyle,
 } from './track.styles';
-import { TouchableOpacity } from 'react-native';
 
 interface ILocation {
   latitude: number;
@@ -23,19 +25,16 @@ interface ILocation {
 }
 
 const TrackScreen: React.FC = () => {
-  //* hooks
-  const { params } = useRoute<StoreCarRouteProp>();
+  const {params} = useRoute<StoreCarRouteProp>();
 
-  //* states
   const [currentLocation, setCurrentLocation] = useState<ILocation>();
   const [, setHasPermission] = useState(false);
 
   const ref = useRef<MapView | null>(null);
 
-  //* handlers
   const requestLocationPermission = async () => {
     try {
-      const { status } = await Location.requestForegroundPermissionsAsync();
+      const {status} = await Location.requestForegroundPermissionsAsync();
 
       if (status !== 'granted') {
         setHasPermission(false);
@@ -47,7 +46,6 @@ const TrackScreen: React.FC = () => {
     }
   };
 
-  //* lifecycle
   let intervalId: NodeJS.Timeout;
 
   useFocusEffect(
@@ -58,7 +56,7 @@ const TrackScreen: React.FC = () => {
         if (intervalId) clearInterval(intervalId);
 
         const intervalFunc = async () => {
-          const { coords } = await Location.getCurrentPositionAsync({});
+          const {coords} = await Location.getCurrentPositionAsync({});
 
           const location = {
             latitude: coords.latitude,
@@ -80,7 +78,6 @@ const TrackScreen: React.FC = () => {
     }, []),
   );
 
-  //* render
   return (
     <Container nestedScreen>
       <HeaderContainer>
@@ -91,8 +88,7 @@ const TrackScreen: React.FC = () => {
               if (currentLocation) {
                 ref.current?.animateToRegion(currentLocation, 1000);
               }
-            }}
-          >
+            }}>
             <MaterialIcons
               name="location-pin"
               size={22}
@@ -110,8 +106,7 @@ const TrackScreen: React.FC = () => {
           }}
           initialRegion={currentLocation}
           customMapStyle={mapStyle}
-          provider="google"
-        >
+          provider="google">
           {currentLocation &&
             currentLocation.latitude &&
             currentLocation.longitude && (

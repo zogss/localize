@@ -1,4 +1,4 @@
-import { IUser } from '@app/shared';
+import {IUser} from '@app/shared';
 
 export type RegisterRequest = {
   firstName: string;
@@ -6,6 +6,8 @@ export type RegisterRequest = {
   username: string;
   phone: string;
 };
+
+export type RegisterResponse = IUser;
 
 export type GetMeRequest = {
   id: string;

@@ -1,4 +1,4 @@
-export { default as AppNavigation } from './navigation';
+export {default as AppNavigation} from './navigation';
 export * from './types';
 
 export * from './appStack';

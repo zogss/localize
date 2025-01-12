@@ -1,22 +1,22 @@
 import React from 'react';
-import { Header } from '@app/components/rentals/Header';
-import { List } from '@app/components/rentals/List';
-import { RENT_STATUS } from '@app/shared/enum/RENT_STATUS';
-import { selectRent, useTypedSelector } from '@app/store';
-import { Container } from './stores.styles';
+
+import {RENT_STATUS} from '@app/shared/enum/RENT_STATUS';
+import {selectRent, useTypedSelector} from '@app/store';
+import {ListHeader} from '@app/components';
+import {RentalsList} from '@app/components/rentals/List';
+
+import {Container} from './stores.styles';
 
 const StoresScreen: React.FC = () => {
-  //* hooks
-  const { rents } = useTypedSelector(selectRent);
+  const {rents} = useTypedSelector(selectRent);
 
-  //* render
   return (
     <Container>
-      <Header showButton={false} />
-      <List
-        data={rents.filter(
-          (rent) => rent.car!.status === RENT_STATUS.AVAILABLE,
-        )}
+      <ListHeader title="Rentals Available" hideButton />
+      <RentalsList
+        data={rents
+          .filter(rent => rent.car.status === RENT_STATUS.AVAILABLE)
+          .map(rent => rent.car)}
       />
     </Container>
   );

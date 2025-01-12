@@ -1,13 +1,16 @@
-import { NavigationProp, StackAppNavigator } from '@app/navigation';
-import { ICar } from '@app/shared';
-import { theme } from '@app/themes';
-import { FontAwesome } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import {theme} from '@app/themes';
+import {FontAwesome} from '@expo/vector-icons';
+import {useNavigation} from '@react-navigation/native';
+
+import car3d from '@app/assets/car_3d_view.png';
+import {ICar} from '@app/shared';
+import {NavigationProp, StackAppNavigator} from '@app/navigation';
+
 import {
   Button,
   DateContainer,
-  DateText,
+  OtherFeaturesText,
   Image,
   LeftContainer,
   MiddleContainer,
@@ -18,39 +21,32 @@ import {
   TitleText,
 } from './styles';
 
-interface IListItemProps {
+interface IRentalsListItemProps {
   car: ICar;
 }
 
-export const ListItem: React.FC<IListItemProps> = ({ car }) => {
-  //* hooks
-  const { navigate } = useNavigation<StackAppNavigator>();
+export const RentalsListItem: React.FC<IRentalsListItemProps> = ({car}) => {
+  const {navigate} = useNavigation<StackAppNavigator>();
 
-  //* render
   return (
     <Button
       onPress={() =>
         navigate('StoreTab', {
           screen: 'StoreScreen',
-          params: { car },
+          params: {car},
         })
-      }
-    >
+      }>
       <SecondContainer>
         <LeftContainer>
-          <Image source={require('../../../../assets/car_3d_view.png')} />
+          <Image source={car3d} />
         </LeftContainer>
         <MiddleContainer>
           <TitleText>{car.title}</TitleText>
           <PriceText>{car.price}</PriceText>
           <DateContainer>
-            <DateText>
-              {new Date(car.withdrawalDate || '').toLocaleDateString()}
-            </DateText>
+            <OtherFeaturesText>{car.year}</OtherFeaturesText>
             <Separator />
-            <DateText>
-              {new Date(car.devolutionDate || '').toLocaleDateString()}
-            </DateText>
+            <OtherFeaturesText>{car.kmDrive} km</OtherFeaturesText>
           </DateContainer>
         </MiddleContainer>
       </SecondContainer>

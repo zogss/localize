@@ -1,13 +1,20 @@
-import { settings } from '@app/services';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { GetMeRequest, GetMeResponse, RegisterRequest } from './user.types';
+import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+
+import {settings} from '@app/services';
+
+import {
+  GetMeRequest,
+  GetMeResponse,
+  RegisterRequest,
+  RegisterResponse,
+} from './user.types';
 
 export default createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: settings.apiUrl }),
+  baseQuery: fetchBaseQuery({baseUrl: settings.apiUrl}),
   reducerPath: 'userApi',
-  endpoints: (build) => ({
-    register: build.query<void, RegisterRequest>({
-      query: (req) => ({
+  endpoints: build => ({
+    register: build.query<RegisterResponse, RegisterRequest>({
+      query: req => ({
         url: '/users',
         method: 'post',
         body: {
@@ -19,7 +26,7 @@ export default createApi({
       }),
     }),
     getMe: build.query<GetMeResponse, GetMeRequest>({
-      query: (req) => ({
+      query: req => ({
         url: '/users',
         method: 'get',
         params: {

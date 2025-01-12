@@ -1,54 +1,35 @@
-import { ICar } from '@app/shared';
-import { theme } from '@app/themes';
-import { MyRentalsScreen, ProfileScreen } from '@app/views';
-import { Entypo } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import {
-  NativeStackNavigationProp,
-  createNativeStackNavigator,
-} from '@react-navigation/native-stack';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import {theme} from '@app/themes';
+import {MyRentalsScreen, MyRentScreen, ProfileScreen} from '@app/views';
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
+} from '@react-navigation/native-stack';
+
+import {ICar} from '@app/shared';
+import {ScreenHeader} from '@app/components';
 
 export type ProfileStackProps = {
   ProfileScreen: undefined;
-  MyRentalsScreen: { car: ICar };
+  MyRentalsScreen: undefined;
+  MyRentScreen: {car: ICar};
 };
 
 export type ProfileStackNavigatonProps =
   NativeStackNavigationProp<ProfileStackProps>;
 
-const { Navigator, Screen } = createNativeStackNavigator<ProfileStackProps>();
+const {Navigator, Screen} = createNativeStackNavigator<ProfileStackProps>();
 
 const ProfileStack: React.FC = () => {
-  //* hooks
-  const { navigate } = useNavigation<ProfileStackNavigatonProps>();
-
-  //* render
   return (
     <Navigator
       screenOptions={{
-        headerLeft: ({ canGoBack }) =>
-          canGoBack && (
-            <TouchableOpacity
-              style={{ marginRight: 10 }}
-              onPress={() => navigate('ProfileScreen')}
-            >
-              <Entypo name="chevron-left" size={34} color="white" />
-            </TouchableOpacity>
-          ),
-        headerStyle: {
-          backgroundColor: theme.colors.dark,
-        },
-        headerTitleStyle: {
-          color: theme.colors.gray_100,
-        },
+        header: ScreenHeader,
         contentStyle: {
           backgroundColor: theme.colors.dark,
         },
       }}
-      initialRouteName="ProfileScreen"
-    >
+      initialRouteName="ProfileScreen">
       <Screen
         name="ProfileScreen"
         component={ProfileScreen}
@@ -60,7 +41,14 @@ const ProfileStack: React.FC = () => {
         name="MyRentalsScreen"
         component={MyRentalsScreen}
         options={{
-          headerTitle: 'My rental',
+          title: 'My Cars',
+        }}
+      />
+      <Screen
+        name="MyRentScreen"
+        component={MyRentScreen}
+        options={{
+          title: 'Rented Car details',
         }}
       />
     </Navigator>

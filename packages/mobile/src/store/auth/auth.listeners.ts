@@ -1,8 +1,10 @@
-import type { Unsubscribe } from '@reduxjs/toolkit';
+import {isAnyOf, PayloadAction, type Unsubscribe} from '@reduxjs/toolkit';
 
-import type { AppStartListening } from '..';
-import { clearData, getData, setData } from '../../services';
-import { onInitFulfilled, onReset } from './auth.slice';
+import {authApi, SignInResponse} from '@app/api';
+
+import type {AppStartListening} from '..';
+import {clearData, getData, setData} from '../../services';
+import {onInitFulfilled, onReset} from './auth.slice';
 
 const setupAuthListeners = (startListening: AppStartListening): Unsubscribe => {
   const listeners = [
@@ -12,7 +14,7 @@ const setupAuthListeners = (startListening: AppStartListening): Unsubscribe => {
         const accessToken = (await getData('access_token')) || undefined;
         const phoneNumber = (await getData('phone_number')) || undefined;
 
-        listenerApi.dispatch(onInitFulfilled({ accessToken, phoneNumber }));
+        listenerApi.dispatch(onInitFulfilled({accessToken, phoneNumber}));
       },
     }),
     startListening({
@@ -24,27 +26,27 @@ const setupAuthListeners = (startListening: AppStartListening): Unsubscribe => {
       },
     }),
     startListening({
-      predicate: ({ payload }) => !!payload?.token,
-      effect: async ({ payload: { token } }, listenerApi) => {
+      matcher: isAnyOf(authApi.endpoints.login.matchFulfilled),
+      effect: async ({payload}: PayloadAction<SignInResponse>, listenerApi) => {
         const {
-          auth: { phoneNumber },
+          auth: {phoneNumber},
         } = listenerApi.getState();
 
-        await setData('access_token', token);
+        await setData('access_token', payload.token);
         await setData('phone_number', phoneNumber || '');
 
-        listenerApi.dispatch({ type: 'init' });
+        listenerApi.dispatch({type: 'init'});
       },
     }),
-    startListening({
-      predicate: ({ payload }) => !!payload?.user,
-      effect: async ({ payload: { user } }) => {
-        await setData('user_id', user.id);
-      },
-    }),
+    // startListening({
+    //   predicate: ({ payload }) => !!payload?.user,
+    //   effect: async ({ payload: { user } }) => {
+    //     await setData('user_id', user.id);
+    //   },
+    // }),
   ];
 
-  return () => listeners.forEach((unsubscribe) => unsubscribe());
+  return () => listeners.forEach(unsubscribe => unsubscribe());
 };
 
 export default setupAuthListeners;

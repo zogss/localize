@@ -1,4 +1,4 @@
-import { theme } from '@app/themes';
+import {theme} from '@app/themes';
 import styled from 'styled-components/native';
 
 export const Button = styled.TouchableOpacity`
@@ -6,7 +6,6 @@ export const Button = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
   width: 100%;
 `;
 
@@ -57,8 +56,6 @@ export const Image = styled.Image`
   width: 80px;
   height: 80px;
   border-radius: 8px;
-  /* object-fit: cover;
-  object-position: center; */
 `;
 
 export const TitleText = styled.Text`

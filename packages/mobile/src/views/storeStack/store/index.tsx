@@ -1,130 +1,125 @@
-import { StackAppNavigator, StoreCarRouteProp } from '@app/navigation';
-import { updateRent, useAppDispatch } from '@app/store';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useCallback } from 'react';
-import { Container } from '../stores/stores.styles';
+import React, {useCallback, useMemo} from 'react';
+import {SectionSeparator} from '@app/views/profileStack/profile/profile.styles';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {DateTime} from 'luxon';
+
+import car3d from '@app/assets/car_3d_view.png';
+import {RENT_STATUS} from '@app/shared';
+import {updateRent, useAppDispatch} from '@app/store';
+import {SecondContainer} from '@app/components/rentals/ListItem/styles';
+import {StackAppNavigator, StoreCarRouteProp} from '@app/navigation';
+
 import {
+  CarImage,
+  CarNameTitle,
+  Container,
+  DateContainer,
+  DateInfoContainer,
+  DateInfoText,
+  DateText,
   FirstContainer,
+  FourthContainer,
+  RentalDeliveryContainer,
+  RentalDeliveryDatesContainer,
+  RentalDeliveryTitleText,
+  RentalDescriptionContainer,
+  RentalDescriptionText,
+  RentalDescriptionTitleText,
+  RentalHeaderAdditionalInfoContainer,
+  RentalHeaderAdditionalInfoText,
+  RentalHeaderContainer,
+  RentalHeaderSeparator,
+  RentalHeaderSubtitleContainer,
+  RentalHeaderSubtitleText,
   RentCarButton,
   RentCarContainer,
   RentCarText,
   ScrollContainer,
 } from './store.styles';
-import { RENT_STATUS } from '@app/shared';
-import { SecondContainer } from '@app/components/rentals/ListItem/styles';
-import {
-  RentalContainer,
-  PageSubtitleText,
-  CarImage,
-  RentalHeaderContainer,
-  RentalHeaderTitleText,
-  RentalHeaderSubtitleContainer,
-  RentalHeaderSubtitleText,
-  RentalHeaderAdditionalInfoContainer,
-  RentalHeaderAdditionalInfoText,
-  RentalHeaderSeparator,
-  RentalDescriptionContainer,
-  RentalDescriptionTitleText,
-  RentalDescriptionText,
-  RentalDeliveryContainer,
-  RentalDeliveryTitleText,
-  DateContainer,
-  DateInfoContainer,
-  DateInfoText,
-  DateText,
-  FourthContainer,
-} from '@app/views/profileStack/myRentals/myRentals.styles';
-import { SectionSeparator } from '@app/views/profileStack/profile/profile.styles';
 
 const StoreScreen: React.FC = () => {
-  //* hooks
-  const { params } = useRoute<StoreCarRouteProp>();
-  const { navigate } = useNavigation<StackAppNavigator>();
+  const {params} = useRoute<StoreCarRouteProp>();
+  const {navigate} = useNavigation<StackAppNavigator>();
 
-  //* redux hooks
   const dispatch = useAppDispatch();
 
-  //* handlers
   const handleRentCar = useCallback(() => {
     if (params.car.status === RENT_STATUS.AVAILABLE) {
-      dispatch(
-        updateRent({ car: { ...params.car, status: RENT_STATUS.RENTED } }),
-      );
+      dispatch(updateRent({car: {...params.car, status: RENT_STATUS.RENTED}}));
 
-      navigate('ProfileTab', {
-        screen: 'MyRentalsScreen',
-        params: { car: params.car },
-      });
+      setTimeout(() => {
+        navigate('ProfileTab', {
+          screen: 'MyRentScreen',
+          params: {car: params.car},
+        });
+      }, 500);
     }
   }, [params]);
 
-  //*render
+  const car = useMemo(() => params.car, [params]);
+
   return (
     <ScrollContainer>
       <Container>
         <FirstContainer>
-          <RentalContainer>
-            <PageSubtitleText>{params.car.title}</PageSubtitleText>
-            <CarImage source={require('../../../../assets/car_3d_view.png')} />
-            <RentalHeaderContainer>
-              <RentalHeaderTitleText>{params.car.title}</RentalHeaderTitleText>
-              <RentalHeaderSubtitleContainer>
-                <RentalHeaderSubtitleText>
-                  {params.car.price}
-                </RentalHeaderSubtitleText>
-              </RentalHeaderSubtitleContainer>
-              <RentalHeaderAdditionalInfoContainer>
-                <RentalHeaderAdditionalInfoText>
-                  {params.car.year}
-                </RentalHeaderAdditionalInfoText>
-                <RentalHeaderSeparator />
-                <RentalHeaderAdditionalInfoText>
-                  {params.car.kmDrive}
-                </RentalHeaderAdditionalInfoText>
-              </RentalHeaderAdditionalInfoContainer>
-            </RentalHeaderContainer>
-          </RentalContainer>
+          <CarNameTitle>{car.title}</CarNameTitle>
+          <CarImage source={car3d} />
+          <RentalHeaderContainer>
+            <RentalHeaderSubtitleContainer>
+              <RentalHeaderSubtitleText>{car.price}</RentalHeaderSubtitleText>
+            </RentalHeaderSubtitleContainer>
+            <RentalHeaderAdditionalInfoContainer>
+              <RentalHeaderAdditionalInfoText>
+                {car.year}
+              </RentalHeaderAdditionalInfoText>
+              <RentalHeaderSeparator />
+              <RentalHeaderAdditionalInfoText>
+                {car.kmDrive}
+              </RentalHeaderAdditionalInfoText>
+            </RentalHeaderAdditionalInfoContainer>
+          </RentalHeaderContainer>
         </FirstContainer>
         <SectionSeparator />
         <SecondContainer>
           <RentalDescriptionContainer>
             <RentalDescriptionTitleText>Description</RentalDescriptionTitleText>
-            <RentalDescriptionText>
-              {params.car.description}
-            </RentalDescriptionText>
+            <RentalDescriptionText>{car.description}</RentalDescriptionText>
           </RentalDescriptionContainer>
         </SecondContainer>
         <SectionSeparator />
         <RentalDeliveryContainer>
           <RentalDeliveryTitleText>Delivery summary</RentalDeliveryTitleText>
-          <DateContainer>
-            <DateInfoContainer>
-              <DateInfoText>Withdrawal date</DateInfoText>
-            </DateInfoContainer>
-            <DateText>
-              {new Date(params.car.withdrawalDate || '').toLocaleDateString()}
-            </DateText>
-          </DateContainer>
-          <DateContainer>
-            <DateInfoContainer>
-              <DateInfoText>Return date</DateInfoText>
-            </DateInfoContainer>
-            <DateText>
-              {new Date(params.car.devolutionDate || '').toLocaleDateString()}
-            </DateText>
-          </DateContainer>
+          <RentalDeliveryDatesContainer>
+            <DateContainer>
+              <DateInfoContainer>
+                <DateInfoText>Withdrawal</DateInfoText>
+              </DateInfoContainer>
+              <DateText>
+                {DateTime.fromJSDate(
+                  new Date(car.withdrawalDate || ''),
+                ).toFormat("LLLL dd',' yyyy")}
+              </DateText>
+            </DateContainer>
+            <DateContainer>
+              <DateInfoContainer>
+                <DateInfoText>Devolution</DateInfoText>
+              </DateInfoContainer>
+              <DateText>
+                {DateTime.fromJSDate(
+                  new Date(car.devolutionDate || ''),
+                ).toFormat("LLLL dd',' yyyy")}
+              </DateText>
+            </DateContainer>
+          </RentalDeliveryDatesContainer>
         </RentalDeliveryContainer>
         <SectionSeparator />
         <FourthContainer>
           <RentCarContainer>
             <RentCarButton
-              disabled={params.car.status === RENT_STATUS.RENTED}
-              onPress={() => handleRentCar()}
-            >
+              disabled={car.status === RENT_STATUS.RENTED}
+              onPress={() => handleRentCar()}>
               <RentCarText>
-                {params.car.status === RENT_STATUS.AVAILABLE
-                  ? 'Rent now'
-                  : 'Rented'}
+                {car.status === RENT_STATUS.AVAILABLE ? 'Rent now' : 'Rented'}
               </RentCarText>
             </RentCarButton>
           </RentCarContainer>

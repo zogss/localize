@@ -1,9 +1,11 @@
-import { TrackingStackNavigationProps } from '@app/navigation/appStack/trackingStack';
-import { ICar } from '@app/shared';
-import { theme } from '@app/themes';
-import { MaterialIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import {theme} from '@app/themes';
+import {MaterialIcons} from '@expo/vector-icons';
+import {useNavigation} from '@react-navigation/native';
+
+import {ICar} from '@app/shared';
+import {TrackingStackNavigationProps} from '@app/navigation/appStack/trackingStack';
+
 import {
   Button,
   DateContainer,
@@ -17,21 +19,20 @@ import {
   Separator,
   TitleText,
 } from './styles';
+import car3d from '@app/assets/car_3d_view.png';
 
-interface IListItemProps {
+interface ITrackingListItemProps {
   car: ICar;
 }
 
-export const ListItem: React.FC<IListItemProps> = ({ car }) => {
-  //* hooks
-  const { push } = useNavigation<TrackingStackNavigationProps>();
+export const TrackingListItem: React.FC<ITrackingListItemProps> = ({car}) => {
+  const {push} = useNavigation<TrackingStackNavigationProps>();
 
-  //* render
   return (
-    <Button onPress={() => push('TrackScreen', { car })}>
+    <Button onPress={() => push('TrackScreen', {car})}>
       <SecondContainer>
         <LeftContainer>
-          <Image source={require('../../../../assets/car_3d_view.png')} />
+          <Image source={car3d} />
         </LeftContainer>
         <MiddleContainer>
           <TitleText>{car.title}</TitleText>

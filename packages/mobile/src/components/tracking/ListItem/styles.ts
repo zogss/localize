@@ -1,4 +1,4 @@
-import { theme } from '@app/themes';
+import {theme} from '@app/themes';
 import styled from 'styled-components/native';
 
 export const Button = styled.TouchableOpacity`
@@ -6,7 +6,6 @@ export const Button = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
   width: 100%;
 `;
 

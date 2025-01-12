@@ -1,9 +1,12 @@
-import { StackAppNavigator } from '@app/navigation';
-import { ICar } from '@app/shared';
-import { theme } from '@app/themes';
-import { FontAwesome } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import {theme} from '@app/themes';
+import {FontAwesome} from '@expo/vector-icons';
+import {useNavigation} from '@react-navigation/native';
+
+import car3d from '@app/assets/car_3d_view.png';
+import {ICar} from '@app/shared';
+import {StackAppNavigator} from '@app/navigation';
+
 import {
   Button,
   DateContainer,
@@ -18,27 +21,24 @@ import {
   TitleText,
 } from './styles';
 
-interface IListItemProps {
+interface IMyRentalsListItemProps {
   car: ICar;
 }
 
-export const ListItem: React.FC<IListItemProps> = ({ car }) => {
-  //* hooks
-  const { navigate } = useNavigation<StackAppNavigator>();
+export const MyRentalsListItem: React.FC<IMyRentalsListItemProps> = ({car}) => {
+  const {navigate} = useNavigation<StackAppNavigator>();
 
-  //* render
   return (
     <Button
       onPress={() =>
         navigate('ProfileTab', {
-          screen: 'MyRentalsScreen',
-          params: { car },
+          screen: 'MyRentScreen',
+          params: {car},
         })
-      }
-    >
+      }>
       <SecondContainer>
         <LeftContainer>
-          <Image source={require('../../../../assets/car_3d_view.png')} />
+          <Image source={car3d} />
         </LeftContainer>
         <MiddleContainer>
           <TitleText>{car.title}</TitleText>

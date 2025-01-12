@@ -1,28 +1,21 @@
 import React from 'react';
-import { ICar } from '../../../shared/types/car';
-import { ListItem } from '../ListItem';
-import { Container, FlatList } from './styles';
 
-interface IListProps {
-  data: {
-    car?: ICar;
-  }[];
+import {ICar} from '@app/shared/types/car';
+
+import {RentalsListItem} from '../ListItem';
+import {Container, StyledFlatList} from './styles';
+
+interface IRentalsListProps {
+  data: ICar[];
 }
 
-interface IListItemProps {
-  car: ICar;
-}
-
-export const List: React.FC<IListProps> = ({ data }) => {
-  //* render
+export const RentalsList: React.FC<IRentalsListProps> = ({data}) => {
   return (
     <Container>
-      <FlatList
+      <StyledFlatList
         data={data}
-        keyExtractor={(item: IListItemProps) => item.car.id}
-        renderItem={({ item }: { item: IListItemProps }) => (
-          <ListItem key={item.car.id} car={item.car} />
-        )}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => <RentalsListItem key={item.id} car={item} />}
       />
     </Container>
   );

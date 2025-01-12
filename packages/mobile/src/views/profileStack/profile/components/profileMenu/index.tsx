@@ -1,8 +1,10 @@
-import { theme } from '@app/themes';
 import React from 'react';
-import { menuOptions } from '../../profile.service';
+import {theme} from '@app/themes';
+
+import {menuOptions} from '../../profile.hooks';
 import {
   MenuContainer,
+  MenuIconContainer,
   MenuItem,
   MenuItemSubtitle,
   MenuItemTextContainer,
@@ -11,19 +13,22 @@ import {
 
 interface ProfileMenuProps {
   menuOptions: typeof menuOptions;
-  navigate: () => void;
+  navigate: (route: string) => void;
 }
 
-const ProfileMenu: React.FC<ProfileMenuProps> = ({ menuOptions, navigate }) => (
+const ProfileMenu: React.FC<ProfileMenuProps> = ({menuOptions, navigate}) => (
   <MenuContainer>
-    {menuOptions.map(({ Icon, iconTag, title, subtitle, route }) => (
+    {menuOptions.map(({Icon, iconTag, title, subtitle, route}) => (
       <MenuItem
         key={title}
         onPress={() => {
-          console.log('pressed');
-        }}
-      >
-        <Icon name={iconTag as any} size={28} color={theme.colors.cyan_300} />
+          if (route) {
+            navigate(route);
+          }
+        }}>
+        <MenuIconContainer>
+          <Icon name={iconTag} size={28} color={theme.colors.cyan_300} />
+        </MenuIconContainer>
         <MenuItemTextContainer>
           <MenuItemTittle>{title}</MenuItemTittle>
           <MenuItemSubtitle>{subtitle}</MenuItemSubtitle>
