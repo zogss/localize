@@ -94,7 +94,12 @@ const MyRentScreen: React.FC = () => {
           <LocationRedirectionContainer>
             <LocationRedirectionText>See location</LocationRedirectionText>
             <LocationRedirectionButton
-              onPress={() => navigate('TrackScreen', {car})}>
+              onPress={() =>
+                navigate('TrackingTab', {
+                  screen: 'TrackScreen',
+                  params: {car},
+                })
+              }>
               <MaterialIcons
                 name="location-pin"
                 size={34}
