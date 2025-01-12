@@ -1,14 +1,12 @@
-import { Platform } from 'react-native';
-
 const text = {
   'font-size': '14px',
   'font-weight': '400',
   'line-height': '18px',
   'letter-spacing': 0,
-  'font-family': Platform.OS === 'ios' ? 'System' : 'System',
+  'font-family': 'System',
 };
 
-export default {
+const theme = {
   colors: {
     black: '#000',
     dark: '#1E1E1E',
@@ -68,4 +66,6 @@ export default {
       'font-weight': '800',
     },
   },
-} as const;
+};
+
+export default theme;
