@@ -1,20 +1,32 @@
 import React from 'react';
 
 import {RENT_STATUS} from '@app/shared';
-import {selectRent, useTypedSelector} from '@app/store';
-import {ListHeader} from '@app/components';
+import {ListHeader, LoadingSpinner} from '@app/components';
 import {MyRentalsListItem} from '@app/components/myRentals/ListItem';
 import {RentalsListItem} from '@app/components/rentals/ListItem';
 
+import useHome from './home.hooks';
 import {ListBlockContainer, ListContainer, ScrollContainer} from './styles';
 
 const HomeScreen: React.FC = () => {
-  const {rents} = useTypedSelector(selectRent);
+  const {isReady, userIsReady, isLoading, rents} = useHome();
+
+  if (!isReady && !userIsReady && isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <ScrollContainer>
       <ListBlockContainer>
-        <ListHeader title="Your rentals" navigateTo="MyRentalsScreen" />
+        <ListHeader
+          title="Your rentals"
+          navigateTo={[
+            'ProfileTab',
+            {
+              screen: 'MyRentalsScreen',
+            },
+          ]}
+        />
         <ListContainer>
           {rents
             .filter(rent => rent.car.status === RENT_STATUS.RENTED)
@@ -24,7 +36,7 @@ const HomeScreen: React.FC = () => {
         </ListContainer>
       </ListBlockContainer>
       <ListBlockContainer>
-        <ListHeader title="Rentals Available" navigateTo="StoreTab" />
+        <ListHeader title="Rentals Available" navigateTo={['StoreTab']} />
         <ListContainer>
           {rents
             .filter(rent => rent.car.status === RENT_STATUS.AVAILABLE)

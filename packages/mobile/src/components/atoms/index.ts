@@ -1,5 +1,6 @@
 export {default as AppBlurredOverlay} from './blurredOverlay';
 export {default as AppLoading} from './loading';
+export {default as LoadingSpinner} from './loadingSpinner';
 export {default as AppScreen} from './screen';
 export {default as AppSplashScreen} from './splashScreen';
 

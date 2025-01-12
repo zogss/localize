@@ -9,15 +9,17 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-import AppScreen from '../screen';
-import {styles} from './loading.styles';
+import {Container, styles} from './loadingSpinner.styles';
 
-interface AppLoadingProps {
+interface LoadingSpinnerProps {
   style?: StyleProp<ViewStyle>;
   hideContainer?: boolean;
 }
 
-const AppLoading: React.FC<AppLoadingProps> = ({style, hideContainer}) => {
+const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
+  style,
+  hideContainer,
+}) => {
   const rotation = useSharedValue(0);
   const animatedStyles = useAnimatedStyle(() => {
     return {
@@ -39,16 +41,15 @@ const AppLoading: React.FC<AppLoadingProps> = ({style, hideContainer}) => {
     );
     return () => cancelAnimation(rotation);
   }, []);
-
   if (hideContainer) {
     return <Animated.View style={[[styles.spinner, style], animatedStyles]} />;
   }
 
   return (
-    <AppScreen>
+    <Container>
       <Animated.View style={[[styles.spinner, style], animatedStyles]} />
-    </AppScreen>
+    </Container>
   );
 };
 
-export default AppLoading;
+export default LoadingSpinner;

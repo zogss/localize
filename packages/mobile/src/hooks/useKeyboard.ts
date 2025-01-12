@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import type {KeyboardEvent} from 'react-native';
 import {Keyboard} from 'react-native';
 
-export default () => {
+const useKeyboard = () => {
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [keyboardOpened, setKeyboardOpened] = useState(false);
 
@@ -37,3 +37,5 @@ export default () => {
     keyboardOpened,
   };
 };
+
+export default useKeyboard;

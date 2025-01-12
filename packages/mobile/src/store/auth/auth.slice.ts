@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {IUser} from '@app/shared/types';
-import {authApi} from '@app/api';
+import {authApi, userApi} from '@app/api';
 
 import {RootState} from '..';
 import {AuthState, InitFulfilledProps} from './auth.types';
@@ -38,6 +38,13 @@ export const authSlice = createSlice({
       (state, {payload}) => ({
         ...state,
         user: payload?.user,
+      }),
+    );
+    builder.addMatcher(
+      userApi.endpoints.getMe.matchFulfilled,
+      (state, {payload}) => ({
+        ...state,
+        user: payload,
       }),
     );
   },

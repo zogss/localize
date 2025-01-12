@@ -7,7 +7,7 @@ import {Button, ButtonText, Container, TitleText} from './styles';
 interface IListHeaderProps {
   title: string;
   hideButton?: boolean;
-  navigateTo?: string;
+  navigateTo?: [screen: string] | [screen: string, params: any];
 }
 const ListHeader: React.FC<IListHeaderProps> = ({
   title,
@@ -22,7 +22,9 @@ const ListHeader: React.FC<IListHeaderProps> = ({
       {hideButton ? null : (
         <Button
           onPress={
-            hideButton || !navigateTo ? undefined : () => navigate(navigateTo)
+            hideButton || !navigateTo
+              ? undefined
+              : () => navigate(...navigateTo)
           }>
           <ButtonText>See all</ButtonText>
         </Button>
