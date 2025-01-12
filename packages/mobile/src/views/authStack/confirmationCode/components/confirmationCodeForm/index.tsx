@@ -1,8 +1,10 @@
-import { AppInputConfirmationCode, AppLoading } from '@app/components';
-import { CodeFormData } from '@app/schemas';
-import { phoneFormat } from '@app/services';
 import React from 'react';
-import { Controller, UseFormReturn } from 'react-hook-form';
+import {Controller, UseFormReturn} from 'react-hook-form';
+
+import {phoneFormat} from '@app/services';
+import {CodeFormData} from '@app/schemas';
+import {AppInputConfirmationCode, AppLoading} from '@app/components';
+
 import styles, * as Styled from './confirmationCodeForm.styles';
 
 interface ConfirmationCodeFormProps extends UseFormReturn<CodeFormData> {
@@ -29,7 +31,7 @@ const ConfirmationCodeForm: React.FC<ConfirmationCodeFormProps> = ({
       <Controller
         name="code"
         control={control}
-        render={({ field: { onChange, value }, fieldState: { error } }) => (
+        render={({field: {onChange, value}, fieldState: {error}}) => (
           <AppInputConfirmationCode
             name="passcode"
             value={value}

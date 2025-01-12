@@ -1,14 +1,14 @@
-import React, { Ref, forwardRef, useRef } from 'react';
-import type { TextInput, TextInputProps } from 'react-native';
-import { Text, View } from 'react-native';
+import React, {forwardRef, Ref, useRef} from 'react';
+import type {TextInput, TextInputProps} from 'react-native';
+import {Text, View} from 'react-native';
 import {
   CodeField,
   Cursor,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
 
-import { AppTextInputError } from '../../text';
-import styles, { SingleInputContainer } from './inputConfirmationCode.styles';
+import {AppTextInputError} from '../../text';
+import styles, {SingleInputContainer} from './inputConfirmationCode.styles';
 
 interface AppInputConfirmationCodeProps extends TextInputProps {
   name: string;
@@ -21,17 +21,14 @@ interface AppInputConfirmationCodeProps extends TextInputProps {
 const AppInputConfirmationCode = forwardRef<
   TextInput,
   AppInputConfirmationCodeProps
->(({ name, codeLength = 6, value, error, setValue }, ref) => {
-  //* hooks
+>(({name, codeLength = 6, value, error, setValue}, ref) => {
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
 
-  //* refs
   const inputRef = useRef();
 
-  //* render
   return (
     <>
       <CodeField
@@ -45,14 +42,13 @@ const AppInputConfirmationCode = forwardRef<
         rootStyle={styles.root}
         keyboardType="number-pad"
         textContentType="oneTimeCode"
-        renderCell={({ index, symbol, isFocused }) => {
+        renderCell={({index, symbol, isFocused}) => {
           const isHighlighted = index < value.length || isFocused;
 
           return (
             <SingleInputContainer
               key={index}
-              onLayout={getCellOnLayoutHandler(index)}
-            >
+              onLayout={getCellOnLayoutHandler(index)}>
               <View
                 style={[
                   styles.shadow,
@@ -66,8 +62,7 @@ const AppInputConfirmationCode = forwardRef<
                   styles.cell,
                   isHighlighted && styles.focusedCell,
                   !!error && styles.invalidCell,
-                ]}
-              >
+                ]}>
                 {symbol || (isFocused ? <Cursor /> : null)}
               </Text>
             </SingleInputContainer>

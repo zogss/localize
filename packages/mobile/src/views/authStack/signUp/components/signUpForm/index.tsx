@@ -1,8 +1,10 @@
-import { AppLoading } from '@app/components';
+import React, {Dispatch, SetStateAction} from 'react';
+import {Controller, UseFormReturn} from 'react-hook-form';
+
+import {SignUpFormData} from '@app/schemas';
+import {AppLoading} from '@app/components';
 import AppTextInput from '@app/components/atoms/input/text';
-import { SignUpFormData } from '@app/schemas';
-import React, { Dispatch, SetStateAction } from 'react';
-import { Controller, UseFormReturn } from 'react-hook-form';
+
 import styles, {
   FormContainer,
   InputContainer,
@@ -34,7 +36,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
         <Controller
           control={control}
           name="firstName"
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
+          render={({field: {onChange, value}, fieldState: {error}}) => (
             <AppTextInput
               value={value}
               onChangeText={onChange}
@@ -50,7 +52,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
         <Controller
           control={control}
           name="lastName"
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
+          render={({field: {onChange, value}, fieldState: {error}}) => (
             <AppTextInput
               value={value}
               onChangeText={onChange}
@@ -66,7 +68,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
         <Controller
           control={control}
           name="username"
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
+          render={({field: {onChange, value}, fieldState: {error}}) => (
             <AppTextInput
               value={value}
               onChangeText={onChange}

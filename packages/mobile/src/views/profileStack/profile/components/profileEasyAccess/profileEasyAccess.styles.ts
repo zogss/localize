@@ -1,4 +1,4 @@
-import { theme } from '@app/themes';
+import {theme} from '@app/themes';
 import styled from 'styled-components/native';
 
 export const ActionsContainer = styled.View`
@@ -7,7 +7,6 @@ export const ActionsContainer = styled.View`
   gap: 12px;
   flex-direction: row;
   justify-content: space-between;
-  padding-top: 16px;
 `;
 
 export const ActionButton = styled.TouchableOpacity`

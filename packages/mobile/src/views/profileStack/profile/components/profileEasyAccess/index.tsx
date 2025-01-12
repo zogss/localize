@@ -1,7 +1,8 @@
-import { Entypo, FontAwesome, Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { SectionContainer } from '../../profile.styles';
-import { ActionButton, ActionsContainer } from './profileEasyAccess.styles';
+import {Entypo, FontAwesome, Ionicons} from '@expo/vector-icons';
+
+import {SectionContainer} from '../../profile.styles';
+import {ActionButton, ActionsContainer} from './profileEasyAccess.styles';
 
 const ProfileEasyAccess: React.FC = () => (
   <SectionContainer>
@@ -11,7 +12,7 @@ const ProfileEasyAccess: React.FC = () => (
           name="life-buoy"
           size={30}
           color="black"
-          style={{ transform: [{ rotate: '-45deg' }] }}
+          style={{transform: [{rotate: '-45deg'}]}}
         />
       </ActionButton>
       <ActionButton>

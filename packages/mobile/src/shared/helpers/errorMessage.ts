@@ -1,5 +1,4 @@
 export const errorMessage = (error?: any): string | void => {
-  console.log('errorMessage ~ error:', error);
   if (error?.data?.errors?.length) {
     return error.data?.errors[0].message.replace(/.*?:\s?/, '');
   } else if (

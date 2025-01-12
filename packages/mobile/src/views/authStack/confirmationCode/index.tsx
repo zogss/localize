@@ -1,10 +1,11 @@
-import { AppScreen } from '@app/components';
 import React from 'react';
-import { ConfirmationCodeForm, ConfirmationCodeHeader } from './components';
+
+import {AppScreen} from '@app/components';
+
+import {ConfirmationCodeForm, ConfirmationCodeHeader} from './components';
 import useConfirmationCode from './confirmationCode.hooks';
 
 const ConfirmationCodeScreen: React.FC = () => {
-  //* hooks
   const {
     methods,
     onSubmit,
@@ -14,7 +15,6 @@ const ConfirmationCodeScreen: React.FC = () => {
     setIsFormFocused,
   } = useConfirmationCode();
 
-  //* render
   return (
     <AppScreen withEdges={['top']}>
       <ConfirmationCodeHeader isFormFocused={isFormFocused} />

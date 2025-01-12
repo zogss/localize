@@ -1,5 +1,5 @@
-import type { BlurViewProps } from '@react-native-community/blur';
-import { BlurView } from '@react-native-community/blur';
+import type {BlurViewProps} from '@react-native-community/blur';
+import {BlurView} from '@react-native-community/blur';
 import styled from 'styled-components/native';
 
 export const StyledBlurView = styled(BlurView)<BlurViewProps>`

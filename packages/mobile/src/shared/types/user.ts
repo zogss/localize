@@ -1,4 +1,4 @@
-import { ITimestamp } from './timestamp';
+import {ITimestamp} from './timestamp';
 
 export interface IUser extends ITimestamp {
   id: string;

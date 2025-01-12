@@ -1,11 +1,12 @@
-import { AppScreen } from '@app/components';
 import React from 'react';
-import { SignInForm, SignInHeader } from './components';
+
+import {settings} from '@app/services';
+import {AppScreen} from '@app/components';
+
+import {SignInForm, SignInHeader} from './components';
 import useSignIn from './signIn.hooks';
-import { settings } from '@app/services';
 
 const SignInScreen: React.FC = () => {
-  //* hooks
   const {
     methods,
     onSubmit,
@@ -14,7 +15,6 @@ const SignInScreen: React.FC = () => {
     setIsPhoneNumberFocused,
   } = useSignIn();
 
-  //* render
   return (
     <AppScreen withEdges={['top']}>
       <SignInHeader isFormFocused={isPhoneNumberFocused} />

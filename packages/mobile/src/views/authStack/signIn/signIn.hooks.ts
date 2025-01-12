@@ -1,49 +1,45 @@
-import { authApi } from '@app/api';
-import { useKeyboard } from '@app/hooks';
-import { AuthStackNavigationProps } from '@app/navigation';
-import { PhoneFormData, PhoneSchema } from '@app/schemas';
-import { errorMessage } from '@app/shared';
-import { selectAuth, useTypedSelector } from '@app/store';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Keyboard } from 'react-native';
+import {useCallback, useEffect, useState} from 'react';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
+import {useForm} from 'react-hook-form';
+import {Keyboard} from 'react-native';
 import Toast from 'react-native-toast-message';
 
+import {errorMessage} from '@app/shared';
+import {PhoneFormData, PhoneSchema} from '@app/schemas';
+import {authApi} from '@app/api';
+import {selectAuth, useTypedSelector} from '@app/store';
+import {useKeyboard} from '@app/hooks';
+import {AuthStackNavigationProps} from '@app/navigation';
+
 const useSignIn = () => {
-  //* hooks
-  const { navigate } = useNavigation<AuthStackNavigationProps>();
+  const {navigate} = useNavigation<AuthStackNavigationProps>();
   const isFocused = useIsFocused();
-  const { keyboardOpened } = useKeyboard();
+  const {keyboardOpened} = useKeyboard();
   const methods = useForm<PhoneFormData>({
     resolver: zodResolver(PhoneSchema),
-    defaultValues: { phoneNumber: '(82) 99920-4667' },
+    defaultValues: {phoneNumber: '(82) 99920-4667'},
   });
-  const { handleSubmit, setError, reset } = methods;
+  const {handleSubmit, setError, reset} = methods;
 
-  //* redux hooks
-  const { phoneNumber: statePhoneNumber } = useTypedSelector(selectAuth);
-  const { useLazySendWppCodeQuery } = authApi;
-  const [sendWppCode, { isLoading, isSuccess, error }] =
+  const {phoneNumber: statePhoneNumber} = useTypedSelector(selectAuth);
+  const {useLazySendWppCodeQuery} = authApi;
+  const [sendWppCode, {isLoading, isSuccess, error}] =
     useLazySendWppCodeQuery();
 
-  //* states
   const [isPhoneNumberFocused, setIsPhoneNumberFocused] = useState(false);
 
-  //* handlers
   const onSubmit = handleSubmit(
     useCallback(
-      async (data) => {
+      async data => {
         const phone = data.phoneNumber;
 
-        sendWppCode({ phone });
+        sendWppCode({phone});
       },
       [sendWppCode],
     ),
   );
 
-  //* effects
   useEffect(() => {
     if (isFocused && keyboardOpened && !isPhoneNumberFocused) {
       Keyboard.dismiss();
@@ -85,7 +81,6 @@ const useSignIn = () => {
     }
   }, [navigate, statePhoneNumber]);
 
-  //* return
   return {
     methods,
     onSubmit,

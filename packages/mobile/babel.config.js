@@ -10,7 +10,7 @@ module.exports = function (api) {
       '@babel/plugin-transform-arrow-functions',
       '@babel/plugin-transform-optional-chaining',
       '@babel/plugin-transform-nullish-coalescing-operator',
-      ['@babel/plugin-transform-template-literals', { loose: true }],
+      ['@babel/plugin-transform-template-literals', {loose: true}],
       'react-native-reanimated/plugin',
       [
         'module-resolver',

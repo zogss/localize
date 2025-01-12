@@ -1,7 +1,9 @@
-import { AppInputMask, AppLoading } from '@app/components';
-import { PhoneFormData } from '@app/schemas';
-import React, { Dispatch, SetStateAction } from 'react';
-import { Controller, UseFormReturn } from 'react-hook-form';
+import React, {Dispatch, SetStateAction} from 'react';
+import {Controller, UseFormReturn} from 'react-hook-form';
+
+import {PhoneFormData} from '@app/schemas';
+import {AppInputMask, AppLoading} from '@app/components';
+
 import styles, * as Styled from './signInForm.styles';
 
 interface SignInFormProps extends UseFormReturn<PhoneFormData> {
@@ -27,8 +29,8 @@ const SignInForm: React.FC<SignInFormProps> = ({
         name="phoneNumber"
         control={control}
         render={({
-          field: { ref, name, onChange, onBlur, value },
-          fieldState: { error },
+          field: {ref, name, onChange, onBlur, value},
+          fieldState: {error},
         }) => (
           <AppInputMask
             ref={ref}

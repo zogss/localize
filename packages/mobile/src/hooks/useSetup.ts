@@ -1,5 +1,6 @@
-import { SetupContext } from '@app/contexts';
-import { useContext } from 'react';
+import {useContext} from 'react';
+
+import {SetupContext} from '@app/contexts';
 
 const useSetup = () => useContext(SetupContext);
 

@@ -1,6 +1,7 @@
-import { theme } from '@app/themes';
-import { FontAwesome } from '@expo/vector-icons';
 import React from 'react';
+import {theme} from '@app/themes';
+import {FontAwesome} from '@expo/vector-icons';
+
 import {
   HeaderAppText,
   HeaderContainer,
@@ -12,7 +13,7 @@ interface SignInHeaderProps {
   isFormFocused: boolean;
 }
 
-const SignInHeader: React.FC<SignInHeaderProps> = ({ isFormFocused }) => (
+const SignInHeader: React.FC<SignInHeaderProps> = ({isFormFocused}) => (
   <HeaderContainer>
     <FontAwesome
       name="map-o"

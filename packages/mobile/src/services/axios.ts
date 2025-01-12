@@ -1,12 +1,9 @@
-import type { SerializedError } from '@reduxjs/toolkit';
-import type { BaseQueryFn } from '@reduxjs/toolkit/query';
-import type {
-  AxiosError,
-  AxiosRequestConfig,
-  AxiosRequestHeaders,
-} from 'axios';
+import type {SerializedError} from '@reduxjs/toolkit';
+import type {BaseQueryFn} from '@reduxjs/toolkit/query';
+import type {AxiosError, AxiosRequestConfig, AxiosRequestHeaders} from 'axios';
 import axios from 'axios';
-import { settings } from './config';
+
+import {settings} from './config';
 
 interface AxiosBaseQueryProps {
   url: string;
@@ -22,10 +19,10 @@ export type BaseQueryFnProps = BaseQueryFn<
 
 export type MockResponseProps<T> = [number | AxiosRequestConfig, T];
 
-const axiosApiInstance = axios.create({ baseURL: settings.apiUrl });
+const axiosApiInstance = axios.create({baseURL: settings.apiUrl});
 
 axiosApiInstance.interceptors.request.use(
-  async (config) => ({
+  async config => ({
     ...config,
     headers: {
       ...config.headers,
@@ -36,26 +33,26 @@ axiosApiInstance.interceptors.request.use(
       // }),
     } as AxiosRequestHeaders,
   }),
-  (error) => Promise.reject(error),
+  error => Promise.reject(error),
 );
 
 axiosApiInstance.interceptors.response.use(
-  (response) => response,
+  response => response,
   (error: AxiosError) => Promise.reject(error),
 );
 
 export const axiosBaseQuery =
-  ({ baseApiMethodUrl = '' }): BaseQueryFnProps =>
-  async (props) => {
+  ({baseApiMethodUrl = ''}): BaseQueryFnProps =>
+  async props => {
     try {
       const result = await axiosApiInstance({
         ...props,
         url: `${baseApiMethodUrl}/${props.url}`,
       });
 
-      return { data: result.data };
+      return {data: result.data};
     } catch (axiosError) {
-      const err = axiosError as AxiosError<{ message: string }>;
+      const err = axiosError as AxiosError<{message: string}>;
 
       return {
         error: {

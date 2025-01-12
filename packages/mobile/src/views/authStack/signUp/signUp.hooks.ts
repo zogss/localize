@@ -1,45 +1,38 @@
-import { authApi, userApi } from '@app/api';
-import { useKeyboard } from '@app/hooks';
-import { AuthRouteProps, AuthStackNavigationProps } from '@app/navigation';
-import { SignUpFormData, SignUpSchema } from '@app/schemas/auth/signUp';
-import { errorMessage } from '@app/shared';
-import { selectAuth, useTypedSelector } from '@app/store';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  useIsFocused,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
-import { useCallback, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Keyboard } from 'react-native';
+import {useCallback, useEffect, useState} from 'react';
+import {zodResolver} from '@hookform/resolvers/zod';
+import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
+import {useForm} from 'react-hook-form';
+import {Keyboard} from 'react-native';
 import Toast from 'react-native-toast-message';
 
+import {errorMessage} from '@app/shared';
+import {SignUpFormData, SignUpSchema} from '@app/schemas/auth/signUp';
+import {authApi, userApi} from '@app/api';
+import {selectAuth, useTypedSelector} from '@app/store';
+import {useKeyboard} from '@app/hooks';
+import {AuthRouteProps, AuthStackNavigationProps} from '@app/navigation';
+
 const useSignUp = () => {
-  //* hooks
-  const { params } = useRoute<AuthRouteProps>();
-  const { navigate } = useNavigation<AuthStackNavigationProps>();
+  const {params} = useRoute<AuthRouteProps>();
+  const {navigate} = useNavigation<AuthStackNavigationProps>();
   const isFocused = useIsFocused();
-  const { keyboardOpened } = useKeyboard();
+  const {keyboardOpened} = useKeyboard();
   const methods = useForm<SignUpFormData>({
     resolver: zodResolver(SignUpSchema),
   });
-  const { handleSubmit, reset } = methods;
+  const {handleSubmit, reset} = methods;
 
-  //* redux hooks
-  const { useLazyRegisterQuery } = userApi;
-  const { useLazyLoginQuery } = authApi;
-  const [register, { isLoading: registerLoading }] = useLazyRegisterQuery();
-  const [login, { isLoading: loginLoading }] = useLazyLoginQuery();
-  const { phoneNumber = '' } = useTypedSelector(selectAuth);
+  const {useLazyRegisterQuery} = userApi;
+  const {useLazyLoginQuery} = authApi;
+  const [register, {isLoading: registerLoading}] = useLazyRegisterQuery();
+  const [login, {isLoading: loginLoading}] = useLazyLoginQuery();
+  const {phoneNumber = ''} = useTypedSelector(selectAuth);
 
-  //* states
   const [isFormFocused, setIsFormFocused] = useState(false);
 
-  //* handlers
   const onSubmit = handleSubmit(
     useCallback(
-      async (data) => {
+      async data => {
         try {
           await register({
             ...data,
@@ -71,7 +64,6 @@ const useSignUp = () => {
     ),
   );
 
-  //* effects
   useEffect(() => {
     if (isFocused && keyboardOpened && !isFormFocused) {
       Keyboard.dismiss();
@@ -84,7 +76,6 @@ const useSignUp = () => {
     }
   }, [navigate, phoneNumber]);
 
-  //* return
   return {
     methods,
     onSubmit,

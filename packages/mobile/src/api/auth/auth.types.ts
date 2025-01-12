@@ -1,4 +1,4 @@
-import { IUser } from '@app/shared';
+import {IUser} from '@app/shared';
 
 export type SendWppCodeRequest = {
   phone: string;

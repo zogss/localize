@@ -1,9 +1,11 @@
-import { RENT_STATUS } from '@app/shared/enum/RENT_STATUS';
-import { ICar } from '@app/shared/types';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DateTime } from 'luxon';
-import { RootState } from '../store';
-import { RentState } from './rent.types';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {DateTime} from 'luxon';
+
+import {RENT_STATUS} from '@app/shared/enum/RENT_STATUS';
+import {ICar} from '@app/shared/types';
+
+import {RootState} from '../store';
+import {RentState} from './rent.types';
 
 const initialState: RentState = {
   rents: [
@@ -126,8 +128,8 @@ export const rentSlice = createSlice({
   name: 'rent',
   initialState,
   reducers: {
-    onReset: () => ({ ...initialState }),
-    createRent(state, action: PayloadAction<{ car: ICar }>) {
+    onReset: () => ({...initialState}),
+    createRent(state, action: PayloadAction<{car: ICar}>) {
       state.rents = [
         ...state.rents,
         {
@@ -135,9 +137,9 @@ export const rentSlice = createSlice({
         },
       ];
     },
-    updateRent(state, action: PayloadAction<{ car: ICar }>) {
+    updateRent(state, action: PayloadAction<{car: ICar}>) {
       const rentIndex = state.rents.findIndex(
-        (rent) => rent.car!.id === action.payload.car.id,
+        rent => rent.car!.id === action.payload.car.id,
       );
       state.rents[rentIndex] = {
         car: action.payload.car,
@@ -146,5 +148,5 @@ export const rentSlice = createSlice({
   },
 });
 
-export const selectRent = ({ rent }: RootState) => rent;
-export const { createRent, updateRent } = rentSlice.actions;
+export const selectRent = ({rent}: RootState) => rent;
+export const {createRent, updateRent} = rentSlice.actions;

@@ -1,8 +1,11 @@
-import { IUser } from '@app/shared';
-import { theme } from '@app/themes';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
-import { SectionContainer } from '../../profile.styles';
+import {theme} from '@app/themes';
+import {Ionicons, MaterialIcons} from '@expo/vector-icons';
+
+import personPhoto from '@app/assets/20221231_225307.jpg';
+import {IUser} from '@app/shared';
+
+import {SectionContainer} from '../../profile.styles';
 import {
   FullNameContainer,
   FullNameText,
@@ -39,9 +42,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({
         </UserNameContainer>
       </NameContainer>
       <UserPhotoContainer>
-        <UserPhoto
-          source={require('../../../../../../assets/20221231_225307.jpg')}
-        />
+        <UserPhoto source={personPhoto} />
       </UserPhotoContainer>
     </UserInfoContainer>
     <LogOutButtonContainer>

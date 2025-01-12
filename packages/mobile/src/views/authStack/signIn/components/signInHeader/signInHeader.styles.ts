@@ -1,4 +1,4 @@
-import { theme } from '@app/themes';
+import {theme} from '@app/themes';
 import styled from 'styled-components/native';
 
 export const HeaderContainer = styled.View`

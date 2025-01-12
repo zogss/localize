@@ -1,12 +1,13 @@
-import { toastConfig } from '@app/components';
-import { BlurProvider, SetupProvider } from '@app/contexts';
-import { AppNavigation } from '@app/navigation';
-import { createStore } from '@app/store';
-import { Store } from '@reduxjs/toolkit';
-import { StatusBar } from 'expo-status-bar';
-import React, { PropsWithChildren } from 'react';
+import React, {PropsWithChildren} from 'react';
+import {Store} from '@reduxjs/toolkit';
+import {StatusBar} from 'expo-status-bar';
 import Toast from 'react-native-toast-message';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
+
+import {appStore} from '@app/store';
+import {BlurProvider, SetupProvider} from '@app/contexts';
+import {toastConfig} from '@app/components';
+import {AppNavigation} from '@app/navigation';
 
 const AppNative: React.FC = () => (
   <>
@@ -17,7 +18,7 @@ const AppNative: React.FC = () => (
   </>
 );
 
-const AppProviders: React.FC<PropsWithChildren<{ store: Store }>> = ({
+const AppProviders: React.FC<PropsWithChildren<{store: Store}>> = ({
   children,
   store,
 }) => (
@@ -29,7 +30,7 @@ const AppProviders: React.FC<PropsWithChildren<{ store: Store }>> = ({
 );
 
 const App: React.FC = () => (
-  <AppProviders store={createStore()}>
+  <AppProviders store={appStore}>
     <AppNative />
   </AppProviders>
 );

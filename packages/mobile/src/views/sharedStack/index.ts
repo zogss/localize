@@ -1,1 +1,1 @@
-export { default as CarDetailScreen } from './carDetail';
+export {default as CarDetailScreen} from './carDetail';

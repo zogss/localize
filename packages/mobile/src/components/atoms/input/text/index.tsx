@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { TextInput, TextInputProps } from 'react-native';
-import { AppTextInputError } from '../../text';
-import { styles as inputStyles } from './text.styles';
+import React, {useState} from 'react';
+import {TextInput, TextInputProps} from 'react-native';
+
+import {AppTextInputError} from '../../text';
+import {styles as inputStyles} from './text.styles';
 
 interface AppTextInputProps extends TextInputProps {
   error?: string;
@@ -15,21 +16,19 @@ const AppTextInput: React.FC<AppTextInputProps> = ({
   styles,
   ...props
 }) => {
-  //* states
   const [isFocused, setIsFocused] = useState(false);
 
-  //* render
   return (
     <>
       <TextInput
         {...props}
         value={value}
         onChangeText={onChangeText}
-        onFocus={(e) => {
+        onFocus={e => {
           setIsFocused(true);
           props.onFocus?.(e);
         }}
-        onBlur={(e) => {
+        onBlur={e => {
           setIsFocused(false);
           props.onBlur?.(e);
         }}

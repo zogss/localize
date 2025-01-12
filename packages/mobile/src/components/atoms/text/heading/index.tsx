@@ -1,8 +1,8 @@
-import type { FC } from 'react';
+import type {FC} from 'react';
 import React from 'react';
+import {theme} from '@app/themes';
 
-import { theme } from '@app/themes';
-import { AppRow } from '../../styles';
+import {AppRow} from '../../styles';
 import AppText from '../text';
 
 interface AppTextHeadingProps {
@@ -10,13 +10,11 @@ interface AppTextHeadingProps {
   children: string;
 }
 
-const AppTextHeading: FC<AppTextHeadingProps> = ({ children, color }) => {
-  //* constants
+const AppTextHeading: FC<AppTextHeadingProps> = ({children, color}) => {
   const lastIndex = children.length - 1;
   const regularText = children.substring(0, lastIndex);
   const highlightedCharacter = children[lastIndex];
 
-  //* render
   return (
     <AppRow alignItems="flex-start" justifyContent="flex-start">
       <AppText color={color} variant="heading">

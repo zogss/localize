@@ -1,13 +1,13 @@
-import { theme } from '@app/themes';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import styled, { css } from 'styled-components/native';
+import {theme} from '@app/themes';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import styled, {css} from 'styled-components/native';
 
 export interface StyledSafeAreaViewProps {
   backgroundColor?: keyof typeof theme.colors;
 }
 
 export const StyledSafeAreaView = styled(SafeAreaView)<StyledSafeAreaViewProps>`
-  ${({ backgroundColor = 'dark' }) => css`
+  ${({backgroundColor = 'dark'}) => css`
     background-color: ${theme.colors[
       backgroundColor as keyof typeof theme.colors
     ]};

@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from 'react';
+import type {PropsWithChildren} from 'react';
 import React from 'react';
 import type {
   StatusBarStyle,
@@ -6,17 +6,18 @@ import type {
   ViewProps,
   ViewStyle,
 } from 'react-native';
-import { StatusBar } from 'react-native';
-import type { Edge } from 'react-native-safe-area-context';
+import {StatusBar} from 'react-native';
+import type {Edge} from 'react-native-safe-area-context';
 
-import { useBlur } from '@app/hooks';
+import {useBlur} from '@app/hooks';
+
 import AppBlurredOverlay from '../blurredOverlay';
-import type { StyledSafeAreaViewProps } from './screen.styles';
-import { StyledSafeAreaView, StyledView } from './screen.styles';
+import type {StyledSafeAreaViewProps} from './screen.styles';
+import {StyledSafeAreaView, StyledView} from './screen.styles';
 
 interface AppScreenProps extends ViewProps, StyledSafeAreaViewProps {
   barStyle?: StatusBarStyle;
-  style?: StyleProp<ViewStyle> | undefined;
+  style?: StyleProp<ViewStyle>;
   withEdges?: Edge[];
 }
 
@@ -27,15 +28,12 @@ const AppScreen: React.FC<PropsWithChildren<AppScreenProps>> = ({
   withEdges = [],
   ...props
 }) => {
-  //* hooks
-  const { showBlur } = useBlur();
+  const {showBlur} = useBlur();
 
-  //* render
   return (
     <StyledSafeAreaView
       {...props}
-      edges={['right', 'left'].concat(withEdges) as Edge[]}
-    >
+      edges={['right', 'left'].concat(withEdges) as Edge[]}>
       <StatusBar barStyle={barStyle} />
 
       <StyledView style={style}>{children}</StyledView>

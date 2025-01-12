@@ -1,5 +1,5 @@
-import { IRent } from '@app/shared';
+import {IRent} from '@app/shared';
 
 export type RentState = {
-  rents: Partial<IRent>[];
+  rents: Pick<IRent, 'car'>[];
 };

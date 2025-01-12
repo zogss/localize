@@ -1,6 +1,6 @@
-import { theme } from '@app/themes';
-import type { TextProps, TextStyle } from 'react-native';
-import styled, { css } from 'styled-components/native';
+import {theme} from '@app/themes';
+import type {TextProps, TextStyle} from 'react-native';
+import styled, {css} from 'styled-components/native';
 
 export interface StyledTextProps extends TextProps {
   color?: keyof typeof theme.colors;
@@ -9,7 +9,7 @@ export interface StyledTextProps extends TextProps {
 }
 
 export const StyledText = styled.Text<StyledTextProps>`
-  ${({ color = 'gray_100', variant = 'text', align = 'auto' }) => css`
+  ${({color = 'gray_100', variant = 'text', align = 'auto'}) => css`
     color: ${theme.colors[color as keyof typeof theme.colors]};
     text-align: ${align};
     ${theme.fonts[variant as keyof typeof theme.fonts]}

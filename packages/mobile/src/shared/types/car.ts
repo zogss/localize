@@ -1,5 +1,5 @@
-import { RENT_STATUS } from '../enum';
-import { ISpecification } from './specification';
+import {RENT_STATUS} from '../enum';
+import {ISpecification} from './specification';
 
 export interface ICar {
   id: string;

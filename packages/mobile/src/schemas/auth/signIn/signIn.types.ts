@@ -1,5 +1,6 @@
-import { z } from 'zod';
-import { CodeSchema, PhoneSchema } from './signIn.schema';
+import {z} from 'zod';
+
+import {CodeSchema, PhoneSchema} from './signIn.schema';
 
 export type PhoneFormData = z.infer<typeof PhoneSchema>;
 

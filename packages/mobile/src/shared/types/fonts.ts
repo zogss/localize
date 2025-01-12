@@ -1,4 +1,4 @@
-import type { CSSObject } from 'styled-components';
+import type {CSSObject} from 'styled-components';
 
 export interface FontProps extends CSSObject {
   'font-size': string;

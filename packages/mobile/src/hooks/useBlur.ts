@@ -1,5 +1,6 @@
-import { BlurContext } from '@app/contexts';
-import { useContext } from 'react';
+import {useContext} from 'react';
+
+import {BlurContext} from '@app/contexts';
 
 const useBlur = () => useContext(BlurContext);
 

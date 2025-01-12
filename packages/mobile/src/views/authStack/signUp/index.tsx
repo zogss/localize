@@ -1,15 +1,15 @@
-import { AppScreen } from '@app/components';
 import React from 'react';
+
+import {AppScreen} from '@app/components';
+
 import SignUpForm from './components/signUpForm';
 import SignUpHeader from './components/signUpHeader';
 import useSignUp from './signUp.hooks';
 
 const SignUpScreen: React.FC = () => {
-  //* hooks
-  const { methods, onSubmit, isLoading, isFormFocused, setIsFormFocused } =
+  const {methods, onSubmit, isLoading, isFormFocused, setIsFormFocused} =
     useSignUp();
 
-  //* render
   return (
     <AppScreen withEdges={['top']}>
       <SignUpHeader isFormFocused={isFormFocused} />

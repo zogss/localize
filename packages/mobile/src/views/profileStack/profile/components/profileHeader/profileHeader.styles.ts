@@ -1,27 +1,20 @@
-import { theme } from '@app/themes';
+import {theme} from '@app/themes';
 import styled from 'styled-components/native';
 
 export const UserInfoContainer = styled.View`
   width: 100%;
-  display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
 `;
 
 export const NameContainer = styled.View`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   align-items: flex-start;
 `;
 
 export const FullNameContainer = styled.View`
   width: 100%;
-  display: flex;
   flex-wrap: wrap;
   max-width: 300px;
-  justify-content: flex-start;
   align-items: center;
 `;
 
@@ -36,8 +29,6 @@ export const UserPhotoContainer = styled.View`
   height: 80px;
   border-radius: 50px;
   object-fit: cover;
-  display: flex;
-  align-items: flex-start;
   margin-left: 12px;
   margin-top: 10px;
   overflow: hidden;
@@ -52,9 +43,7 @@ export const UserPhoto = styled.Image`
 
 export const UserNameContainer = styled.View`
   background-color: ${theme.colors.gray_200};
-  display: flex;
   flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
   border-radius: 100px;
   padding: 4px 16px;
@@ -69,15 +58,13 @@ export const UserNameText = styled.Text`
 
 export const LogOutButtonContainer = styled.View`
   width: 100%;
-  display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  margin-top: 24px;
+  margin: 20px 0;
 `;
 
 export const LogOutButton = styled.TouchableOpacity`
-  display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 8px;

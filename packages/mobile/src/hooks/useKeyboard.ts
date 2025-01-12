@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import type { KeyboardEvent } from 'react-native';
-import { Keyboard } from 'react-native';
+import {useEffect, useState} from 'react';
+import type {KeyboardEvent} from 'react-native';
+import {Keyboard} from 'react-native';
 
 export default () => {
   const [keyboardHeight, setKeyboardHeight] = useState(0);

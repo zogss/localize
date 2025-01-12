@@ -1,10 +1,10 @@
-import React, { forwardRef } from 'react';
-import type { MaskedTextInputProps } from 'react-native-mask-text';
-import { MaskedTextInput } from 'react-native-mask-text';
+import React, {forwardRef} from 'react';
+import {theme} from '@app/themes';
+import {TextInput} from 'react-native';
+import type {MaskedTextInputProps} from 'react-native-mask-text';
+import {MaskedTextInput} from 'react-native-mask-text';
 
-import { theme } from '@app/themes';
-import { TextInput } from 'react-native';
-import { AppTextInputError } from '../../text';
+import {AppTextInputError} from '../../text';
 
 export interface AppInputMaskProps extends MaskedTextInputProps {
   name: string;

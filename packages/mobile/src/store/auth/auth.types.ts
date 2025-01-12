@@ -1,4 +1,4 @@
-import { IUser } from '@app/shared/types';
+import {IUser} from '@app/shared/types';
 
 export type AuthState = {
   isReady: boolean;

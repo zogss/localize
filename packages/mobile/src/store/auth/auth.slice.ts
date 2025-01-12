@@ -1,8 +1,10 @@
-import { authApi } from '@app/api';
-import { IUser } from '@app/shared/types';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '..';
-import { AuthState, InitFulfilledProps } from './auth.types';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+
+import {IUser} from '@app/shared/types';
+import {authApi} from '@app/api';
+
+import {RootState} from '..';
+import {AuthState, InitFulfilledProps} from './auth.types';
 
 export const initialState: AuthState = {
   isReady: false,
@@ -15,28 +17,25 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    onReset: () => ({ ...initialState, isReady: true }),
-    onInitFulfilled: (
-      state,
-      { payload }: PayloadAction<InitFulfilledProps>,
-    ) => ({
+    onReset: () => ({...initialState, isReady: true}),
+    onInitFulfilled: (state, {payload}: PayloadAction<InitFulfilledProps>) => ({
       ...state,
       isReady: true,
       isAuthenticated: !!payload?.accessToken,
       phoneNumber: payload?.phoneNumber,
     }),
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addMatcher(
       authApi.endpoints.sendWppCode.matchFulfilled,
-      (state, { meta }) => ({
+      (state, {meta}) => ({
         ...state,
         phoneNumber: meta.arg.originalArgs.phone,
       }),
     );
     builder.addMatcher(
       authApi.endpoints.login.matchFulfilled,
-      (state, { payload }) => ({
+      (state, {payload}) => ({
         ...state,
         user: payload?.user,
       }),
@@ -44,5 +43,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const selectAuth = ({ auth }: RootState) => auth;
-export const { onInitFulfilled, onReset } = authSlice.actions;
+export const selectAuth = ({auth}: RootState) => auth;
+export const {onInitFulfilled, onReset} = authSlice.actions;

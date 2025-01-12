@@ -1,6 +1,7 @@
-import { theme } from '@app/themes';
-import { FontAwesome } from '@expo/vector-icons';
 import React from 'react';
+import {theme} from '@app/themes';
+import {FontAwesome} from '@expo/vector-icons';
+
 import {
   HeaderAppText,
   HeaderContainer,
@@ -12,7 +13,7 @@ interface SignUpHeaderProps {
   isFormFocused: boolean;
 }
 
-const SignUpHeader: React.FC<SignUpHeaderProps> = ({ isFormFocused }) => (
+const SignUpHeader: React.FC<SignUpHeaderProps> = ({isFormFocused}) => (
   <HeaderContainer>
     <FontAwesome
       name="map-o"
@@ -27,8 +28,7 @@ const SignUpHeader: React.FC<SignUpHeaderProps> = ({ isFormFocused }) => (
       <HeaderText
         style={{
           display: isFormFocused ? 'none' : 'flex',
-        }}
-      >
+        }}>
         You are close, complete your registration to start using the app!
       </HeaderText>
     </HeaderTextContainer>

@@ -1,4 +1,4 @@
-import { IBrand } from './brand';
+import {IBrand} from './brand';
 
 export interface ISpecification {
   year: string;

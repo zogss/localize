@@ -1,8 +1,8 @@
-import { RENT_STATUS } from '../enum';
-import { ICar } from './car';
-import { ILocation } from './location';
-import { ITimestamp } from './timestamp';
-import { IUser } from './user';
+import {RENT_STATUS} from '../enum';
+import {ICar} from './car';
+import {ILocation} from './location';
+import {ITimestamp} from './timestamp';
+import {IUser} from './user';
 
 export interface IRent extends ITimestamp {
   id: string;

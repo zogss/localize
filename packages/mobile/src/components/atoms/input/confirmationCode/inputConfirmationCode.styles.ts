@@ -1,5 +1,5 @@
-import { theme } from '@app/themes';
-import { StyleSheet } from 'react-native';
+import {theme} from '@app/themes';
+import {StyleSheet} from 'react-native';
 import styled from 'styled-components/native';
 
 export const SingleInputContainer = styled.View`
