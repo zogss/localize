@@ -26,6 +26,12 @@ export class UsersController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Get('me')
+  findMe(@CurrentUser() user: User) {
+    return this.usersService.findById(user.id);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string, @CurrentUser() user: User) {
     if (user.id !== id) {
@@ -33,12 +39,6 @@ export class UsersController {
     }
 
     return this.usersService.findById(id);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  profile(@CurrentUser() user: User) {
-    return this.usersService.findById(user.id);
   }
 
   @UseGuards(JwtAuthGuard)
