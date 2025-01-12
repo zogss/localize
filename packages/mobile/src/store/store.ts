@@ -18,7 +18,7 @@ import {rentSlice} from './rent';
 
 const listenerMiddlewareInstance = createListenerMiddleware();
 
-const middlewares: any = [
+const middlewares = [
   authApi.middleware,
   userApi.middleware,
   listenerMiddlewareInstance.middleware,

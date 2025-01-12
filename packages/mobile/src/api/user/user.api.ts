@@ -1,6 +1,6 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import {createApi} from '@reduxjs/toolkit/query/react';
 
-import {settings} from '@app/services';
+import {axiosBaseQuery} from '@app/services';
 
 import {
   GetMeRequest,
@@ -10,12 +10,12 @@ import {
 } from './user.types';
 
 export default createApi({
-  baseQuery: fetchBaseQuery({baseUrl: settings.apiUrl}),
+  baseQuery: axiosBaseQuery({baseApiMethodUrl: 'users'}),
   reducerPath: 'userApi',
   endpoints: build => ({
     register: build.query<RegisterResponse, RegisterRequest>({
       query: req => ({
-        url: '/users',
+        url: '',
         method: 'post',
         body: {
           firstName: req.firstName,
@@ -26,12 +26,9 @@ export default createApi({
       }),
     }),
     getMe: build.query<GetMeResponse, GetMeRequest>({
-      query: req => ({
-        url: '/users',
+      query: () => ({
+        url: 'me',
         method: 'get',
-        params: {
-          id: req.id,
-        },
       }),
     }),
   }),

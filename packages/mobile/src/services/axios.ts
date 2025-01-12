@@ -3,12 +3,17 @@ import type {BaseQueryFn} from '@reduxjs/toolkit/query';
 import type {AxiosError, AxiosRequestConfig, AxiosRequestHeaders} from 'axios';
 import axios from 'axios';
 
+import {ResponseError} from '@app/shared';
+
+import {getData} from './asyncStorage';
 import {settings} from './config';
 
 interface AxiosBaseQueryProps {
   url: string;
   method: AxiosRequestConfig['method'];
-  data?: AxiosRequestConfig['data'];
+  body?: AxiosRequestConfig['data'];
+  params?: AxiosRequestConfig['params'];
+  headers?: Partial<AxiosRequestHeaders>;
 }
 
 export type BaseQueryFnProps = BaseQueryFn<
@@ -19,18 +24,28 @@ export type BaseQueryFnProps = BaseQueryFn<
 
 export type MockResponseProps<T> = [number | AxiosRequestConfig, T];
 
-const axiosApiInstance = axios.create({baseURL: settings.apiUrl});
+type LogoutHandler = () => void;
+let logoutHandler: LogoutHandler | null = null;
+
+export const setLogoutHandler = (handler: LogoutHandler) => {
+  logoutHandler = handler;
+};
+
+const axiosApiInstance = axios.create();
 
 axiosApiInstance.interceptors.request.use(
   async config => ({
     ...config,
+    baseURL: settings.apiUrl,
+    timeout: 45000,
     headers: {
       ...config.headers,
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      // ...(!config.url?.startsWith('auth') && {
-      //   Authorization: `Bearer ${await getData('access_token')}`,
-      // }),
+      ...(!config.url?.startsWith('auth') &&
+        !config.url?.startsWith('phone-tokens') && {
+          Authorization: `Bearer ${await getData('access_token')}`,
+        }),
     } as AxiosRequestHeaders,
   }),
   error => Promise.reject(error),
@@ -42,24 +57,43 @@ axiosApiInstance.interceptors.response.use(
 );
 
 export const axiosBaseQuery =
-  ({baseApiMethodUrl = ''}): BaseQueryFnProps =>
+  (
+    {baseApiMethodUrl}: {baseApiMethodUrl: string} | undefined = {
+      baseApiMethodUrl: '',
+    },
+  ): BaseQueryFnProps =>
   async props => {
     try {
-      const result = await axiosApiInstance({
+      const {data} = await axiosApiInstance({
         ...props,
+        data: props.body,
+        headers: props.headers as AxiosRequestHeaders,
         url: `${baseApiMethodUrl}/${props.url}`,
       });
 
-      return {data: result.data};
+      return {data};
     } catch (axiosError) {
-      const err = axiosError as AxiosError<{message: string}>;
+      const err = axiosError as AxiosError<ResponseError>;
+
+      const error: SerializedError = {
+        name: err.name,
+        code:
+          String(err.response?.data.statusCode) ?? String(err.response?.status),
+        stack: err.stack ?? undefined,
+        message: err.response?.data.message ?? err.message,
+      };
+
+      if (
+        !err.config?.url?.startsWith('auth') &&
+        !err.config?.url?.startsWith('phone-tokens') &&
+        err.response?.status === 401 &&
+        logoutHandler
+      ) {
+        logoutHandler();
+      }
 
       return {
-        error: {
-          name: err.name,
-          code: err.response?.status.toString(),
-          message: err.response?.data.message ?? err.message,
-        },
+        error,
       };
     }
   };

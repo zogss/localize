@@ -38,12 +38,6 @@ const setupAuthListeners = (startListening: AppStartListening): Unsubscribe => {
         listenerApi.dispatch({type: 'init'});
       },
     }),
-    // startListening({
-    //   predicate: ({ payload }) => !!payload?.user,
-    //   effect: async ({ payload: { user } }) => {
-    //     await setData('user_id', user.id);
-    //   },
-    // }),
   ];
 
   return () => listeners.forEach(unsubscribe => unsubscribe());

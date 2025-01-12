@@ -9,8 +9,6 @@ export type RegisterRequest = {
 
 export type RegisterResponse = IUser;
 
-export type GetMeRequest = {
-  id: string;
-};
+export type GetMeRequest = void;
 
 export type GetMeResponse = IUser;

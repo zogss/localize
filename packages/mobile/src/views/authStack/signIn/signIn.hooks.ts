@@ -5,7 +5,6 @@ import {useForm} from 'react-hook-form';
 import {Keyboard} from 'react-native';
 import Toast from 'react-native-toast-message';
 
-import {errorMessage} from '@app/shared';
 import {PhoneFormData, PhoneSchema} from '@app/schemas';
 import {authApi} from '@app/api';
 import {selectAuth, useTypedSelector} from '@app/store';
@@ -61,16 +60,17 @@ const useSignIn = () => {
 
   useEffect(() => {
     if (error) {
-      const _error = errorMessage(error) || "Couldn't send code";
-
       setError('phoneNumber', {
         type: 'manual',
       });
 
       Toast.show({
         type: 'error',
-        text1: 'Error',
-        text2: _error,
+        text1: 'Error ',
+        text2:
+          (typeof error.message === 'string'
+            ? error.message
+            : error.message?.[0]) || 'An error occurred!',
       });
     }
   }, [error]);
