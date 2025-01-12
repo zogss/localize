@@ -3,6 +3,7 @@
   "compilerOptions": {
     "jsx": "react",
     "strict": true,
-    "paths": { "@app/*": ["./src/*"] }
-  }
+    "paths": {"@app/*": ["./src/*"]}
+  },
+  "include": ["src/**/*", "src/shared/types/global.d.ts"]
 }
