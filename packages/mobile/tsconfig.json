@@ -5,5 +5,5 @@
     "strict": true,
     "paths": {"@app/*": ["./src/*"]}
   },
-  "include": ["src/**/*", "src/shared/types/global.d.ts"]
+  "include": ["App.tsx", "src/**/*", "src/shared/types/global.d.ts"]
 }
