@@ -7,7 +7,7 @@ import car3d from '@app/assets/car_3d_view.png';
 import {RENT_STATUS} from '@app/shared';
 import {updateRent, useAppDispatch} from '@app/store';
 import {SecondContainer} from '@app/components/rentals/ListItem/styles';
-import {StackAppNavigator, StoreCarRouteProp} from '@app/navigation';
+import {AppBottomTabsNavigator, StoreCarRouteProp} from '@app/navigation';
 
 import {
   CarImage,
@@ -39,7 +39,7 @@ import {
 
 const StoreScreen: React.FC = () => {
   const {params} = useRoute<StoreCarRouteProp>();
-  const {navigate} = useNavigation<StackAppNavigator>();
+  const {navigate} = useNavigation<AppBottomTabsNavigator>();
 
   const dispatch = useAppDispatch();
 

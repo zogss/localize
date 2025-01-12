@@ -3,7 +3,7 @@ import type {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 
-import {AppStackProps} from './appStack';
+import {AppBottomTabsProps} from './appStack';
 import type {AuthStackProps} from './authStack';
 
 type NestedNavigatorParams<ParamList> = {
@@ -14,7 +14,7 @@ type NestedNavigatorParams<ParamList> = {
 
 export type RootStackParamList = {
   AuthStack: NestedNavigatorParams<AuthStackProps>;
-  AppStack: NestedNavigatorParams<AppStackProps>;
+  AppStack: NestedNavigatorParams<AppBottomTabsProps>;
 };
 
 export type NavigationProp = NativeStackNavigationProp<RootStackParamList>;

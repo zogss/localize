@@ -6,8 +6,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 
 import car3d from '@app/assets/car_3d_view.png';
 import {SecondContainer} from '@app/components/rentals/ListItem/styles';
-import {StoreCarRouteProp} from '@app/navigation';
-import {TrackingStackNavigationProps} from '@app/navigation/appStack/trackingStack';
+import {AppBottomTabsNavigator, StoreCarRouteProp} from '@app/navigation';
 
 import {SectionSeparator} from '../profile/profile.styles';
 import {
@@ -38,7 +37,7 @@ import {
 
 const MyRentScreen: React.FC = () => {
   const {params} = useRoute<StoreCarRouteProp>();
-  const {navigate} = useNavigation<TrackingStackNavigationProps>();
+  const {navigate} = useNavigation<AppBottomTabsNavigator>();
 
   const car = useMemo(() => params.car, [params]);
 

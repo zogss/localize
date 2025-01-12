@@ -1,18 +1,21 @@
 import React from 'react';
 import {theme} from '@app/themes';
 import {FontAwesome5, Ionicons, MaterialIcons} from '@expo/vector-icons';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {
+  BottomTabNavigationProp,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import {RouteProp} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {TouchableOpacity} from 'react-native';
 
 import {ICar} from '@app/shared/types/car';
+
 import HomeStack, {HomeStackProps} from './homeStack';
 import ProfileStack, {ProfileStackProps} from './profileStack';
 import StoreStack, {StoreStackProps} from './storeStack';
 import TrackingStack, {TrackingStackProps} from './trackingStack';
 
-export type AppStackProps = {
+export type AppBottomTabsProps = {
   HomeTab?: {
     screen: keyof HomeStackProps;
     params: HomeStackProps[keyof HomeStackProps];
@@ -31,11 +34,12 @@ export type AppStackProps = {
   };
 };
 
-export type StackAppNavigator = NativeStackNavigationProp<AppStackProps>;
+export type AppBottomTabsNavigator =
+  BottomTabNavigationProp<AppBottomTabsProps>;
 
 export type StoreCarRouteProp = RouteProp<{params: {car: ICar}}, 'params'>;
 
-const {Navigator, Screen} = createBottomTabNavigator<AppStackProps>();
+const {Navigator, Screen} = createBottomTabNavigator<AppBottomTabsProps>();
 
 const AppStack: React.FC = () => (
   <Navigator

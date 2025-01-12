@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import car3d from '@app/assets/car_3d_view.png';
 import {ICar} from '@app/shared';
-import {NavigationProp, StackAppNavigator} from '@app/navigation';
+import {NavigationProp, AppBottomTabsNavigator} from '@app/navigation';
 
 import {
   Button,
@@ -26,7 +26,7 @@ interface IRentalsListItemProps {
 }
 
 export const RentalsListItem: React.FC<IRentalsListItemProps> = ({car}) => {
-  const {navigate} = useNavigation<StackAppNavigator>();
+  const {navigate} = useNavigation<AppBottomTabsNavigator>();
 
   return (
     <Button
