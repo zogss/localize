@@ -1,6 +1,5 @@
 import React from 'react';
 
-import {settings} from '@app/services';
 import {AppScreen} from '@app/components';
 
 import {SignInForm, SignInHeader} from './components';
