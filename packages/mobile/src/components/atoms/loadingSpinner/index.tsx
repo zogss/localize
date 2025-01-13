@@ -29,7 +29,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
         },
       ],
     };
-  }, [rotation.value]);
+  });
 
   useEffect(() => {
     rotation.value = withRepeat(

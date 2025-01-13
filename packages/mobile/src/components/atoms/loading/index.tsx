@@ -27,7 +27,7 @@ const AppLoading: React.FC<AppLoadingProps> = ({style, hideContainer}) => {
         },
       ],
     };
-  }, [rotation.value]);
+  });
 
   useEffect(() => {
     rotation.value = withRepeat(
