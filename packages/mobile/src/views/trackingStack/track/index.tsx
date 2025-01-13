@@ -4,7 +4,7 @@ import {MaterialIcons} from '@expo/vector-icons';
 import {useFocusEffect, useRoute} from '@react-navigation/native';
 import * as Location from 'expo-location';
 import {TouchableOpacity} from 'react-native';
-import MapView, {Marker} from 'react-native-maps';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 
 import {StoreCarRouteProp} from '@app/navigation';
 
@@ -106,7 +106,7 @@ const TrackScreen: React.FC = () => {
           }}
           initialRegion={currentLocation}
           customMapStyle={mapStyle}
-          provider="google">
+          provider={PROVIDER_GOOGLE}>
           {currentLocation &&
             currentLocation.latitude &&
             currentLocation.longitude && (
