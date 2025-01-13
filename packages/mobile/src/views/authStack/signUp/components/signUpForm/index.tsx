@@ -7,6 +7,7 @@ import AppTextInput from '@app/components/atoms/input/text';
 
 import styles, {
   FormContainer,
+  FormControl,
   InputContainer,
   LabelText,
   SubmitButton,
@@ -37,13 +38,15 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
           control={control}
           name="firstName"
           render={({field: {onChange, value}, fieldState: {error}}) => (
-            <AppTextInput
-              value={value}
-              onChangeText={onChange}
-              onFocus={() => !isFormFocused && setIsFormFocused(true)}
-              onBlur={() => isFormFocused && setIsFormFocused(false)}
-              error={error?.message}
-            />
+            <FormControl>
+              <AppTextInput
+                value={value}
+                onChangeText={onChange}
+                onFocus={() => !isFormFocused && setIsFormFocused(true)}
+                onBlur={() => isFormFocused && setIsFormFocused(false)}
+                error={error?.message}
+              />
+            </FormControl>
           )}
         />
       </InputContainer>
@@ -53,13 +56,15 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
           control={control}
           name="lastName"
           render={({field: {onChange, value}, fieldState: {error}}) => (
-            <AppTextInput
-              value={value}
-              onChangeText={onChange}
-              onFocus={() => !isFormFocused && setIsFormFocused(true)}
-              onBlur={() => isFormFocused && setIsFormFocused(false)}
-              error={error?.message}
-            />
+            <FormControl>
+              <AppTextInput
+                value={value}
+                onChangeText={onChange}
+                onFocus={() => !isFormFocused && setIsFormFocused(true)}
+                onBlur={() => isFormFocused && setIsFormFocused(false)}
+                error={error?.message}
+              />
+            </FormControl>
           )}
         />
       </InputContainer>
@@ -69,13 +74,15 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
           control={control}
           name="username"
           render={({field: {onChange, value}, fieldState: {error}}) => (
-            <AppTextInput
-              value={value}
-              onChangeText={onChange}
-              onFocus={() => !isFormFocused && setIsFormFocused(true)}
-              onBlur={() => isFormFocused && setIsFormFocused(false)}
-              error={error?.message}
-            />
+            <FormControl>
+              <AppTextInput
+                value={value}
+                onChangeText={onChange}
+                onFocus={() => !isFormFocused && setIsFormFocused(true)}
+                onBlur={() => isFormFocused && setIsFormFocused(false)}
+                error={error?.message}
+              />
+            </FormControl>
           )}
         />
       </InputContainer>

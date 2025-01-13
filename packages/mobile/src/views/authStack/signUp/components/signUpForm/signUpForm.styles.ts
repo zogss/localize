@@ -15,15 +15,19 @@ export const FormContainer = styled.View`
   justify-content: center;
   align-items: center;
   padding: 0 16px;
+  gap: 10px;
 `;
 
 export const InputContainer = styled.View`
   width: 100%;
-  display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 12px;
   gap: 6px;
+`;
+
+export const FormControl = styled.View`
+  width: 100%;
+  gap: 4px;
 `;
 
 export const SubmitButton = styled.TouchableOpacity`

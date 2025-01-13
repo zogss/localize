@@ -19,5 +19,4 @@ export const StyledText = styled.Text<StyledTextProps>`
 export const AppTextInputError = styled(StyledText)`
   color: ${theme.colors.red_500};
   font-size: 14px;
-  margin: 10px 0;
 `;

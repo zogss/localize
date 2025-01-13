@@ -44,11 +44,6 @@ const useSignUp = () => {
             code: params.code,
           }).unwrap();
 
-          Toast.show({
-            type: 'success',
-            text1: 'Success',
-            text2: 'Registered',
-          });
           reset();
         } catch (error) {
           const _error = errorMessage(error) || "Couldn't register";
