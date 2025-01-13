@@ -1,15 +1,10 @@
 import React from 'react';
-import type {BlurViewProps} from '@react-native-community/blur';
+import {BlurViewProps} from 'expo-blur';
 
 import {StyledBlurView} from './blurredOverlay.styles';
 
 const AppBlurredOverlay: React.FC<BlurViewProps> = props => (
-  <StyledBlurView
-    blurType="light"
-    reducedTransparencyFallbackColor="black"
-    blurAmount={6}
-    {...props}
-  />
+  <StyledBlurView intensity={90} tint="light" {...props} />
 );
 
 export default AppBlurredOverlay;
